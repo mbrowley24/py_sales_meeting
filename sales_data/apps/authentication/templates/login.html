@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'authentication/css/login.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <div>
+                <h2>Login</h2>
+                <form class="login-form" action="{% url 'apps.authentication:login' %}" method="POST" >
+                    <div class="input-field">
+                        {{form.username.label_tag}}
+                        {{form.username}}
+                    </div>
+                    <div class="input-field">
+                        {{form.password.label_tag}}
+                        {{form.password}}
+
+                    </div>
+                    <div class="submit-container">
+                        <button type="submit">Login</button>
+                    </div>
+                    {% csrf_token %}
+                </form>
+                {% if form.non_field_errors %}
+                    <ul class="errorlist">
+                        {% for error in form.non_field_errors %}
+                            <li class="errors">{{ error }}</li>
+
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <!-- {% if messages %}
+                    <div class="w-25 m-auto">
+                        <ul class="messages">
+                            {% for message in messages %}
+                                <li{% if messages.tags %} class="{{message.tags}}" {%endif%}>{{message}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %} -->
+            </div>
+        </div>
+    </body>
+</html>

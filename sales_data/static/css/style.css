@@ -1,0 +1,90 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+input{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+select{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+/* .errors{
+    color: darkred;
+    text-align: center;
+    text-decoration: none;
+    font-size: .75rem;
+    margin: 10px 0;
+} */
+
+
+
+
+
+
+.table_data{
+    width: 70%;
+    border: 1px solid white;
+    border-collapse: collapse;
+    border-radius: .50rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2%;
+}
+
+.table_data thead tr th{
+    background-color: rgb(255, 255, 255, .75);
+    text-align: center;
+    padding: 8px;
+}
+
+
+.table_data tbody tr:nth-child(odd):hover{
+    background-color: rgb(210, 210, 210, .75);
+    text-align: center;
+    padding: 8px;
+}
+
+.table_data tbody tr:nth-child(even):hover{
+
+    background-color: rgb(169, 169, 169, 1);
+    text-align: center;
+    padding: 8px;
+}
+
+
+.table_data tbody tr:nth-child(odd){
+    background-color: rgb(169, 169, 169, .5);
+    text-align: center;
+    padding: 8px;
+}
+
+.table_data tbody tr:nth-child(even){
+    background-color: rgb(210, 210, 210, .75);
+    text-align: center;
+    padding: 8px;
+}
+
+.table_data tbody tr td{
+    text-align: center;
+    padding: 8px;
+}

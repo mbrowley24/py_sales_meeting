@@ -1,0 +1,112 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+h2{
+    width: 50%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container{
+    display: flex;
+    height: 100vh;
+    background-image: url('https://seconnerimages.nyc3.cdn.digitaloceanspaces.com/computer.jpg');
+    background-size: cover;
+    background-position: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.container div{
+    width: 25%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 1%;
+    background-color: rgb(211, 211, 211, .50);
+    border-radius: .25rem;
+}
+
+.login-form{
+    display: block;
+    height: 30vh;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 1%;
+    border-radius: .25rem;
+}
+
+.login-form div {
+    display: block;
+    width: 75%;
+    height: 5vh;
+    margin-top: 4%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 2%;
+    background-color: rgb(211, 211, 211, 0);
+    border-radius: .25rem;
+}
+
+.login-form div label {
+    display: block;
+    text-align: center;
+}
+.login-form div input {
+    display: block;
+    padding: .5%;
+    width: 75%;
+    height: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+/* .input-field{
+    display: block;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 1%;
+    background-color: red;
+    border-radius: .25rem;
+}
+
+.input-field label{
+    display: block;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+.input-field input{
+    display: block;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 1%;
+    border: 1px solid red;
+    border-radius: .25rem;
+} */
+
+.submit-container{
+    text-align: center;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 1%;
+    border-radius: 5px;
+}
+
+.submit-container button{
+    padding: 1%;
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+}

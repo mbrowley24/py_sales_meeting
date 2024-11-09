@@ -1,0 +1,19 @@
+{%  extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files  %}
+{% endblock %}
+
+
+{% block content %}
+    <div>
+        <h1>Sales Reps</h1>
+        <div id="table_div"></div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="{% static 'sales_reps/js/sales_rep_table.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    {% block top_script_cdn %} {% endblock %}
+    {% block  css_files %} {% endblock %}
+    <title>{% block page_title %}Discovery{% endblock %}</title>
+</head>
+    <body>
+        <header>
+            <div class="">
+                <nav>
+                    <ul>
+                        {% if user.is_authenticated %}
+                            <li><a href="">Dashboard</a></li>
+                            <!-- <li class="dropdown">
+                                <a href="#">DIQs</a>
+                                <div class="dropdown-content">
+                                    <a href="">Data</a>
+
+                                </div>
+                            </li> -->
+                            <li class="dropdown">
+                                <a>Sales</a>
+                                <div class="dropdown-content">
+{#                                    <a href="{% url 'apps.company:companies' %}?page=1&limit=15">Company</a>#}
+{#                                    <a href="{% url 'apps.meetings:meetings' %}?page=1&limit=10">Meetings</a>#}
+{#                                    <a href="{% url 'apps.salesOpportunities:opportunity' %}">Opportunity</a>#}
+{#                                    <a href="{% url "apps.salesReps:sales_reps" %}">Sales Team</a>#}
+                                </div>
+                            </li>
+                            <li class="dropdown">
+                                <a>Discovery Questions</a>
+                                <div class="dropdown-content">
+                                    <a href="">Questions</a>
+                                    <a href="">Templates</a>
+                                </div>
+                            </li>
+                        {% endif %}
+{#                        {% if user.is_authenticated %}#}
+{#                            <li class="dropdown">#}
+{#                                <a href="#">Other Resources</a>#}
+{#                                <div class="dropdown-content">#}
+{#                                    <a href="">DDoS</a>#}
+{#                                    <a href="mailto:yeoman@yeomanswork.net?subject=Report Bug Average SE!">Report Bug</a>#}
+{#                                    <a href="">Privacy</a>#}
+{#                                    <a href="">About Us</a>#}
+{#                                </div>#}
+{#                            </li>#}
+{#                        {% endif %}#}
+{#                            <li class="dropdown">#}
+{#                                <a href="#">Help</a>#}
+{#                                <div class="dropdown-content">#}
+{#                                {% if user.is_authenticated %}#}
+{#                                    <a href="mailto:yeoman@yeomanswork.net?subject=Feature Request Average SE!">Request Feature</a>#}
+{#                                    <a href="mailto:yeoman@yeomanswork.net?subject=Report Bug Average SE!">Report Bug</a>#}
+{#                                {% else %}#}
+{#                                    <a href="{% url "apps.authentication:login" %}">Login</a>#}
+{#                                {% endif %}#}
+{#                                    <a href="{% url "apps.authentication:privacy_policy" %}">Privacy</a>#}
+{#                                    <a href="{% url "apps.authentication:about" %}">About Us</a>#}
+{#                                </div>#}
+{#                            </li>#}
+{#                        {% if user.is_authenticated %}#}
+{#                            <li class="dropdown">#}
+{#                                <a href="#">Account</a>#}
+{#                                <div class="dropdown-content">#}
+{#                                    {% if user.username %}#}
+{#                                        <a class="">{{user.username}}</a>#}
+{#                                    {% endif %}#}
+{#                                    {% if user.is_staff %}<a href="{% url "apps.user:users_table" %}">Add User</a>{% endif %}#}
+{#                                        <a href="#">Edit Account</a>#}
+{##}
+{#                                    <a href="{% url "apps.authentication:logout" %}">Logout</a>#}
+{#                                </div>#}
+{#                            </li>#}
+{#                        {% endif %}#}
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        {% block content %} {% endblock %}
+        <!-- <footer>
+            <p>© 2021 Yeoman's Work LLC.</p>
+        </footer> -->
+        {% block page_scripts %}
+        {% endblock %}
+    </body>
+</html>
