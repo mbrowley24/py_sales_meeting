@@ -3,17 +3,47 @@
 {% load static %}
 
 {% block css_files  %}
+
 {% endblock %}
 
 
 {% block content %}
     <div>
-        <h1>Sales Reps</h1>
-        <div id="table_div"></div>
+        <h1 class="title">Sales Representatives</h1>
+        {% if user.is_superuser %}
+            <div class="links">
+                <a href="">new sales representative</a>
+            </div>
+        {% endif %}
+        <div id="table_div">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="">role</th>
+                        <th class="">first name</th>
+                        <th class="">last name</th>
+                        <th class="">email</th>
+                        <th class="">phone</th>
+                        <th class="">quota</th>
+                        <th class="">updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sales in sales_reps %}
+
+
+                    {% empty %}
+                        <tr>
+                            <td colspan="7">No Sales Representatives Assigned</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}
 
 {% block page_scripts %}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="{% static 'sales_reps/js/sales_rep_table.js' %}"></script>
+    <script src="{% static 'js/sales_reps/js/sales_rep_table.js' %}"></script>
 {% endblock %}

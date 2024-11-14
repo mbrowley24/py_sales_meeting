@@ -1,0 +1,136 @@
+*{
+    padding: 0;
+    margin:0;
+}
+
+
+
+
+.table{
+    border: 1px solid black;
+    border-radius: .25rem;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0.5%;
+    background: rgba(200, 200, 200, .85);
+    width: 75vw;
+
+}
+
+.table thead{
+    background: darkgray;
+    border-spacing: 0;
+}
+
+.table thead tr th{
+    font-size: .95vw;
+    height: 1rem;
+    overflow: hidden;
+    padding: 0.25%;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    width : 15vw;
+    white-space: nowrap;
+}
+
+.table tbody tr{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.table tbody tr td{
+    font-size: .75vw;
+    overflow: hidden;
+    padding-left: .15vw;
+    padding-right: .15vw;
+    text-align: center;
+    text-overflow: ellipsis;
+
+}
+
+.table tbody tr:nth-child(odd):hover{
+    background-color: rgb(210, 210, 210, .75);
+    text-align: center;
+    text-transform: capitalize;
+    padding: 8px;
+}
+
+.table tbody tr:nth-child(even):hover{
+
+    background-color: rgb(169, 169, 169, 1);
+    text-align: center;
+    text-transform: capitalize;
+    padding: 8px;
+}
+
+
+.table tbody tr:nth-child(odd){
+    background-color: rgb(169, 169, 169, .5);
+    text-align: center;
+    text-transform: capitalize;
+    padding: 8px;
+}
+
+.table tbody tr:nth-child(even){
+    background-color: rgb(210, 210, 210, .75);
+    text-align: center;
+    text-transform: capitalize;
+    padding: 8px;
+}
+
+
+
+
+table_data{
+    width: 70%;
+    border: 1px solid white;
+    border-collapse: collapse;
+    border-radius: .50rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2%;
+}
+
+.table_data thead tr th{
+    background-color: rgb(255, 255, 255, .75);
+    text-align: center;
+    text-transform: capitalize;
+    padding: 8px;
+}
+
+
+.table_data tbody tr:nth-child(odd):hover{
+    background-color: rgb(210, 210, 210, .75);
+    text-align: center;
+    text-transform: capitalize;
+    padding: 8px;
+}
+
+.table_data tbody tr:nth-child(even):hover{
+
+    background-color: rgb(169, 169, 169, 1);
+    text-align: center;
+    text-transform: capitalize;
+    padding: 8px;
+}
+
+
+.table_data tbody tr:nth-child(odd){
+    background-color: rgb(169, 169, 169, .5);
+    text-align: center;
+    text-transform: capitalize;
+    padding: 8px;
+}
+
+.table_data tbody tr:nth-child(even){
+    background-color: rgb(210, 210, 210, .75);
+    text-align: center;
+    text-transform: capitalize;
+    padding: 8px;
+}
+
+.table_data tbody tr td{
+    text-align: center;
+    padding: 8px;
+}

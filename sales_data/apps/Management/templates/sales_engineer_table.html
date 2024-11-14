@@ -1,0 +1,46 @@
+{%  extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files  %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <h1 class="title">Sales Engineers</h1>
+        {% if user.is_superuser %}
+            <div class="links">
+                <a href="{% url 'apps.management:new_sales_engineer'  %}">New Sales Engineer</a>
+            </div>
+        {% endif %}
+        <div id="table_div">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="">role</th>
+                        <th class="">first name</th>
+                        <th class="">last name</th>
+                        <th class="">email</th>
+                        <th class="">sales reps</th>
+                        <th class="">manager</th>
+                        <th class="">region</th>
+                        <th class="">last login</th>
+                        <th class="">edit</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+    <script>
+        const checkUsernameURL = "{% url 'apps.management:check_username'  %}"
+        const checkEmail = "{% url 'apps.management:check_email'  %}"
+    </script>
+    {{ sales_engineers|json_script:"sales_engineers_data" }}
+    <script src="{% static 'js/management/js/sales_engineer_table.js' %}"></script>
+{% endblock %}

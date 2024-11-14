@@ -1,0 +1,152 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.form-col-container {
+    display: flex;
+    background: rgba(255, 255, 255, 0);
+}
+
+.form-column {
+    background: rgba(255, 255, 255, 0);
+    width: 33.33%;
+    /*padding: 20px;*/
+    text-align: center;
+    box-sizing: border-box;
+
+}
+
+.form-error-panels{
+    background: grey;
+
+}
+
+.form-med{
+    background: rgba(200, 200, 200, .75);
+    border: 1px solid black;
+    border-radius: .35rem;
+    height: 70vh;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 1vw .5vw;
+    width: 25vw;
+    overflow: auto;
+}
+
+
+.form-group{
+    background: rgba(150, 150, 150, 1);
+    border: 0.10rem solid grey;
+    border-radius: .25rem;
+    height: 8vh;
+    margin: 1rem auto;
+    overflow: hidden;
+    padding: .35vw;
+    text-align: center;
+    width: 20vw;
+}
+
+.form-group:hover{
+    background: rgba(120, 120, 120, 1);
+    border: 0.10rem solid grey;
+    border-radius: .25rem;
+    height: 8vh;
+    margin: 1rem auto;
+    overflow: hidden;
+    padding: .35vw;
+    text-align: center;
+    width: 20vw;
+}
+
+.form-group label{
+    display: block;
+}
+
+.form-group input{
+    background: rgba(200, 200, 200, 1);
+    border-radius: .25rem;
+    padding: .15rem;
+    text-align: center;
+    width: 20rem;
+}
+
+.form-group select{
+    background: rgba(200, 200, 200, 1);
+    border-radius: .25rem;
+    padding: .15rem;
+    text-align: center;
+    text-transform: capitalize;
+    width: 20rem;
+}
+
+.form-group select:hover{
+    background: rgba(100, 100, 100, 1);
+    color: white;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.form-group select option{
+    background: darkgray;
+    font-weight: bold;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.form-group select option:focus{
+    background: rgba(0, 0, 0, 1);
+    color: white;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.submit{
+    height: 5vh;
+    text-align: center;
+}
+
+.submit button{
+    background: darkgreen;
+    color: white;
+    cursor: pointer;
+}
+
+.submit button:disabled{
+    background: rgba(120, 120, 120, .50);
+    color: grey;
+    cursor: not-allowed;
+}
+
+.submit button{
+    border-radius: .25rem;
+    padding: .15vw;
+}
+
+/* General scrollbar styles for WebKit browsers (Chrome, Safari, Edge) */
+.form-med::-webkit-scrollbar {
+    width: 6px;        /* Thin width for vertical scrollbar */
+    height: 6px;       /* Thin height for horizontal scrollbar */
+}
+
+.form-med::-webkit-scrollbar-thumb {
+    background-color: black;   /* Black color for the scrollbar thumb */
+    border-radius: 3px;        /* Rounded corners for smooth look */
+}
+
+.form-med::-webkit-scrollbar-track {
+    background-color: transparent; /* Transparent background for the track */
+}
+
+/* Firefox-specific styling */
+* {
+    scrollbar-width: thin;               /* Thin scrollbar */
+    scrollbar-color: black transparent;   /* Black thumb, transparent track */
+}
+
+
+
+
+
+

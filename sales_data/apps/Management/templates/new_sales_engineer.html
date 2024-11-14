@@ -1,0 +1,87 @@
+{%  extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files  %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <h1 class="title">new sales engineer</h1>
+        {% if user.is_superuser %}
+            <div class="links">
+                <a href="{% url 'apps.management:sales_engineers' %}">back to sales engineer</a>
+            </div>
+        {% endif %}
+       <div class="form-col-container">
+           <div class="form-column">
+
+           </div>
+            <div class="form-column">
+                <form class="form-med" method="POST" action="{% url 'apps.management:new_sales_engineer'  %}">
+                    <div class="form-group">
+                        {{ form.username.label_tag }}
+                        {{ form.username }}
+                        <p class="errors" id="username_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.first_name.label_tag }}
+                        {{ form.first_name }}
+                        <p class="errors" id="first_name_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.last_name.label_tag }}
+                        {{ form.last_name }}
+                        <p class="errors" id="last_name_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.email.label_tag }}
+                        {{ form.email }}
+                        <p class="errors" id="email_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.role.label_tag }}
+                        {{ form.role }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.regions.label_tag }}
+                        {{ form.regions }}
+                        <p class="errors" id="region_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.timezone.label_tag }}
+                        {{ form.timezone }}
+                        <p class="errors" id="timezone_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.password.label_tag }}
+                        {{ form.password }}
+                    <p class="errors" id="password_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.confirm_password.label_tag }}
+                        {{ form.confirm_password }}
+                    </div>
+                    <div class="submit">
+                        {% csrf_token %}
+                        <button id="save">Save</button>
+                    </div>
+                </form>
+            </div>
+           <div class="form-column">
+           </div>
+       </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+
+    <script>
+        const checkUsernameURL = "{% url 'apps.management:check_username'  %}"
+        const checkEmail = "{% url 'apps.management:check_email'  %}"
+    </script>
+    <script src="{% static 'js/validation.js' %}"></script>
+    <script type="module" src="{% static 'js/management/js/manager_form.js' %}"></script>
+{% endblock %}
