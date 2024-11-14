@@ -1,3 +1,5 @@
+from select import select
+
 from django import forms
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
@@ -38,11 +40,6 @@ class SalesEngineerForm(forms.Form):
         )
     )
 
-    role = forms.ModelChoiceField(
-        queryset=Group.objects.all(),
-        required=True,
-        empty_label='Select Role',
-    )
 
     timezone = forms.ModelChoiceField(
         queryset=Timezone.objects.all(),
@@ -51,7 +48,6 @@ class SalesEngineerForm(forms.Form):
         empty_label='Select Timezone',
     )
 
-
     regions = forms.ModelChoiceField(
         queryset=Region.objects.all(),
         required=True,
@@ -59,20 +55,6 @@ class SalesEngineerForm(forms.Form):
         empty_label='Select Region',
     )
 
-    password = forms.CharField(
-        required=True,
-        widget=forms.PasswordInput(
-
-            attrs={'class': 'form-control'}
-        )
-    )
-
-    confirm_password = forms.CharField(
-        required=True,
-        widget=forms.PasswordInput(
-            attrs={'class': 'form-control'}
-        )
-    )
 
 
 
@@ -84,8 +66,6 @@ class SalesEngineerForm(forms.Form):
         first_name = clean_data['first_name']
         last_name = clean_data['last_name']
         email = clean_data['email']
-        password = clean_data['password']
-        confirm_password = clean_data['confirm_password']
 
 
         if User.objects.filter(Q(username=username) | Q(email=email)).exists():
@@ -115,11 +95,5 @@ class SalesEngineerForm(forms.Form):
         if not email_regex(email):
             print("email_regex error")
             self.add_error("email", "must contain a valid email address")
-
-
-        #check if passwords match
-        if password != confirm_password:
-            print("password error")
-            self.add_error('confirm_password', 'Passwords must match')
 
 

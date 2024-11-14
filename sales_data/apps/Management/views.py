@@ -1,5 +1,5 @@
 from apps.authentication.models import UserProfile
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
@@ -7,11 +7,11 @@ from django.views.decorators.http import require_GET
 from django.views.generic import View
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from utils.helper import generate_public_id
+from utils.helper import generate_public_id, generate_random_string
 from .forms.SalesEngineerForm import SalesEngineerForm
 from .forms.SalesRepForm import SalesRepForm
 from utils.form_validation import username_regex, email_regex
-from .helper_functions.sales_engineer_dto import get_sales_engineer_dto
+from .helper_functions.sales_engineer_dto import get_sales_engineer_dto, get_sales_engineer_manager_dto
 
 
 
@@ -26,7 +26,7 @@ class AssignSalesRepsToSalesEngineers(LoginRequiredMixin, View):
         try:
             user = User.objects.get(profile__public_id=id)
 
-            form.set_sales_engineer(user)
+
 
             context = {'form': form}
 
@@ -84,7 +84,6 @@ class SalesEngineerView(LoginRequiredMixin, View):
         sales_engineers = []
         user = request.user
         if user.is_superuser:
-
             sales_engineers = User.objects.filter(is_superuser=False)
 
         else:
@@ -100,8 +99,30 @@ class SalesEngineerView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
 
-    def post(self, request):
-        pass
+class SalesEngineerManagerView(LoginRequiredMixin, View):
+    template_name = 'sales_engineer_managers.html'
+
+    def get(self, request):
+        sales_engineers = []
+
+        user = request.user
+
+        if not user.is_superuser:
+
+            #add redirect statement
+            return ""
+
+        sales_engineer_managers = User.objects.filter(groups__name="sales engineer manager").all()
+
+        sales_engineer_managers_dto = [get_sales_engineer_manager_dto(se) for se in sales_engineer_managers]
+
+
+        context = {
+            'sales_engineer_managers': sales_engineer_managers_dto
+        }
+
+        return render(request, self.template_name, context)
+
 
 class NewSalesEngineerView(LoginRequiredMixin, View):
     template_name = 'new_sales_engineer.html'
@@ -155,6 +176,60 @@ class NewSalesEngineerView(LoginRequiredMixin, View):
             'edit' : False,
         }
         return render(request, self.template_name, context)
+
+
+class NewSalesEngineerManagerView(LoginRequiredMixin, View):
+        template_name = "new_se_manager.html"
+        form = SalesEngineerForm()
+
+        def get(self, request):
+
+
+            context = {
+                "form": self.form,
+            }
+
+            return render(request, self.template_name, context)
+
+
+        def post(self, request):
+            self.form = SalesEngineerForm(request.POST)
+
+            if self.form.is_valid():
+
+                #ToDo remove this for development only
+                password = generate_random_string(10)
+                print(password)
+
+                new_sales_engineer = User.objects.create(
+                    first_name=self.form.cleaned_data['first_name'],
+                    last_name=self.form.cleaned_data['last_name'],
+                    email=self.form.cleaned_data['email'],
+                    password= password
+                )
+
+                manager_group = Group.objects.get(name="sales engineer manager")
+
+                new_sales_engineer.groups.add(manager_group)
+                new_sales_engineer.save()
+
+                UserProfile.objects.create(
+                    user = new_sales_engineer,
+                    public_id=generate_public_id(UserProfile),
+                    region = self.form.cleaned_data['regions'],
+                    time_zone = self.form.cleaned_data['timezone']
+                )
+
+                return redirect(reverse('apps.management:se_managers'))
+
+            else:
+                print("error")
+                context = {
+                    'form': self.form,
+                }
+
+                return render(request, self.template_name, context)
+
 
 @require_GET
 @login_required(login_url='apps.authentication:login')

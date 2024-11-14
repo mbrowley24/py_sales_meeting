@@ -8,18 +8,19 @@ const base_url = "/appManagement/managers/sales_engineers/"
 const create_sales_engineer_row = (sales_engineer) =>{
     const table_row = document.createElement('tr');
 
-    const role = document.createElement('td');
-    role.innerText = sales_engineer.role
-    table_row.append(role)
+
 
     //first_name cell
     const first_name = document.createElement('td');
+    first_name.classList.add("capitalize")
     first_name.innerText = sales_engineer.first_name;
+
     table_row.append(first_name);
 
     //last_name cell
     const last_name = document.createElement('td');
     last_name.innerText = sales_engineer.last_name;
+    last_name.classList.add("capitalize")
     table_row.append(last_name);
 
     const email = document.createElement('td')
@@ -51,6 +52,7 @@ const create_sales_engineer_row = (sales_engineer) =>{
 
     const region = document.createElement("td");
     region.innerText = sales_engineer.region
+    region.classList.add("capitalize")
     table_row.append(region);
 
     const last_login =  document.createElement("td");
@@ -61,7 +63,7 @@ const create_sales_engineer_row = (sales_engineer) =>{
 
     }else{
 
-        last_login.innerText = "never"
+        last_login.innerText = "Never"
     }
 
     table_row.append(last_login)

@@ -12,7 +12,7 @@
         <h1 class="title">Sales Engineers</h1>
         {% if user.is_superuser %}
             <div class="links">
-                <a href="{% url 'apps.management:new_sales_engineer'  %}">New Sales Engineer</a>
+                <a href="{% url 'apps.management:new_se_manager'  %}">New SE Manager</a>
             </div>
         {% endif %}
         <div id="table_div">
@@ -22,8 +22,7 @@
                         <th class="">first name</th>
                         <th class="">last name</th>
                         <th class="">email</th>
-                        <th class="">sales reps</th>
-                        <th class="">manager</th>
+                        <th class="">sales engineer</th>
                         <th class="">region</th>
                         <th class="">last login</th>
                         <th class="">edit</th>
@@ -40,6 +39,6 @@
         const checkUsernameURL = "{% url 'apps.management:check_username'  %}"
         const checkEmail = "{% url 'apps.management:check_email'  %}"
     </script>
-    {{ sales_engineers|json_script:"sales_engineers_data" }}
-    <script src="{% static 'js/management/js/sales_engineer_table.js' %}"></script>
+    {{ sales_engineer_managers|json_script:"sales_engineer_manager_data" }}
+    <script src="{% static 'js/management/js/se_managers_table.js' %}"></script>
 {% endblock %}

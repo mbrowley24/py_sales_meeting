@@ -82,6 +82,10 @@
     text-transform: capitalize;
 }
 
+.capitalize{
+    text-transform: capitalize;
+}
+
 .title{
     background: grey;
     border-radius: .25rem;

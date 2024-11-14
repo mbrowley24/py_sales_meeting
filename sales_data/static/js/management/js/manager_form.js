@@ -8,15 +8,15 @@ import {
     password_check,
     username_validation,
 } from "../../validation.js";
-const confirm_password = document.getElementById("id_confirm_password");
+// const confirm_password = document.getElementById("id_confirm_password");
 const email = document.getElementById("id_email");
 const email_error_message = document.getElementById("email_error_message");
 const first_name = document.getElementById("id_first_name");
 const first_name_error_message = document.getElementById("first_name_error_message");
 const last_name = document.getElementById("id_last_name");
 const last_name_error_message = document.getElementById("last_name_error_message");
-const password = document.getElementById("id_password");
-const password_message = document.getElementById("password_message");
+// const password = document.getElementById("id_password");
+// const password_message = document.getElementById("password_message");
 const regions = document.getElementById("id_regions");
 const region_error_message = document.getElementById("region_error_message")
 const save = document.getElementById("save");
@@ -113,61 +113,7 @@ const check_timezones = () =>{
     }
 }
 
-const check_password = () =>{
 
-    const password_value = password.value.trim();
-    const confirm_password_value = confirm_password.value
-
-    if(password_value === ""){
-
-        errors['password'] = "required"
-        password_message.classList.remove('success');
-        password_message.classList.add('errors');
-        password_message.innerHTML = "required"
-        return
-    }
-
-   if(password_check(password_value)){
-
-       password_message.classList.remove('password-errors');
-        password_message.classList.remove("errors");
-        password_message.classList.add('success');
-        password_message.innerHTML = "Ok"
-
-        delete errors['password']
-
-    }else{
-
-       errors['password'] = "invalid"
-       password_message.classList.remove('errors');
-        password_message.classList.remove('success');
-        password_message.classList.add('password-errors');
-        password_message.innerHTML = "Min 8, 1 lowercase, 1 uppercase, special characters @$!%*?&"
-        return
-
-    }
-
-    if(password_value === confirm_password_value){
-        password_message.classList.remove('password-errors');
-        password_message.classList.remove("errors");
-        password_message.classList.add('success');
-        password_message.innerHTML = "passwords match"
-
-        delete errors['password']
-
-
-    }else{
-
-        errors['password'] = "invalid"
-        password_message.classList.add('errors');
-        password_message.classList.remove('success');
-        password_message.classList.remove('password-errors');
-        password_message.innerHTML = "passwords don't match"
-
-
-    }
-
-}
 
 
 const check_last_name = () =>{
@@ -321,13 +267,6 @@ const show_errors = () =>{
 }
 
 
-confirm_password.addEventListener("input", (e)=>{
-
-    check_password();
-    valid()
-
-});
-
 email.addEventListener('input', (e)=>{
     const {value} = e.target;
 
@@ -356,15 +295,6 @@ last_name.addEventListener("input", (e)=>{
 });
 
 
-password.addEventListener("input", (e)=>{
-   const {value} = e.target;
-
-    password.value = value;
-
-    check_password();
-    valid()
-
-});
 
 regions.addEventListener("change", (e) =>{
 
@@ -389,17 +319,15 @@ username.addEventListener("input", (e)=>{
 })
 
 const valid = () =>{
-    console.log(errors)
+    check_email();
+    check_first_name();
+    check_last_name();
+    check_regions();
+    check_timezones();
+    check_username();
     save.disabled = Object.keys(errors).length > 0
 }
 
-// Run initial checks
-check_email();
-check_first_name();
-check_last_name();
-check_password();
-check_regions();
-check_timezones();
-check_username();
-valid();
 
+valid();
+console.log(errors)

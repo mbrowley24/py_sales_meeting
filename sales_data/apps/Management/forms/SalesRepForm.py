@@ -40,10 +40,6 @@ class SalesRepForm(forms.Form):
         )
     )
 
-    sales_engineer = forms.ModelChoiceField(
-        queryset=User.objects.filter(groups__name='Sales Engineer').all(),
-        disabled=True,
-    )
 
     role = forms.ModelChoiceField(
         queryset=SalesRoles.objects.all(),

@@ -17,7 +17,7 @@ class UserProfile(models.Model):
 
 
     public_id = models.CharField(max_length=100, unique=True)
-    manager = models.OneToOneField(User, on_delete=models.CASCADE, related_name='manager', null=True, blank=True)
+    manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sales_engineers', null=True, blank=True)
     region = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, blank=True)
     reset_password = models.BooleanField(default=True)
     reset_password_token = models.CharField(max_length=15)

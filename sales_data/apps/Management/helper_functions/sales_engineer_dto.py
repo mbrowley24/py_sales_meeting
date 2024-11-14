@@ -16,11 +16,10 @@ class SalesEngineerDTO:
 
 
 
-def get_sales_engineer_dto(model) :
+def get_sales_engineer_dto(model):
 
     manager = None
     region = None
-    print(dict(model.__dict__))
     role = model.groups.all()
 
 
@@ -31,7 +30,7 @@ def get_sales_engineer_dto(model) :
     if model.profile.region is not None:
         region = model.profile.region.name
 
-    print(model.groups)
+
 
     return {
         "id":model.profile.public_id,
@@ -40,8 +39,28 @@ def get_sales_engineer_dto(model) :
         "email":model.email,
         "manager": manager,
         "region": region,
-        "role" : role[0].name,
         "sales_reps":model.sales_reps.count(),
         "last_login":model.last_login,
+
+    }
+
+def get_sales_engineer_manager_dto(model):
+
+    region = None
+    print(model)
+
+    if model.profile.region is not None:
+        region = model.profile.region.name
+
+    print(model.sales_engineers.count())
+
+    return {
+        "id": model.profile.public_id,
+        "first_name": model.first_name,
+        "last_name": model.last_name,
+        "email": model.email,
+        "region": region,
+        "sales_engineers": model.sales_engineers.count(),
+        "last_login": model.last_login,
 
     }
