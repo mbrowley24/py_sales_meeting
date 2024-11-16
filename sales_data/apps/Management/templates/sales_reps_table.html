@@ -1,0 +1,39 @@
+{%  extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files  %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <h1 class="title">Sales Representative</h1>
+        {% if user.is_superuser %}
+            <div class="links">
+                <a href="{% url 'apps.management:assign_sales_reps' rep_id=id  %}">New Sales Reps</a>
+            </div>
+        {% endif %}
+        <div id="table_div">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="">role</th>
+                        <th class="">first name</th>
+                        <th class="">last name</th>
+                        <th class="">email</th>
+                        <th class="">quota</th>
+                        <th class="">edit</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+    {{ sales_representatives|json_script:"sales_representatives_data" }}
+    <script type="module" src="{% static 'js/management/js/sales_rep_management.js' %}"></script>
+{% endblock %}

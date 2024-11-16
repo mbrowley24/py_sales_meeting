@@ -11,7 +11,11 @@ def name_regex(name):
     pattern =r"^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[-' ][A-Za-zÀ-ÖØ-öø-ÿ]+)?$"
     return bool(re.fullmatch(pattern, name))
 
+def value_cleaner(value):
+
+    return re.sub(r"[^\d\s]", "", value.lower())
 
 def username_regex(username):
     pattern = r"^[a-zA-Z0-9._-]{3,50}$"
     return bool(re.fullmatch(pattern, username))
+

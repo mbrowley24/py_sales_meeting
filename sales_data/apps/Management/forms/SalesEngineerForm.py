@@ -1,6 +1,7 @@
 from select import select
 
 from django import forms
+from django.contrib.admin.utils import label_for_field
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
 from apps.formData.models.timezone import Timezone
@@ -8,6 +9,7 @@ from apps.formData.models.division import Region
 from utils.form_validation import email_regex, name_regex, username_regex
 
 class SalesEngineerForm(forms.Form):
+
     username = forms.CharField(
         max_length=50,
         required=True,
@@ -16,6 +18,7 @@ class SalesEngineerForm(forms.Form):
         )
 
     )
+
     first_name = forms.CharField(
         max_length=50,
         required=True,
@@ -33,13 +36,17 @@ class SalesEngineerForm(forms.Form):
     )
 
     email = forms.EmailField(
-
         required=True,
         widget=forms.EmailInput(
             attrs={'class': 'form-control'}
         )
     )
 
+    manager = forms.ModelChoiceField(
+        queryset=User.objects.filter(groups__name='sales engineer manager').distinct(),
+        required=False,
+        empty_label="Choose Region",
+    )
 
     timezone = forms.ModelChoiceField(
         queryset=Timezone.objects.all(),
@@ -56,6 +63,8 @@ class SalesEngineerForm(forms.Form):
     )
 
 
+    def __init__(self, *args, **kwargs):
+        super(SalesEngineerForm, self).__init__(*args, **kwargs)
 
 
 

@@ -2,12 +2,58 @@ console.log("validation")
 
 
 
+
 export const email_validation = (email) =>{
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,150}$/;
 
     return emailPattern.test(email)
+}
+
+//value functions
+const add_commas_to_value = (value) =>{
+
+    if(isNaN(value)){
+        return 0
+    }
+
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+export const clean_value =(text) =>{
+
+    return text.replace(/\D/g, "");
+}
+
+export const value_format = (value_text) =>{
+    console.log(value_text)
+    if(!value_text){
+        return "0.00"
+    }
+
+    value_text = String(value_text)
+
+    const cleaned_value = clean_value(value_text);
+
+    if(cleaned_value.length ===0){
+        return "0.00";
+    }
+
+    let value = Number(cleaned_value);
 
 
+    let [dollars, cents] = parseFloat(String(value / 100)).toFixed(2).split(".")
+
+
+    return `${add_commas_to_value(dollars)}.${cents}`
+
+}
+
+export const value_valid = (value) =>{
+    const test_value = clean_value(value);
+
+    console.log(test_value)
+    const pattern  = /^\d{3,13}$/;
+
+    return pattern.test(test_value);
 }
 
 export const clean_email = (email) => {
@@ -27,6 +73,7 @@ export const clean_name = (name) =>{
 
     return name.replaceAll(pattern, '')
 }
+
 
 
 export const username_validation = (username) =>{

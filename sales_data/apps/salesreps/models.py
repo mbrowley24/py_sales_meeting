@@ -34,7 +34,7 @@ class SalesRepresentative(models.Model):
     last_name = models.CharField(max_length=100)
     email = models.EmailField(null=False, blank=False)
     sales_engineer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sales_reps')
-    Role = models.ForeignKey(SalesRoles, on_delete=models.CASCADE, related_name='roles')
+    role = models.ForeignKey(SalesRoles, on_delete=models.CASCADE, related_name='roles')
     quota = models.BigIntegerField(default=0)
     Created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

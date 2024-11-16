@@ -36,6 +36,7 @@ const create_sales_engineer_row = (sales_engineer) =>{
     table_row.append(sales_reps);
 
     const manager = document.createElement("td")
+    manager.classList.add("capitalize")
     table_row.append(manager);
 
     if(sales_engineer.manager){

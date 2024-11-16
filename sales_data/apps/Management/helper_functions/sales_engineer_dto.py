@@ -20,7 +20,6 @@ def get_sales_engineer_dto(model):
 
     manager = None
     region = None
-    role = model.groups.all()
 
 
     if model.profile.manager is not None:

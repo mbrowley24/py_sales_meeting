@@ -42,6 +42,10 @@
                         <p class="errors" id="email_error_message"></p>
                     </div>
                     <div class="form-group">
+                        {{ form.manager.label_tag }}
+                        {{ form.manager }}
+                    </div>
+                    <div class="form-group">
                         {{ form.regions.label_tag }}
                         {{ form.regions }}
                         <p class="errors" id="region_error_message"></p>

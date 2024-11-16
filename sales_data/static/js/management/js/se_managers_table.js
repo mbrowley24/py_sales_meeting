@@ -3,14 +3,12 @@ console.log("sales engineer manager table")
 const sales_engineer_manager_data = JSON.parse(document.getElementById("sales_engineer_manager_data").textContent);
 
 const table_body = document.getElementById("table-body");
-const base_url = "/appManagement/managers/sales_engineer_managers/"
 
+// managers/se_manager/<str:id>/sales_engineers/new
 const create_sales_engineer_manager_row = (sales_engineer_manager) =>{
     const table_row = document.createElement('tr');
 
-    // const role = document.createElement('td');
-    // role.innerText = sales_engineer_manager.role
-    // table_row.append(role)
+
 
     //first_name cell
     const first_name = document.createElement('td');
@@ -30,12 +28,13 @@ const create_sales_engineer_manager_row = (sales_engineer_manager) =>{
     email.innerText = sales_engineer_manager.email;
     table_row.append(email);
 
-    const sales_reps = document.createElement("td");
-    const sales_rep_link = document.createElement('a');
-    sales_rep_link.innerText = sales_engineer_manager.sales_engineers
-    sales_rep_link.href = `${base_url}edit/${sales_engineer_manager.id}/sales_reps`
-    sales_reps.append(sales_rep_link)
-    table_row.append(sales_reps);
+    const sales_engineer = document.createElement("td");
+    sales_engineer.innerText = sales_engineer_manager.sales_engineers
+    // const sales_eng_link = document.createElement('a');
+    // sales_eng_link.innerText = sales_engineer_manager.sales_engineers
+    // sales_eng_link.href = `${base_url}${sales_engineer_manager.id}/sales_engineers/new`
+    // sales_engineer.append(sales_eng_link)
+    table_row.append(sales_engineer);
 
 
 

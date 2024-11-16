@@ -1,4 +1,5 @@
 from apps.authentication.models import UserProfile
+from apps.salesreps.models import SalesRepresentative, SalesRoles
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,26 +10,30 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from utils.helper import generate_public_id, generate_random_string
 from .forms.SalesEngineerForm import SalesEngineerForm
+from .forms.SalesEngineerManagerForm import SalesEngineerManagerForm
 from .forms.SalesRepForm import SalesRepForm
-from utils.form_validation import username_regex, email_regex
+from utils.form_validation import username_regex, email_regex, value_cleaner
 from .helper_functions.sales_engineer_dto import get_sales_engineer_dto, get_sales_engineer_manager_dto
-
-
+from ..salesreps.views import sales_reps
 
 
 class AssignSalesRepsToSalesEngineers(LoginRequiredMixin, View):
     template_name = "new_sales_reps.html"
+    form = SalesRepForm()
 
-    def get(self, request, id):
+    def get(self, request, rep_id):
 
-        form = SalesRepForm()
 
         try:
-            user = User.objects.get(profile__public_id=id)
+            user = User.objects.get(profile__public_id=rep_id)
+            # self.form.fields['sales_engineer'].initial = user
 
+            self.form = SalesRepForm(sales_engineer=user, skip_sales_engineer=True)
 
-
-            context = {'form': form}
+            print(self.form)
+            context = {'form'  : self.form,
+                       'rep_id': rep_id
+                       }
 
             return render(request, self.template_name, context)
 
@@ -36,32 +41,74 @@ class AssignSalesRepsToSalesEngineers(LoginRequiredMixin, View):
 
             return redirect(reverse('apps.management:sales_engineers'))
 
+
+    def post(self, request, rep_id):
+
+        try:
+
+            user = User.objects.get(profile__public_id=rep_id)
+
+
+            self.form = SalesRepForm(request.POST, skip_sales_engineer=True)
+
+
+
+            if self.form.is_valid():
+
+
+                SalesRepresentative.objects.create(
+                    public_id      = generate_public_id(SalesRepresentative),
+                    first_name     = self.form.cleaned_data.get('first_name'),
+                    last_name      = self.form.cleaned_data.get('last_name'),
+                    email          = self.form.cleaned_data.get('email'),
+                    quota          = int(value_cleaner(self.form.cleaned_data['quota'])),
+                    role           = self.form.cleaned_data.get('role'),
+                    sales_engineer = user,
+                )
+
+
+
+            else:
+
+                self.form.fields['sales_engineer'].initial = user
+                context = {
+                    'form': self.form,
+                    "rep_id": rep_id
+                }
+                return render(request, self.template_name, context)
+
+        except User.DoesNotExist:
+
+            print("sales engineer not found")
+
+        return redirect(reverse('apps.management:sales_reps', kwargs={'rep_id': rep_id}))
+
 class EditSalesEngineerView(LoginRequiredMixin, View):
         template_name = 'edit_sales_engineer.html'
 
 
-        def get(self, request, id):
+        def get(self, request, rep_id):
 
 
 
             try:
-                sales_engineer = User.objects.get(profile__public_id=id)
+                sales_engineer = User.objects.get(profile__public_id=rep_id)
 
                 sales_engineer_data = {
-                    "username" : sales_engineer.username,
+                    "username"   : sales_engineer.username,
                     "first_name" : sales_engineer.first_name,
-                    "last_name" : sales_engineer.last_name,
-                    "email" : sales_engineer.email,
-                    "role" : sales_engineer.groups.all()[0],
-                    "timezone": sales_engineer.profile.time_zone,
-                    "regions": sales_engineer.profile.region,
+                    "last_name"  : sales_engineer.last_name,
+                    "email"      : sales_engineer.email,
+                    "role"       : sales_engineer.groups.all()[0],
+                    "timezone"   : sales_engineer.profile.time_zone,
+                    "regions"    : sales_engineer.profile.region,
                 }
 
-                form = SalesEngineerForm(initial=sales_engineer_data)
+                form              = SalesEngineerForm(initial=sales_engineer_data)
 
                 context = {
                     'form': form,
-                    'id' : id,
+                    'id'  : id,
                 }
 
                 return render(request, self.template_name, context)
@@ -72,8 +119,39 @@ class EditSalesEngineerView(LoginRequiredMixin, View):
 
 
 
+class SalesRepresentativeView(LoginRequiredMixin, View):
+    template_name = 'sales_reps_table.html'
+
+    def get(self, request, rep_id):
+        sales_rep_list = []
+
+        try:
+            sales_engineer      = User.objects.get(profile__public_id=rep_id)
+            assigned_sales_reps = sales_engineer.sales_reps.all()
+
+            for sales_rep in assigned_sales_reps:
+
+                # quota = sales_rep.quota/100
+                sales_rep_list.append({
+                    "id"             : sales_rep.public_id,
+                    "first_name"     : sales_rep.first_name,
+                    "last_name"      : sales_rep.last_name,
+                    "email"          : sales_rep.email,
+                    "role"           : sales_rep.role.name,
+                    "sales_engineer" : f'{sales_engineer.first_name} {sales_engineer.last_name}',
+                    "quota"          : sales_rep.quota,
+                })
+
+        except User.DoesNotExist:
+            pass
 
 
+        context = {
+            "id"                    : rep_id,
+            "sales_representatives" : sales_rep_list,
+        }
+
+        return render(request, self.template_name, context)
 
 class SalesEngineerView(LoginRequiredMixin, View):
     template_name = 'sales_engineer_table.html'
@@ -81,13 +159,14 @@ class SalesEngineerView(LoginRequiredMixin, View):
     #handle get request
     def get(self, request):
 
-        sales_engineers = []
-        user = request.user
-        if user.is_superuser:
-            sales_engineers = User.objects.filter(is_superuser=False)
+        sales_engineers     = []
+        user                = request.user
+        if not user.is_superuser:
+               return "fix reverse"
 
-        else:
-            sales_engineers = User.objects.filter(profile__manager=user)
+        sales_engineers     = User.objects.filter(is_superuser=False).filter(groups__name="sales engineer")
+
+
 
 
         sales_engineer_dtos = [get_sales_engineer_dto(sales_engineer) for sales_engineer in list(sales_engineers)]
@@ -105,14 +184,14 @@ class SalesEngineerManagerView(LoginRequiredMixin, View):
     def get(self, request):
         sales_engineers = []
 
-        user = request.user
+        user            = request.user
 
         if not user.is_superuser:
 
             #add redirect statement
             return ""
 
-        sales_engineer_managers = User.objects.filter(groups__name="sales engineer manager").all()
+        sales_engineer_managers     = User.objects.filter(groups__name="sales engineer manager").all()
 
         sales_engineer_managers_dto = [get_sales_engineer_manager_dto(se) for se in sales_engineer_managers]
 
@@ -124,15 +203,17 @@ class SalesEngineerManagerView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
 
+
 class NewSalesEngineerView(LoginRequiredMixin, View):
     template_name = 'new_sales_engineer.html'
     form = SalesEngineerForm()
+    print("in here")
 
 
     #handle ger request
     def get(self, request):
 
-        user  = request.user
+        user    = request.user
 
         if not user.is_superuser:
             return "add redirect"
@@ -147,24 +228,30 @@ class NewSalesEngineerView(LoginRequiredMixin, View):
 
 
         if self.form.is_valid():
+            password           = generate_random_string(10)
 
-            new_sales_engineer = User.objects.create(
-                email=self.form.cleaned_data['email'],
-                username=self.form.cleaned_data['username'],
-                first_name=self.form.cleaned_data['first_name'],
-                last_name=self.form.cleaned_data['last_name'],
-                password=self.form.cleaned_data['password'],
+            new_sales_engineer = User(
+                email      = self.form.cleaned_data['email'].lower().strip(),
+                username   = self.form.cleaned_data['username'].lower().strip(),
+                first_name = self.form.cleaned_data['first_name'].lower().strip(),
+                last_name  = self.form.cleaned_data['last_name'].lower().strip(),
             )
 
-            new_sales_engineer.groups.add(self.form.cleaned_data['role'])
+            group          = Group.objects.get(name="sales engineer")
+
+            new_sales_engineer.set_password(password)
+            new_sales_engineer.save()
+
+
+            new_sales_engineer.groups.add(group)
             new_sales_engineer.save()
 
             UserProfile.objects.create(
-                public_id=generate_public_id(UserProfile),
-                user=new_sales_engineer,
-                manager=None,
-                time_zone=self.form.cleaned_data['timezone'],
-                region = self.form.cleaned_data['regions'],
+                public_id = generate_public_id(UserProfile),
+                user      = new_sales_engineer,
+                manager   = self.form.cleaned_data['manager'],
+                time_zone = self.form.cleaned_data['timezone'],
+                region    = self.form.cleaned_data['regions'],
             )
 
 
@@ -172,7 +259,7 @@ class NewSalesEngineerView(LoginRequiredMixin, View):
 
 
         context = {
-            'form': self.form,
+            'form' : self.form,
             'edit' : False,
         }
         return render(request, self.template_name, context)
@@ -180,7 +267,7 @@ class NewSalesEngineerView(LoginRequiredMixin, View):
 
 class NewSalesEngineerManagerView(LoginRequiredMixin, View):
         template_name = "new_se_manager.html"
-        form = SalesEngineerForm()
+        form = SalesEngineerManagerForm()
 
         def get(self, request):
 
@@ -193,7 +280,7 @@ class NewSalesEngineerManagerView(LoginRequiredMixin, View):
 
 
         def post(self, request):
-            self.form = SalesEngineerForm(request.POST)
+            self.form     = SalesEngineerManagerForm(request.POST)
 
             if self.form.is_valid():
 
@@ -201,22 +288,21 @@ class NewSalesEngineerManagerView(LoginRequiredMixin, View):
                 password = generate_random_string(10)
                 print(password)
 
-                new_sales_engineer = User.objects.create(
-                    first_name=self.form.cleaned_data['first_name'],
-                    last_name=self.form.cleaned_data['last_name'],
-                    email=self.form.cleaned_data['email'],
-                    password= password
+                new_sales_engineer = User(
+                    first_name     = self.form.cleaned_data['first_name'].lower().strip(),
+                    last_name      = self.form.cleaned_data['last_name'].lower().strip(),
+                    email          = self.form.cleaned_data['email'].lower().strip(),
                 )
-
-                manager_group = Group.objects.get(name="sales engineer manager")
+                new_sales_engineer.set_password(password)
+                manager_group     = Group.objects.get(name="sales engineer manager")
 
                 new_sales_engineer.groups.add(manager_group)
                 new_sales_engineer.save()
 
                 UserProfile.objects.create(
-                    user = new_sales_engineer,
-                    public_id=generate_public_id(UserProfile),
-                    region = self.form.cleaned_data['regions'],
+                    user      = new_sales_engineer,
+                    public_id = generate_public_id(UserProfile),
+                    region    = self.form.cleaned_data['regions'],
                     time_zone = self.form.cleaned_data['timezone']
                 )
 
@@ -241,13 +327,22 @@ def check_username(request):
     #response data
     response_data = {}
 
+    if username is None:
+
+        return JsonResponse({
+            "available": False,
+            "message" : "Username invalid"
+        })
+
+    username_test = username.lower().strip()
+
     #check the username passes regex required
-    if username_regex(username):
+    if username_regex(username_test):
 
 
         try:
             #Check username already exist
-            user = User.objects.get(username=username)
+            user = User.objects.get(username=username_test)
 
             if id is None:
                 response_data = {
@@ -300,10 +395,18 @@ def check_email(request):
 
     response_data = {}
 
-    if email_regex(email):
+    if email is None:
+        return JsonResponse({
+            "available": False,
+            "message": "Email invalid"
+        })
+
+    email_test = email.lower().strip()
+
+    if email_regex(email_test):
 
         try:
-            user = User.objects.get(email=email)
+            user = User.objects.get(email=email_test)
 
             if id is None:
 
@@ -335,6 +438,61 @@ def check_email(request):
         response_data = {
             "available": False,
             "message" : "Email invalid"
+        }
+
+    return JsonResponse(response_data)
+
+@require_GET
+@login_required(login_url='apps.authentication:login')
+def check_sales_rep_email(request):
+    email = request.GET.get('email')
+    id = request.GET.get('id')
+    response_data = {}
+
+    if email is None:
+        response_data = {
+            "available": False,
+            "message": "Email is already in use"
+        }
+        return JsonResponse(response_data)
+
+    email_test = email.lower().strip()
+
+    if email_regex(email_test):
+
+        try:
+            sales_rep = SalesRepresentative.objects.get(email=email_test)
+
+            if id is None:
+
+                response_data = {
+                    "available": False,
+                    "message": "Email is already in use"
+                }
+            else:
+
+                if id == sales_rep.public_id:
+                    response_data = {
+                        "available": True,
+                        "message": "available"
+                    }
+                else:
+                    response_data = {
+                        "available": False,
+                        "message": "Email is already in use"
+                    }
+
+        except SalesRepresentative.DoesNotExist:
+
+            response_data = {
+                "available": True,
+                "message": "available"
+            }
+
+    else:
+        response_data = {
+            "available": False,
+            "message": "Email invalid"
         }
 
     return JsonResponse(response_data)
