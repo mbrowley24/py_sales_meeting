@@ -153,56 +153,6 @@ class SalesRepresentativeView(LoginRequiredMixin, View):
 
         return render(request, self.template_name, context)
 
-class SalesEngineerView(LoginRequiredMixin, View):
-    template_name = 'sales_engineer_table.html'
-
-    #handle get request
-    def get(self, request):
-
-        sales_engineers     = []
-        user                = request.user
-        if not user.is_superuser:
-               return "fix reverse"
-
-        sales_engineers     = User.objects.filter(is_superuser=False).filter(groups__name="sales engineer")
-
-
-
-
-        sales_engineer_dtos = [get_sales_engineer_dto(sales_engineer) for sales_engineer in list(sales_engineers)]
-
-        context = {
-            'sales_engineers': sales_engineer_dtos
-        }
-
-        return render(request, self.template_name, context)
-
-
-class SalesEngineerManagerView(LoginRequiredMixin, View):
-    template_name = 'sales_engineer_managers.html'
-
-    def get(self, request):
-        sales_engineers = []
-
-        user            = request.user
-
-        if not user.is_superuser:
-
-            #add redirect statement
-            return ""
-
-        sales_engineer_managers     = User.objects.filter(groups__name="sales engineer manager").all()
-
-        sales_engineer_managers_dto = [get_sales_engineer_manager_dto(se) for se in sales_engineer_managers]
-
-
-        context = {
-            'sales_engineer_managers': sales_engineer_managers_dto
-        }
-
-        return render(request, self.template_name, context)
-
-
 
 class NewSalesEngineerView(LoginRequiredMixin, View):
     template_name = 'new_sales_engineer.html'
@@ -224,12 +174,12 @@ class NewSalesEngineerView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
     def post(self, request):
-        self.form = SalesEngineerForm(request.POST)
+        self.form              = SalesEngineerForm(request.POST)
 
 
         if self.form.is_valid():
             password           = generate_random_string(10)
-
+            print(password)
             new_sales_engineer = User(
                 email      = self.form.cleaned_data['email'].lower().strip(),
                 username   = self.form.cleaned_data['username'].lower().strip(),
@@ -315,6 +265,60 @@ class NewSalesEngineerManagerView(LoginRequiredMixin, View):
                 }
 
                 return render(request, self.template_name, context)
+
+
+
+
+class SalesEngineerView(LoginRequiredMixin, View):
+    template_name = 'sales_engineer_table.html'
+
+    #handle get request
+    def get(self, request):
+
+        sales_engineers     = []
+        user                = request.user
+        if not user.is_superuser:
+               return "fix reverse"
+
+        sales_engineers     = User.objects.filter(is_superuser=False).filter(groups__name="sales engineer")
+
+
+
+
+        sales_engineer_dtos = [get_sales_engineer_dto(sales_engineer) for sales_engineer in list(sales_engineers)]
+
+        context = {
+            'sales_engineers': sales_engineer_dtos
+        }
+
+        return render(request, self.template_name, context)
+
+
+class SalesEngineerManagerView(LoginRequiredMixin, View):
+    template_name = 'sales_engineer_managers.html'
+
+    def get(self, request):
+        sales_engineers = []
+
+        user            = request.user
+
+        if not user.is_superuser:
+
+            #add redirect statement
+            return ""
+
+        sales_engineer_managers     = User.objects.filter(groups__name="sales engineer manager").all()
+
+        sales_engineer_managers_dto = [get_sales_engineer_manager_dto(se) for se in sales_engineer_managers]
+
+
+        context = {
+            'sales_engineer_managers': sales_engineer_managers_dto
+        }
+
+        return render(request, self.template_name, context)
+
+
 
 
 @require_GET

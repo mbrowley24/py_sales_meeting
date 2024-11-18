@@ -52,7 +52,6 @@
     background: rgba(120, 120, 120, 1);
     border: 0.10rem solid grey;
     border-radius: .25rem;
-    height: 8vh;
     margin: 1rem auto;
     overflow: hidden;
     padding: .35vw;
@@ -101,6 +100,33 @@
     text-align: center;
     text-transform: capitalize;
 }
+
+.form-group-textarea{
+    background: rgba(150, 150, 150, 1);
+    border: 0.10rem solid grey;
+    border-radius: .25rem;
+    height: 15vh;
+    margin: 1rem auto;
+    overflow: hidden;
+    padding: .35vw;
+    text-align: center;
+    width: 20vw;
+}
+.form-group-textarea label{
+    display: block;
+}
+
+
+.form-group-textarea textarea{
+    background: rgba(200, 200, 200, 1);
+    border-radius: .25rem;
+    height: 10vh;
+    padding: .15rem;
+    text-align: center;
+    width: 20rem;
+}
+
+
 
 .submit{
     height: 5vh;

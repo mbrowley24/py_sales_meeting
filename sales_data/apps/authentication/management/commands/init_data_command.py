@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from apps.salesreps.models import SalesRoles
-from apps.appointmenttracker.models import AppointmentType
+from apps.appointments.models import AppointmentType
 from utils.helper import generate_public_id
 from apps.formData.models.timezone import Timezone
 from apps.formData.models.division import Division, Region

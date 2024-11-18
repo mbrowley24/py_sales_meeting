@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.appointmenttracker',
+    'apps.appointments',
     'apps.authentication',
     'apps.formData',
     'apps.Management',
@@ -134,6 +134,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+LOGOUT_REDIRECT_URL = '/'
 
 # Additional locations the staticfiles app will traverse to find static files
 STATICFILES_DIRS = [

@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.forms import AuthenticationForm, User
@@ -20,7 +21,9 @@ def app_login(request):
         return render(request, 'login.html', context)
 
     elif request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+
+
+        form = AuthenticationForm(request, data=request.POST)
 
         #validate for data
         if form.is_valid():
@@ -63,3 +66,6 @@ def app_login(request):
         return render(request, 'login.html', context)
 
 
+def logout_view(request):
+    logout(request)
+    return redirect(reverse('apps.authentication:login'))

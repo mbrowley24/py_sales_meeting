@@ -1,0 +1,67 @@
+{%  extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files  %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <h1 class="title">new appointment</h1>
+            <div class="links">
+                <a href="{% url 'apps.appointments:appointment_list' %}">back to appointments</a>
+            </div>
+       <div class="form-col-container">
+           <div class="form-column">
+
+           </div>
+            <div class="form-column">
+                <form class="form-med" method="POST" action="{% url 'apps.appointments:new_appointment' %}">
+                     <div class="form-group">
+                        {{ form.title.label_tag }}
+                        {{ form.title }}
+                        <p class="errors" id="email_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.time.label_tag }}
+                        {{ form.time }}
+                        <p class="errors" id="first_name_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.date.label_tag }}
+                        {{ form.date }}
+                        <p class="errors" id="last_name_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.type.label_tag }}
+                        {{ form.type }}
+                        <p class="errors" id="role_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.sales_representative.label_tag }}
+                        {{ form.sales_representative }}
+                        <p class="errors" id="quota_message"></p>
+                    </div>
+                    <div class="form-group-textarea">
+                        {{ form.notes.label_tag }}
+                        {{ form.notes }}
+                    </div>
+                    <div class="submit">
+                        {% csrf_token %}
+                        <button id="save">Save</button>
+                    </div>
+                </form>
+            </div>
+           <div class="form-column">
+           </div>
+       </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+
+    <script src="{% static 'js/validation.js' %}"></script>
+    <script type="module" src="{% static 'js/management/js/sales_rep_form.js' %}"></script>
+{% endblock %}

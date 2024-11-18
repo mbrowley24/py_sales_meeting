@@ -9,53 +9,53 @@ from utils.form_validation import email_regex, name_regex, username_regex
 class SalesRepForm(forms.Form):
 
     first_name = forms.CharField(
-        max_length=50,
-        required=True,
-        widget=forms.TextInput(
+        max_length = 50,
+        required   = True,
+        widget     = forms.TextInput(
+            attrs = {'class': 'form-control'}
+        )
+    )
+
+    last_name  = forms.CharField(
+        max_length = 50,
+        required   = True,
+        widget     = forms.TextInput(
+            attrs = {'class': 'form-control'}
+        )
+    )
+
+    email      = forms.EmailField(
+
+        required = True,
+        widget   = forms.EmailInput(
             attrs={'class': 'form-control'}
         )
     )
 
-    last_name = forms.CharField(
-        max_length=50,
-        required=True,
-        widget=forms.TextInput(
-            attrs={'class': 'form-control'}
-        )
-    )
-
-    email = forms.EmailField(
-
-        required=True,
-        widget=forms.EmailInput(
-            attrs={'class': 'form-control'}
-        )
-    )
-
-    quota = forms.CharField(
-        max_length=13,
-        required=True,
-        widget=forms.TextInput(
+    quota      = forms.CharField(
+        max_length = 13,
+        required   = True,
+        widget     = forms.TextInput(
             attrs={'class': 'form-control'}
         )
     )
 
     sales_engineer = forms.ModelChoiceField(
-        queryset=User.objects.filter(groups__name='sales engineer').distinct(),
-        required=True,
-        empty_label="Choose Sales Engineer",
+        queryset    = User.objects.filter(groups__name='sales engineer').distinct(),
+        required    = True,
+        empty_label = "Choose Sales Engineer",
     )
 
-    role = forms.ModelChoiceField(
-        queryset=SalesRoles.objects.all(),
-        required=True,
-        empty_label='Select Role',
+    role           = forms.ModelChoiceField(
+        queryset    = SalesRoles.objects.all(),
+        required    = True,
+        empty_label ='Select Role',
     )
 
 
 
     def __init__(self, *args, **kwargs):
-        sales_engineer = kwargs.pop('sales_engineer', None)
+        sales_engineer      = kwargs.pop('sales_engineer', None)
         skip_sales_engineer = kwargs.pop('skip_sales_engineer', False)
         super(SalesRepForm, self).__init__(*args, **kwargs)
 
@@ -71,10 +71,9 @@ class SalesRepForm(forms.Form):
 
     def clean(self):
         clean_data = super().clean()
-        print(clean_data)
         first_name = clean_data['first_name']
-        last_name = clean_data['last_name']
-        email = clean_data['email']
+        last_name  = clean_data['last_name']
+        email      = clean_data['email']
 
 
 

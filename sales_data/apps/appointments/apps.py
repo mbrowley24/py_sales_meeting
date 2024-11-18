@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class AppointmenttrackerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.appointmenttracker'
+    name = 'apps.appointments'

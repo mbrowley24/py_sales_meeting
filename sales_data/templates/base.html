@@ -24,7 +24,12 @@
                             <li class="dropdown">
                                 <a>Sales</a>
                                 <div class="dropdown-content">
-{#                                    <a href="{% url 'apps.company:companies' %}?page=1&limit=15">Company</a>#}
+                                {% if user.sales_reps.all|length > 0 %}
+                                    <a href="{% url 'apps.appointments:appointment_list' %}">Appointments</a>
+                                    <a href="{% url 'apps.sales_rep:sales_rep_table' %}">Sales Reps</a>
+                                {% else %}
+                                    <a class="disabled-link">Appointments</a>
+                                {% endif %}
 {#                                    <a href="{% url 'apps.meetings:meetings' %}?page=1&limit=10">Meetings</a>#}
 {#                                    <a href="{% url 'apps.salesOpportunities:opportunity' %}">Opportunity</a>#}
 {#                                    <a href="{% url "apps.salesReps:sales_reps" %}">Sales Team</a>#}
@@ -66,7 +71,7 @@
                                     {% endif %}
                                     {% if user.is_staff %}<a href="">Add User</a>{% endif %}
                                         <a href="#">Edit Account</a>
-                                    <a href="">Logout</a>
+                                    <a href="{% url 'apps.authentication:logout' %}">Logout</a>
                                 </div>
                             </li>
                         {% endif %}

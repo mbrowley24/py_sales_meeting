@@ -26,8 +26,10 @@ export const clean_value =(text) =>{
 export const value_format = (value_text) =>{
     console.log(value_text)
     if(!value_text){
+        console.log('return here')
         return "0.00"
     }
+
 
     value_text = String(value_text)
 
@@ -36,6 +38,7 @@ export const value_format = (value_text) =>{
     if(cleaned_value.length ===0){
         return "0.00";
     }
+
 
     let value = Number(cleaned_value);
 
@@ -92,4 +95,23 @@ export const password_check = (password) =>{
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     return passwordPattern.test(password)
+}
+
+
+export const text_validation = (text) =>{
+    const pattern = /^[a-zA-Z0-9\s.,!?'"(){}[\]@#%^&*\-_=+:;~]*$/;
+
+    return pattern.test(text)
+}
+
+export const time_validation = (time) =>{
+    const pattern = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
+
+    return pattern.test(time)
+}
+
+export const date_validation = (date) =>{
+    const pattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+
+    return pattern.test(date);
 }

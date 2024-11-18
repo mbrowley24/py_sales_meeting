@@ -119,6 +119,8 @@ nav ul li a:hover {
     font-weight: bold;
 }
 
+
+
 .dropdown {
     position: relative;
 }
@@ -153,4 +155,8 @@ nav ul li a:hover {
     display: block;
     border-radius: .25rem;
     text-transform: capitalize;
+}
+
+.disabled-link{
+    color: grey;
 }

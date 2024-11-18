@@ -8,27 +8,24 @@
 
 
 {% block content %}
-    <div>
+    <div class="container">
         <h1 class="title">Sales Representatives</h1>
-        {% if user.is_superuser %}
-            <div class="links">
-                <a href="">new sales representative</a>
-            </div>
-        {% endif %}
+        <div class="links">
+            <p id="team_quota"></p>
+        </div>
         <div id="table_div">
-            <table class="table">
+            <table class="table" id="sales_rep_table">
                 <thead>
                     <tr>
                         <th class="">role</th>
                         <th class="">first name</th>
                         <th class="">last name</th>
                         <th class="">email</th>
-                        <th class="">phone</th>
                         <th class="">quota</th>
                         <th class="">updated</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="table_body">
                     {% for sales in sales_reps %}
 
 
@@ -44,6 +41,7 @@
 {% endblock %}
 
 {% block page_scripts %}
+    {{ sales_reps|json_script:"sales_rep_data" }}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="{% static 'js/sales_reps/js/sales_rep_table.js' %}"></script>
+    <script type="module" src="{% static 'js/sales_reps/js/sales_rep_table.js' %}"></script>
 {% endblock %}

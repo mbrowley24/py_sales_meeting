@@ -17,12 +17,13 @@ def sales_reps(request):
 
     if request.method == 'GET':
 
-        sales_representatives = SalesRepresentative.objects.filter(sales_engineer=user)
 
-        sales_rep_dtos = [model_to_dataclass(model) for model in sales_representatives]
+
+        sales_rep_dtos = [model_to_dataclass(model) for model in user.sales_reps.all()]
+
 
         context = {
-            'sales_reps': sales_reps,
+            'sales_reps': sales_rep_dtos,
         }
 
         return render(request, 'sales_rep_table.html', context)
