@@ -13,6 +13,10 @@
         <div class="links">
             <a href="{% url 'apps.appointments:new_appointment'%}">New Appointment</a>
         </div>
+        <div class="search-group">
+            <label for="search">Search Products</label>
+            <select multiple id="search"></select>
+        </div>
         <div id="table_div">
             <table class="table">
                 <thead>
@@ -32,6 +36,6 @@
 {% endblock %}
 
 {% block page_scripts %}
-    {{ appointments|json_script:"appointments_data" }}
+    {{ appointment_list|json_script:"appointments_data" }}
     <script type="module" src="{% static 'js/appointments/appointment_table.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,28 @@
+PRI/Advanced voice trunk	
+BVE/cloud PBX	
+SIP/Advanced voice product
+Masergy/Global solutions
+CP/Connection Pro
+WifiPro/small business Wifi	
+Mobility/Business voice products
+CBM/Comcast Business Mobile cell
+BTV/Business TV
+ZipWhip/
+Hospitality/Q2Q, Q2IP, HDuDTA
+Mini MDTA/minimdta
+BI/Business class internet  coax based
+EDI/fiber internet	
+EPL/ethernet point to point connection	
+EVPL/ethernet point to multipoint	
+ENS/ethernet multipoint to multipoint
+EDR/end point detection and response
+WAVE/wave length services
+SDWAN/SDWAN - Activecore product
+MR/Managed Router - Activecore product
+UTM/Part of activecore service - Unified Threat Management
+DDoS/Denial of service - for edi products
+X14H/X1 video service for hospitality
+OIA/DIA, oDIA, Type II	
+CC/Cloud connectivity - AWS and AZURE
+Deep Blue/Managed WIFI
+PS/Professionals services - IT related

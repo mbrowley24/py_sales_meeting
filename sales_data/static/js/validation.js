@@ -1,14 +1,6 @@
 console.log("validation")
 
 
-
-
-export const email_validation = (email) =>{
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,150}$/;
-
-    return emailPattern.test(email)
-}
-
 //value functions
 const add_commas_to_value = (value) =>{
 
@@ -23,8 +15,94 @@ export const clean_value =(text) =>{
     return text.replace(/\D/g, "");
 }
 
+
+export const clean_email = (email) => {
+    const pattern = /[^a-zA-Z0-9._%+\-@]+/g;
+
+    return email.replaceAll(pattern, '')
+}
+
+export const clean_name = (name) =>{
+    const pattern = /[^A-Za-zÀ-ÖØ-öø-ÿ-' ]+/g;
+
+    return name.replaceAll(pattern, '')
+}
+
+export const clean_text = (text) =>{
+    const pattern = /[^a-zA-Z0-9\s.,!?'"(){}[\]@#%^&*\-_=+:;~]/g;
+
+    return text.replaceAll(pattern, '');
+}
+
+export const clean_title = (title) =>{
+
+    if(!title) return '';
+
+    const pattern = /[^a-zA-Z0-9\s.,:;'"-]/g;
+
+    return title.replaceAll(pattern, '');
+}
+
+
+export const clean_username = (username) =>{
+    const cleanPattern = /[^a-zA-Z0-9._-]+/g;
+
+    return username.replaceAll(cleanPattern, '');
+}
+
+export const date_validation = (date) =>{
+    const pattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+
+    return pattern.test(date);
+}
+
+export const email_validation = (email) =>{
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,150}$/;
+
+    return emailPattern.test(email)
+}
+
+
+export const name_validation = (name) =>{
+    const pattern = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[-' ][A-Za-zÀ-ÖØ-öø-ÿ]+)?$/;
+
+    return pattern.test(name);
+}
+
+export const password_check = (password) =>{
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    return passwordPattern.test(password)
+}
+
+
+export const text_validation = (text) =>{
+    const pattern = /^[a-zA-Z0-9\s.,!?'"(){}[\]@#%^&*\-_=+:;~]*$/;
+
+    return pattern.test(text)
+}
+
+export const time_validation = (time) =>{
+    const pattern = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
+
+    return pattern.test(time)
+}
+
+
+export const title_validation = (title) =>{
+    const pattern = /^[a-zA-Z0-9\s.,:;'"-]+$/;
+
+    return pattern.test(title);
+}
+
+export const username_validation = (username) =>{
+    const pattern = /^[a-zA-Z0-9._-]{3,50}$/;
+
+    return pattern.test(username)
+}
+
 export const value_format = (value_text) =>{
-    console.log(value_text)
+
     if(!value_text){
         console.log('return here')
         return "0.00"
@@ -50,6 +128,7 @@ export const value_format = (value_text) =>{
 
 }
 
+
 export const value_valid = (value) =>{
     const test_value = clean_value(value);
 
@@ -57,61 +136,4 @@ export const value_valid = (value) =>{
     const pattern  = /^\d{3,13}$/;
 
     return pattern.test(test_value);
-}
-
-export const clean_email = (email) => {
-    const pattern = /[^a-zA-Z0-9._%+\-@]+/g;
-
-    return email.replaceAll(pattern, '')
-}
-
-export const name_validation = (name) =>{
-    const pattern = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[-' ][A-Za-zÀ-ÖØ-öø-ÿ]+)?$/;
-
-    return pattern.test(name);
-}
-
-export const clean_name = (name) =>{
-    const pattern = /[^A-Za-zÀ-ÖØ-öø-ÿ-' ]+/g;
-
-    return name.replaceAll(pattern, '')
-}
-
-
-
-export const username_validation = (username) =>{
-    const pattern = /^[a-zA-Z0-9._-]{3,50}$/;
-
-    return pattern.test(username)
-}
-
-export const clean_username = (username) =>{
-    const cleanPattern = /[^a-zA-Z0-9._-]+/g;
-
-    return username.replaceAll(cleanPattern, '');
-}
-
-export const password_check = (password) =>{
-    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-    return passwordPattern.test(password)
-}
-
-
-export const text_validation = (text) =>{
-    const pattern = /^[a-zA-Z0-9\s.,!?'"(){}[\]@#%^&*\-_=+:;~]*$/;
-
-    return pattern.test(text)
-}
-
-export const time_validation = (time) =>{
-    const pattern = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
-
-    return pattern.test(time)
-}
-
-export const date_validation = (date) =>{
-    const pattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
-
-    return pattern.test(date);
 }

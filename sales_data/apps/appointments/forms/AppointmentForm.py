@@ -2,17 +2,19 @@ from django import forms
 
 
 from apps.appointments.models import AppointmentType
+from apps.formData.models.products import Products
 
 from apps.salesreps.models import SalesRepresentative, SalesRoles
-from utils.form_validation import date_pattern, time_pattern, text_regex
+from utils.form_validation import date_pattern, time_pattern, text_regex, title_regex
 
 class AppointmentForm(forms.Form):
 
     time = forms.CharField(
-        required = True,
-        widget   = forms.TimeInput(
-            format='%H:%M',
-            attrs = {
+        required      = True,
+        widget        = forms.TimeInput(
+
+            format = '%H:%M',
+            attrs  = {
                 'type' : 'time',
                 'class': 'form-control',
             }
@@ -23,61 +25,67 @@ class AppointmentForm(forms.Form):
     )
 
     date = forms.DateField(
-        required = True,
-        widget   = forms.DateInput(
-                attrs = {
-                    'type'  : 'date',
-                    'class' : 'form-control',
-                }
+        required      = True,
+        widget        = forms.DateInput(
+            attrs = {
+                'type'  : 'date',
+                'class' : 'form-control',
+            }
         ),
-        error_messages={
+        error_messages = {
             'required': "date is required",
         }
 
     )
 
     title = forms.CharField(
-        max_length = 100,
-        required   = True,
-        widget     = forms.TextInput(
+        max_length     = 100,
+        required       = True,
+        widget         = forms.TextInput(
 
         ),
-        error_messages={
+        error_messages = {
             'required': "title is required",
         }
     )
 
     notes = forms.CharField(
-        max_length = 255,
-        required   = True,
-        widget     = forms.Textarea(
-            attrs = {
+        max_length     = 255,
+        required       = True,
+        widget         = forms.Textarea(
 
-            }
         ),
-        error_messages={
+        error_messages = {
             'required': "notes is required",
         }
     )
 
     type = forms.ModelChoiceField(
-        queryset = AppointmentType.objects.all(),
-        required = True,
         empty_label = "Select Meeting Type",
-        label = "Type",
         error_messages={
             'required': "type is required",
-        }
+        },
+        label = "Type",
+        queryset = AppointmentType.objects.all(),
+        required = True,
+
+    )
+
+    products = forms.ModelMultipleChoiceField(
+
+        label       = "Products",
+        queryset    = Products.objects.all().order_by('name'),
+        required    = True,
     )
 
     sales_representative = forms.ModelChoiceField(
-
-        queryset = SalesRepresentative.objects.all(),
-        required=True,
-        empty_label = "Select Sales Representative",
-        error_messages={
+        empty_label    = "Select Sales Representative",
+        error_messages = {
             'required': "sales rep is required",
-        }
+        },
+        queryset       = SalesRepresentative.objects.all(),
+        required       = True,
+
     )
 
 
@@ -93,8 +101,6 @@ class AppointmentForm(forms.Form):
 
             sales_reps = SalesRepresentative.objects.filter(sales_engineer=sales_engineer)
 
-
-
             self.fields['sales_representative'].initial = sales_reps
 
         if skip_sales_rep:
@@ -103,7 +109,6 @@ class AppointmentForm(forms.Form):
 
     def clean(self):
         clean_data = super().clean()
-        print(clean_data)
         title = clean_data['title']
         notes = clean_data['notes']
         date  = clean_data['date']
@@ -118,7 +123,7 @@ class AppointmentForm(forms.Form):
         if not text_regex(title):
             self.add_error('title', "invalid character")
 
-        if len(title) > 255:
+        if len(title) > 100:
             self.add_error('title', "must be 255 characters or less")
 
         if not date:

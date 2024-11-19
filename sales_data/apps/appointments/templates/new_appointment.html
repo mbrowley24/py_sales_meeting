@@ -22,31 +22,37 @@
                      <div class="form-group">
                         {{ form.title.label_tag }}
                         {{ form.title }}
-                        <p class="errors" id="email_error_message"></p>
+                        <p class="errors" id="title_error_message"></p>
                     </div>
                     <div class="form-group">
                         {{ form.time.label_tag }}
                         {{ form.time }}
-                        <p class="errors" id="first_name_error_message"></p>
+                        <p class="errors" id="time_error_message"></p>
                     </div>
                     <div class="form-group">
                         {{ form.date.label_tag }}
                         {{ form.date }}
-                        <p class="errors" id="last_name_error_message"></p>
+                        <p class="errors" id="date_error_message"></p>
                     </div>
                     <div class="form-group">
                         {{ form.type.label_tag }}
                         {{ form.type }}
-                        <p class="errors" id="role_message"></p>
+                        <p class="errors" id="type_error_message"></p>
                     </div>
                     <div class="form-group">
                         {{ form.sales_representative.label_tag }}
                         {{ form.sales_representative }}
-                        <p class="errors" id="quota_message"></p>
+                        <p class="errors" id="sales_representative_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.products.label_tag }}
+                        {{ form.products }}
+                        <p class="errors" id="products_error_message"></p>
                     </div>
                     <div class="form-group-textarea">
                         {{ form.notes.label_tag }}
                         {{ form.notes }}
+                        <p class="errors" id="notes_error_message"></p>
                     </div>
                     <div class="submit">
                         {% csrf_token %}
@@ -63,5 +69,5 @@
 {% block page_scripts %}
 
     <script src="{% static 'js/validation.js' %}"></script>
-    <script type="module" src="{% static 'js/management/js/sales_rep_form.js' %}"></script>
+    <script type="module" src="{% static 'js/appointments/new_appointment.js' %}"></script>
 {% endblock %}

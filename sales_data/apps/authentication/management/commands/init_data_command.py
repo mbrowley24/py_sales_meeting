@@ -1,9 +1,12 @@
-from django.core.management.base import BaseCommand, CommandError
 from apps.salesreps.models import SalesRoles
 from apps.appointments.models import AppointmentType
-from utils.helper import generate_public_id
 from apps.formData.models.timezone import Timezone
 from apps.formData.models.division import Division, Region
+from apps.formData.models.products import Products
+from django.conf import settings
+from django.core.management.base import BaseCommand, CommandError
+import os
+from utils.helper import generate_public_id
 
 #Create sales roles to identify the sale rep roles
 def create_sales_roles():
@@ -54,6 +57,36 @@ def create_appointment_type():
                 'description' : value,
             }
             AppointmentType.objects.create(**fields)
+
+
+#creates products
+def create_products():
+
+    file_path = os.path.join(settings.BASE_DIR, 'static/data/products.txt')
+
+    try:
+        file = open(file_path, 'r')
+
+        for line in file:
+
+            parts = line.lower().strip().split('/')
+
+            try:
+
+                Products.objects.get(name=parts[0])
+                continue
+            except Products.DoesNotExist:
+
+                Products.objects.create(
+                    public_id   = generate_public_id(Products),
+                    name        = parts[0],
+                    description = parts[1],
+                )
+                print("created product")
+
+    except FileNotFoundError:
+        print("File doesn't exist")
+
 
 
 #Creates timezones that are assigned to sales engineers, manager, and sales reps
@@ -135,7 +168,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         # Create a user
-        create_sales_roles()
         create_appointment_type()
-        create_timezone()
         create_divisions_regions()
+        create_products()
+        create_sales_roles()
+        create_timezone()
+

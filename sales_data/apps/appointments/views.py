@@ -4,6 +4,7 @@ from apps.salesreps.models import SalesRepresentative, SalesRoles
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms.models import model_to_dict
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 from django.views.generic import View
@@ -13,61 +14,80 @@ from django.utils.timezone import make_aware
 from utils.helper import generate_public_id, generate_random_string
 from utils.form_validation import username_regex, email_regex, value_cleaner
 from .forms import AppointmentForm
-from .models import Appointment
+from .models import Appointment, AppointmentProduct
 
 from ..salesreps.views import sales_reps
 
 
-
+#AppointmentListView get appoints from the last 30 days until current date for the authenticated user
 class AppointmentListView(LoginRequiredMixin, View):
     template_name = 'appointment_table.html'
 
     def get(self, request):
-        past_days = request.GET.get('past_days', 30)
-        user = request.user
-        date_window = make_aware(datetime.now()) - timedelta(days=past_days)
+        #query param with 30 set as the default
+        past_days        = request.GET.get('past_days', 30)
 
-        appointments  = Appointment.objects.filter(date__gte=date_window).filter(sales_engineer=user)
+        #authenicated user
+        user             = request.user
+
+        #the current date
+        today            = make_aware(datetime.combine(datetime.now() + timedelta(days=20), datetime.max.time()))
+
+
+        #the date 30 days in the past
+        date_window      =  make_aware(datetime.combine((today - timedelta(days=past_days)), datetime.min.time()))
+
+
+
+        appointments     = (Appointment.objects.filter(date__gte=date_window)
+                            .filter(date__lte=today)
+                            .filter(sales_engineer=user)
+                            .prefetch_related("products__product")
+                            .prefetch_related("sales_representative"))
+
 
         appointment_list = []
+
         for appointment in appointments:
 
-            time_string = appointment.date.time().replace(second=0, microsecond=0).strftime("%H:%M")
+            product_strings = []
+
+            for product in appointment.products.all():
+                product_strings.append(model_to_dict(product.product)['name'])
+
+            time_string      = appointment.date.time().replace(second=0, microsecond=0).strftime("%H:%M")
             appointment_data = {
+                'id'        : appointment.public_id,
                 'time'      : time_string,
                 'date'      : appointment.date.strftime("%Y-%m-%d"),
                 'type'      : appointment.type.name,
                 'title'     : appointment.title,
                 'sales_rep' : f"{appointment.sales_representative.first_name} {appointment.sales_representative.last_name}",
+                'products'  : product_strings,
             }
 
             appointment_list.append(appointment_data)
 
         context = {
-            'appointment_list': appointment_list
+            'appointment_list' : appointment_list
         }
 
         return render(request, self.template_name, context)
 
 
 
+#NewAppointmentView sets up a form to create and save new appointments for the Authenticated user
 class NewAppointmentView(LoginRequiredMixin, View):
     template_name = 'new_appointment.html'
     form          = AppointmentForm.AppointmentForm()
 
     def get(self, request):
 
+        user      = request.user
 
-        try:
+        self.form = AppointmentForm.AppointmentForm(sales_engineer=user)
 
-            user      = User.objects.get(id=request.user.id)
-            self.form = AppointmentForm.AppointmentForm(sales_engineer=user)
-
-        except User.DoesNotExist:
-            print("doesn't exists")
-
-
-        context = {
+        context   = {
             'form': self.form
         }
 
@@ -88,7 +108,7 @@ class NewAppointmentView(LoginRequiredMixin, View):
                 time(int(split_time[0]), int(split_time[1]))
             )
 
-            Appointment.objects.create(
+            appointment = Appointment.objects.create(
                 public_id            = generate_public_id(Appointment),
                 date                 = apt_date_time,
                 title                = self.form.cleaned_data['title'],
@@ -98,10 +118,29 @@ class NewAppointmentView(LoginRequiredMixin, View):
                 sales_engineer       = user,
             )
 
+
+            for product in self.form.cleaned_data['products']:
+
+                try:
+
+                    AppointmentProduct.objects.get(
+                        appointment = appointment,
+                        product     = product
+                    )
+
+                    continue
+
+                except AppointmentProduct.DoesNotExist:
+
+                    AppointmentProduct.objects.create(
+                        appointment = appointment,
+                        product     = product,
+                    )
+
             return redirect(reverse('apps.appointments:appointment_list'))
 
         else:
-            print(self.form.errors)
+
             context = {
                 'form': self.form
             }
