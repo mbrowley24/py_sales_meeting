@@ -1,0 +1,50 @@
+{%  extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files  %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+    <div>
+        <h1 class="title">dashboard</h1>
+    </div>
+        <div>
+            <div class="dashboard-row">
+                <div class="dashboard-chart">
+                    <canvas></canvas>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="dashboard-row">
+                <div class="dashboard-chart" >
+                    <canvas id="meeting-chart"></canvas>
+                </div>
+                <div class="dashboard-chart">
+                    <canvas id="sales-rep-meeting-chart"></canvas>
+                </div>
+            </div>
+            <div class="dashboard-row">
+                <div class="dashboard-chart" >
+                    <canvas id="type-meeting-chart"></canvas>
+                </div>
+                <div class="dashboard-chart">
+                    <canvas id="product-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+    {{ appointment_data|json_script:"appointment_data" }}
+    {{ sales_reps|json_script:"sales_reps" }}
+    {{ products|json_script:"products" }}
+    {{ appointment_type_names|json_script:"appointment_type_names" }}
+
+    <script type="module" src="{% static 'js/dashboard/dashboard.js' %}"></script>
+{% endblock %}

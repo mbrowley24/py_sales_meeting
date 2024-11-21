@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.appointments',
     'apps.authentication',
+    'apps.dashboard',
     'apps.formData',
     'apps.Management',
     'apps.salesreps',

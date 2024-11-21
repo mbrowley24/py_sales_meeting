@@ -1,0 +1,27 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+canvas{
+    height: 1vh;
+    width: 75vw;
+
+}
+
+.dashboard-row{
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+    border: 2px solid black;
+}
+
+.dashboard-chart{
+    background: rgba(255, 255, 255, 1);
+    height: 30vh;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1%;
+    overflow: hidden;
+    width: 45vw;
+}

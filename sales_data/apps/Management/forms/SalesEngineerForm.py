@@ -66,7 +66,11 @@ class SalesEngineerForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(SalesEngineerForm, self).__init__(*args, **kwargs)
 
+        self.fields['manager'].label_from_instance = self.get_user_label
 
+    def get_user_label(self, manager):
+        # Customize this method to display the desired text
+        return f"{manager.first_name} {manager.last_name}"
 
     def clean(self):
         clean_data = super().clean()

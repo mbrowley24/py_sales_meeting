@@ -244,6 +244,8 @@ class NewSalesEngineerManagerView(LoginRequiredMixin, View):
                     email          = self.form.cleaned_data['email'].lower().strip(),
                 )
                 new_sales_engineer.set_password(password)
+                new_sales_engineer.save()
+
                 manager_group     = Group.objects.get(name="sales engineer manager")
 
                 new_sales_engineer.groups.add(manager_group)
