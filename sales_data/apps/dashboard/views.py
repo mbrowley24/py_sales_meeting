@@ -32,7 +32,8 @@ def dashboard(request):
                             .prefetch_related('type')
                             ).order_by('date')
 
-
+        print("what is the error")
+        print(appointments)
         appointment_data = []
         for appointment in appointments:
             product_strings   = []
@@ -51,7 +52,7 @@ def dashboard(request):
 
             appointment_data.append(data_point)
 
-        sales_reps      = SalesRepresentative.objects.filter(sales_engineer= user)
+        sales_reps      = SalesRepresentative.objects.filter(sales_engineer = user)
 
         sales_reps_names = []
 

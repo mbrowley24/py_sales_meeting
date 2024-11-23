@@ -35,7 +35,7 @@ class AssignSalesRepsToSalesEngineers(LoginRequiredMixin, View):
             user  = User.objects.get(profile__public_id=rep_id)
             # self.form.fields['sales_engineer'].initial = user
 
-            self.form = SalesRepForm(sales_engineer=user, skip_sales_engineer=True)
+            self.form = SalesRepForm(sales_engineer = user, skip_sales_engineer = True)
 
             context = {'form'   : self.form,
                        'rep_id' : rep_id

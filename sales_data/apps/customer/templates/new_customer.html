@@ -1,0 +1,67 @@
+{%  extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files  %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <h1 class="title">new customer</h1>
+            <div class="links">
+                <a href="{% url 'apps.customer:customers' %}">Back to Customer</a>
+            </div>
+       <div class="form-col-container">
+           <div class="form-column">
+
+           </div>
+            <div class="form-column">
+                <form class="form-med" method="POST" action="{% url 'apps.appointments:new_appointment' %}">
+                     <div class="form-group">
+                        {{ form.name.label_tag }}
+                        {{ form.name }}
+                        <p class="errors" id="title_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.vertical.label_tag }}
+                        {{ form.vertical }}
+                        <p class="errors" id="time_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.sales_rep.label_tag }}
+                        {{ form.sales_rep }}
+                        <p class="errors" id="date_error_message"></p>
+                    </div>
+                    <div class="form-group">
+                        {{ form.sales_engineer.label_tag }}
+                        {{ form.sales_engineer }}
+                    </div>
+                    <div class="form-group-textarea">
+                        {{ form.notes.label_tag }}
+                        {{ form.notes }}
+                        <p class="errors" id="notes_error_message"></p>
+                    </div>
+                    <div class="submit">
+                        {% csrf_token %}
+                        <button id="save">Save</button>
+                    </div>
+                </form>
+            </div>
+           <div class="form-column">
+           </div>
+       </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+
+    <script src="{% static 'js/validation.js' %}"></script>
+    <script type="module" src="{% static 'js/appointments/new_appointment.js' %}"></script>
+{% endblock %}</title>
+</head>
+<body>
+
+</body>
+</html>

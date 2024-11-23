@@ -76,8 +76,6 @@ class EditSalesEngineerForm(forms.Form):
     )
 
 
-
-
     def clean(self):
         clean_data = super().clean()
 
