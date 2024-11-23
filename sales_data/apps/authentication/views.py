@@ -4,7 +4,6 @@ from django.urls import reverse
 from django.contrib.auth.forms import AuthenticationForm, User
 from django.contrib.auth import login, logout, authenticate
 
-from django.contrib.auth.decorators import login_required
 
 
 def app_login(request):
@@ -12,7 +11,7 @@ def app_login(request):
 
     if request.method == 'GET':
 
-        form = AuthenticationForm()
+        form    = AuthenticationForm()
 
         context = {
             'form': form
@@ -22,8 +21,7 @@ def app_login(request):
 
     elif request.method == 'POST':
 
-
-        form = AuthenticationForm(request, data=request.POST)
+        form = AuthenticationForm(request, data = request.POST)
 
         #validate for data
         if form.is_valid():
@@ -32,7 +30,9 @@ def app_login(request):
             password = form.cleaned_data.get('password')
 
             #authenticate user
-            user = authenticate(username=username, password=password)
+            user = authenticate(username = username,
+                                password = password
+                                )
 
             if user is not None:
                 login(request, user)
@@ -40,10 +40,10 @@ def app_login(request):
                 #check if superuser. If super go to sales rep table
                 if user.is_superuser:
 
-                    return redirect(reverse('apps.sales_rep:sales_rep_table'))
+                    return redirect(reverse('apps.dashboard:dashboard'))
 
                 else:
-                    return redirect(reverse('apps.sales_rep:sales_rep_table'))
+                    return redirect(reverse('apps.dashboard:dashboard'))
 
 
 

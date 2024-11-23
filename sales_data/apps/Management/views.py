@@ -14,25 +14,31 @@ from .forms.SalesEngineerManagerForm import SalesEngineerManagerForm
 from .forms.SalesRepForm import SalesRepForm
 from utils.form_validation import username_regex, email_regex, value_cleaner
 from .helper_functions.sales_engineer_dto import get_sales_engineer_dto, get_sales_engineer_manager_dto
-from ..salesreps.views import sales_reps
+from .tasks import EmailDataUserName, EmailDataPassword, send_username_new, send_password_new
 
 
 class AssignSalesRepsToSalesEngineers(LoginRequiredMixin, View):
     template_name = "new_sales_reps.html"
-    form = SalesRepForm()
+    form          = SalesRepForm()
 
     def get(self, request, rep_id):
 
+        # get user from the request
+        auth_user = request.user
+
+        # check if superuser
+        if not auth_user.is_superuser:
+            return redirect(reverse('apps.dashboard:dashboard'))
+
 
         try:
-            user = User.objects.get(profile__public_id=rep_id)
+            user  = User.objects.get(profile__public_id=rep_id)
             # self.form.fields['sales_engineer'].initial = user
 
             self.form = SalesRepForm(sales_engineer=user, skip_sales_engineer=True)
 
-            print(self.form)
-            context = {'form'  : self.form,
-                       'rep_id': rep_id
+            context = {'form'   : self.form,
+                       'rep_id' : rep_id
                        }
 
             return render(request, self.template_name, context)
@@ -44,9 +50,16 @@ class AssignSalesRepsToSalesEngineers(LoginRequiredMixin, View):
 
     def post(self, request, rep_id):
 
+        # get user from the request
+        auth_user = request.user
+
+        # check if superuser
+        if not auth_user.is_superuser:
+            return redirect(reverse('apps.dashboard:dashboard'))
+
         try:
 
-            user = User.objects.get(profile__public_id=rep_id)
+            user      = User.objects.get(profile__public_id=rep_id)
 
 
             self.form = SalesRepForm(request.POST, skip_sales_engineer=True)
@@ -72,8 +85,8 @@ class AssignSalesRepsToSalesEngineers(LoginRequiredMixin, View):
 
                 self.form.fields['sales_engineer'].initial = user
                 context = {
-                    'form': self.form,
-                    "rep_id": rep_id
+                    'form'   : self.form,
+                    'rep_id' : rep_id
                 }
                 return render(request, self.template_name, context)
 
@@ -89,6 +102,12 @@ class EditSalesEngineerView(LoginRequiredMixin, View):
 
         def get(self, request, rep_id):
 
+            # get user from the request
+            user = request.user
+
+            # check if superuser
+            if not user.is_superuser:
+                return redirect(reverse('apps.dashboard:dashboard'))
 
 
             try:
@@ -123,9 +142,17 @@ class SalesRepresentativeView(LoginRequiredMixin, View):
     template_name = 'sales_reps_table.html'
 
     def get(self, request, rep_id):
-        sales_rep_list = []
+
+        # get user from the request
+        user = request.user
+
+        # check if superuser
+        if not user.is_superuser:
+            return redirect(reverse('apps.dashboard:dashboard'))
 
         try:
+
+            sales_rep_list      = []
             sales_engineer      = User.objects.get(profile__public_id=rep_id)
             assigned_sales_reps = sales_engineer.sales_reps.all()
 
@@ -142,38 +169,52 @@ class SalesRepresentativeView(LoginRequiredMixin, View):
                     "quota"          : sales_rep.quota,
                 })
 
+            context = {
+                "id": rep_id,
+                "sales_representatives": sales_rep_list,
+            }
+
+
+            return render(request, self.template_name, context)
+
         except User.DoesNotExist:
             pass
 
 
-        context = {
-            "id"                    : rep_id,
-            "sales_representatives" : sales_rep_list,
-        }
 
-        return render(request, self.template_name, context)
 
 
 class NewSalesEngineerView(LoginRequiredMixin, View):
     template_name = 'new_sales_engineer.html'
-    form = SalesEngineerForm()
-    print("in here")
+    form          = SalesEngineerForm()
+
 
 
     #handle ger request
     def get(self, request):
 
-        user    = request.user
+        # get user from the request
+        user = request.user
 
+        # check if superuser
         if not user.is_superuser:
-            return "add redirect"
+            return redirect(reverse('apps.dashboard:dashboard'))
 
 
         context = {'form': self.form}
 
         return render(request, self.template_name, context)
 
+    #create a sales engineer
     def post(self, request):
+
+        # get user from the request
+        user = request.user
+
+        # check if superuser
+        if not user.is_superuser:
+            return redirect(reverse('apps.dashboard:dashboard'))
+
         self.form              = SalesEngineerForm(request.POST)
 
 
@@ -204,10 +245,33 @@ class NewSalesEngineerView(LoginRequiredMixin, View):
                 region    = self.form.cleaned_data['regions'],
             )
 
+            #email data to send to new user with username information only
+            EmailDataUserName(
+                sender    = "no-reply@yeomanswork.net",
+                recipient = new_sales_engineer.email,
+                name      = f'{new_sales_engineer.first_name} {new_sales_engineer.last_name}',
+                username  = new_sales_engineer.username,
+            )
 
+            #email data to send password information to user
+            EmailDataPassword(
+                sender    = "no-reply@yeomanswork.net",
+                recipient = new_sales_engineer.email,
+                name      = f'{new_sales_engineer.first_name} {new_sales_engineer.last_name}',
+                password  = password,
+            )
+
+            #send username email
+            send_username_new(EmailDataUserName)
+
+            #send username password
+            send_password_new(EmailDataPassword)
+
+            #redirect to sales engineers
             return redirect(reverse('apps.management:sales_engineers'))
 
 
+        #here if form is not valid
         context = {
             'form' : self.form,
             'edit' : False,
@@ -217,20 +281,36 @@ class NewSalesEngineerView(LoginRequiredMixin, View):
 
 class NewSalesEngineerManagerView(LoginRequiredMixin, View):
         template_name = "new_se_manager.html"
-        form = SalesEngineerManagerForm()
+        form          = SalesEngineerManagerForm()
 
+        #new sales manager form
         def get(self, request):
+
+            user = request.user
+
+            if not user.is_superuser:
+                return redirect(reverse('apps.dashboard:dashboard'))
+
 
 
             context = {
-                "form": self.form,
+                "form" : self.form,
             }
 
             return render(request, self.template_name, context)
 
 
+
+
         def post(self, request):
             self.form     = SalesEngineerManagerForm(request.POST)
+
+            #get user from the request
+            user = request.user
+
+            #check if superuser
+            if not user.is_superuser:
+                return redirect(reverse('apps.dashboard:dashboard'))
 
             if self.form.is_valid():
 
@@ -246,7 +326,7 @@ class NewSalesEngineerManagerView(LoginRequiredMixin, View):
                 new_sales_engineer.set_password(password)
                 new_sales_engineer.save()
 
-                manager_group     = Group.objects.get(name="sales engineer manager")
+                manager_group     = Group.objects.get(name = 'sales engineer manager')
 
                 new_sales_engineer.groups.add(manager_group)
                 new_sales_engineer.save()
@@ -277,10 +357,12 @@ class SalesEngineerView(LoginRequiredMixin, View):
     #handle get request
     def get(self, request):
 
-        sales_engineers     = []
-        user                = request.user
+        # get user from the request
+        user = request.user
+
+        # if user is not a superuser redirect
         if not user.is_superuser:
-               return "fix reverse"
+            return redirect(reverse('apps.dashboard:dashboard'))
 
         sales_engineers     = User.objects.filter(is_superuser=False).filter(groups__name="sales engineer")
 
@@ -290,7 +372,7 @@ class SalesEngineerView(LoginRequiredMixin, View):
         sales_engineer_dtos = [get_sales_engineer_dto(sales_engineer) for sales_engineer in list(sales_engineers)]
 
         context = {
-            'sales_engineers': sales_engineer_dtos
+            'sales_engineers' : sales_engineer_dtos
         }
 
         return render(request, self.template_name, context)
@@ -300,14 +382,12 @@ class SalesEngineerManagerView(LoginRequiredMixin, View):
     template_name = 'sales_engineer_managers.html'
 
     def get(self, request):
-        sales_engineers = []
 
-        user            = request.user
+        #check if superuser
+        user = request.user
 
         if not user.is_superuser:
-
-            #add redirect statement
-            return ""
+            return redirect(reverse('apps.dashboard:dashboard'))
 
         sales_engineer_managers     = User.objects.filter(groups__name="sales engineer manager").all()
 
@@ -326,6 +406,17 @@ class SalesEngineerManagerView(LoginRequiredMixin, View):
 @require_GET
 @login_required(login_url='apps.authentication:login')
 def check_username(request):
+
+
+    user = request.user
+
+    #check if superuser
+    if not user.is_superuser:
+
+        return JsonResponse({
+            "available": False,
+            "message": "not authorized"
+        })
 
     #Get username for query param
     username = request.GET.get("username")
@@ -395,6 +486,14 @@ def check_username(request):
 @login_required(login_url='apps.authentication:login')
 def check_email(request):
 
+    user = request.user
+    #check if superuser
+    if not user.is_superuser:
+        return JsonResponse({
+            "available": False,
+            "message": "not authorized"
+        })
+
     #get email from post
     email = request.GET.get('email')
     id = request.GET.get('id')
@@ -451,6 +550,17 @@ def check_email(request):
 @require_GET
 @login_required(login_url='apps.authentication:login')
 def check_sales_rep_email(request):
+
+    #check if superuser
+    user = request.user
+
+    if not user.is_superuser:
+        return JsonResponse({
+            "available": False,
+            "message": "not authorized"
+        })
+
+
     email = request.GET.get('email')
     id = request.GET.get('id')
     response_data = {}

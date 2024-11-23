@@ -6,6 +6,7 @@ from apps.formData.models.products import Products
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 import os
+from .helper_functions import create_dummy_sales_managers, create_verticals
 from utils.helper import generate_public_id
 
 #Create sales roles to identify the sale rep roles
@@ -162,6 +163,8 @@ def create_divisions_regions():
                 )
 
 
+
+
 class Command(BaseCommand):
     help = 'Create a sales roles'
 
@@ -170,6 +173,8 @@ class Command(BaseCommand):
         # Create a user
         create_appointment_type()
         create_divisions_regions()
+        create_dummy_sales_managers()
+        create_verticals()
         create_products()
         create_sales_roles()
         create_timezone()

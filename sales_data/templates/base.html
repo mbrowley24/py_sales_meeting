@@ -38,6 +38,7 @@
                                 <div class="dropdown-content">
                                 {% if user.sales_reps.all|length > 0 %}
                                     <a href="{% url 'apps.appointments:appointment_list' %}">Appointments</a>
+                                    <a href="{% url 'apps.customer:customers' %}">Customers</a>
                                     <a href="{% url 'apps.sales_rep:sales_rep_table' %}">Sales Reps</a>
                                 {% else %}
                                     <a class="disabled-link">Appointments</a>

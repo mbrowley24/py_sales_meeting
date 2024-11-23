@@ -1,0 +1,37 @@
+{%  extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files  %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <h1 class="title">My Customers</h1>
+        <div class="links">
+            <a href="{% url 'apps.customer:assign_sales_reps' rep_id=id  %}">New Company</a>
+        </div>
+        <div id="table_div">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="">Name</th>
+                        <th class="">Vertical</th>
+                        <th class="">Sales Rep</th>
+                        <th class="">Sales Engineer</th>
+                        <th class="">Appointments</th>
+                        <th class="">edit</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+    {{ customer_data|json_script:"customer_data" }}
+    <script type="module" src="{% static 'js/management/js/sales_rep_management.js' %}"></script>
+{% endblock %}

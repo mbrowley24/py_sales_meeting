@@ -1,0 +1,19 @@
+Healthcare:Focuses on medical services, pharmaceuticals, and devices to improve health outcomes.
+Retail: Involves selling goods or services directly to consumers through physical or online channels.
+Technology:Develops software, hardware, and IT services to drive innovation and efficiency.
+Financial Services:Provides banking, investment, insurance, and other monetary management solutions.
+Telecommunications:Delivers communication services like internet, phone, and mobile networks.
+Education:Supports learning through schools, universities, and digital education platforms.
+Manufacturing: Produces goods using labor, machines, and raw materials for industrial and consumer use.
+Real Estate:Deals with the development, buying, selling, and management of properties.
+Transportation and Logistics:Manages the movement of goods and people efficiently.
+Energy and Utilities:Focuses on generating, distributing, and managing energy and water resources.
+Hospitality:Includes lodging, food services, and tourism to enhance customer experiences.
+Entertainment and Media:Produces and distributes content such as movies, TV shows, music, and games.
+Agriculture and Food:Involves farming, food production, and distribution for consumption.
+Aerospace and Defense:Designs and manufactures aircraft, spacecraft, and defense systems.
+Nonprofit:Works towards social, cultural, or environmental goals without a profit motive.
+Legal Services:Provides legal advice, representation, and documentation support.
+Consumer Goods:Produces and sells products directly to consumers, such as electronics and clothing.
+Construction:Builds infrastructure, residential, and commercial structures.
+Professional Services:Offers specialized expertise, including consulting, accounting, and marketing.

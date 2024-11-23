@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.appointments',
     'apps.authentication',
+    'apps.customer',
     'apps.dashboard',
     'apps.formData',
     'apps.Management',
@@ -154,3 +155,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#Message broker (using Redis)
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+
+#result backend
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
+
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
