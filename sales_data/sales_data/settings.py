@@ -47,8 +47,10 @@ INSTALLED_APPS = [
     'apps.authentication',
     'apps.customer',
     'apps.dashboard',
+    'apps.demo_data',
     'apps.formData',
     'apps.Management',
+    'apps.organization',
     'apps.salesreps',
 
 ]

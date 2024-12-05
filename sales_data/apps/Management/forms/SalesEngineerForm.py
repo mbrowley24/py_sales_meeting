@@ -1,65 +1,64 @@
 from select import select
 
 from django import forms
-from django.contrib.admin.utils import label_for_field
 from django.contrib.auth.models import User, Group
 from django.db.models import Q
 from apps.formData.models.timezone import Timezone
-from apps.formData.models.division import Region
+from apps.formData.models.customGroup import CustomGroup
 from utils.form_validation import email_regex, name_regex, username_regex
 
 class SalesEngineerForm(forms.Form):
 
     username = forms.CharField(
-        max_length=50,
-        required=True,
-        widget=forms.TextInput(
+        max_length = 50,
+        required   = True,
+        widget     = forms.TextInput(
             attrs={'class': 'form-control'}
         )
 
     )
 
     first_name = forms.CharField(
-        max_length=50,
-        required=True,
-        widget=forms.TextInput(
+        max_length = 50,
+        required   = True,
+        widget     = forms.TextInput(
             attrs={'class': 'form-control'}
         )
     )
 
     last_name = forms.CharField(
-        max_length=50,
-        required=True,
-        widget=forms.TextInput(
+        max_length = 50,
+        required   = True,
+        widget = forms.TextInput(
             attrs={'class': 'form-control'}
         )
     )
 
     email = forms.EmailField(
-        required=True,
-        widget=forms.EmailInput(
-            attrs={'class': 'form-control'}
+        required = True,
+        widget   = forms.EmailInput(
+            attrs = {'class': 'form-control'}
         )
     )
 
     manager = forms.ModelChoiceField(
-        queryset=User.objects.filter(groups__name='sales engineer manager').distinct(),
-        required=False,
-        empty_label="Choose Region",
+        queryset    = User.objects.filter(groups__name='sales engineer manager').distinct(),
+        required    = False,
+        empty_label = "Choose Region",
     )
 
     timezone = forms.ModelChoiceField(
-        queryset=Timezone.objects.all(),
-        required=True,
-        to_field_name='public_id',
-        empty_label='Select Timezone',
+        queryset      = Timezone.objects.all(),
+        required      = True,
+        to_field_name ='public_id',
+        empty_label   = 'Select Timezone',
     )
 
-    regions = forms.ModelChoiceField(
-        queryset=Region.objects.all(),
-        required=True,
-        to_field_name='public_id',
-        empty_label='Select Region',
+    group = forms.ModelChoiceField(
+        queryset      = CustomGroup.objects.all(),
+        required      = True,
+        to_field_name = 'public_id',
+        empty_label   = 'Select Region',
     )
 
 
@@ -81,8 +80,7 @@ class SalesEngineerForm(forms.Form):
         email = clean_data['email']
 
 
-        if User.objects.filter(Q(username=username) | Q(email=email)).exists():
-            print("exists by username error")
+        if User.objects.filter(Q(username = username) | Q(email = email)).exists():
             self.add_error('username', f'Username {username} exist')
 
         if not username_regex(username):

@@ -1,12 +1,11 @@
 from apps.salesreps.models import SalesRoles
 from apps.appointments.models import AppointmentType
 from apps.formData.models.timezone import Timezone
-from apps.formData.models.division import Division, Region
 from apps.formData.models.products import Products
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 import os
-from .helper_functions import create_dummy_sales_managers, create_verticals
+from .helper_functions import start_data
 from utils.helper import generate_public_id
 
 #Create sales roles to identify the sale rep roles
@@ -21,7 +20,7 @@ def create_sales_roles():
 
         try:
 
-            SalesRoles.objects.get(name=key)
+            SalesRoles.objects.get(name = key)
 
             # if user exists continue to next
             continue
@@ -115,54 +114,6 @@ def create_timezone():
             )
 
 
-#create regions and division for sales engineers and managers
-def create_divisions_regions():
-    divisions = {
-        'west' : [{'name':'california', 'abbr':'ca'},
-                  {'name':'pacific north west', 'abbr':'pnr'},
-                  {'name':'mountain west', 'abbr':'mwr'},]
-    }
-
-    for key, value in divisions.items():
-        division = None
-
-        try:
-            division = Division.objects.get(name=key)
-
-        except Division.DoesNotExist:
-
-            division = Division.objects.create(
-                public_id=generate_public_id(Division),
-                name=key,
-                description="",
-            )
-
-        if division is None:
-            continue
-
-        for region in value:
-
-            try:
-
-                region = Region.objects.get(
-                    name=region['name'],
-                    abbreviation=region['abbr']
-                )
-                if region.public_id == '':
-                    region.public_id = generate_public_id(Region)
-                    region.save()
-                continue
-
-            except Region.DoesNotExist:
-
-                Region.objects.create(
-                    public_id=generate_public_id(Region),
-                    name=region['name'],
-                    abbreviation=region['abbr'],
-                    division=division
-                )
-
-
 
 
 class Command(BaseCommand):
@@ -172,10 +123,8 @@ class Command(BaseCommand):
 
         # Create a user
         create_appointment_type()
-        create_divisions_regions()
-        create_dummy_sales_managers()
-        create_verticals()
         create_products()
         create_sales_roles()
         create_timezone()
+        start_data()
 

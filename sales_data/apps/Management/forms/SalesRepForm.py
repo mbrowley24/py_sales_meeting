@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.models import User
 from django.db.models import Q
 from apps.formData.models.timezone import Timezone
-from apps.formData.models.division import Region
 from apps.salesreps.models import SalesRepresentative, SalesRoles
 from utils.form_validation import email_regex, name_regex, username_regex
 
@@ -40,17 +39,19 @@ class SalesRepForm(forms.Form):
         )
     )
 
+    role = forms.ModelChoiceField(
+        queryset=SalesRoles.objects.all(),
+        required=True,
+        empty_label='Select Role',
+    )
+
     sales_engineer = forms.ModelChoiceField(
         queryset    = User.objects.filter(groups__name='sales engineer').distinct(),
         required    = True,
         empty_label = "Choose Sales Engineer",
     )
 
-    role           = forms.ModelChoiceField(
-        queryset    = SalesRoles.objects.all(),
-        required    = True,
-        empty_label ='Select Role',
-    )
+
 
 
 

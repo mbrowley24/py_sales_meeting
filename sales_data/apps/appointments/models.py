@@ -36,7 +36,7 @@ class Appointment(models.Model):
         db_table            = 'appointments'
         verbose_name        = 'appointment'
         verbose_name_plural = 'appointments'
-        indexes = [
+        indexes             = [
             models.Index(fields = ['date'], name='appointment_date_index'),
             models.Index(fields = ['type'], name='appointment_type_index'),
             models.Index(fields = ['public_id'], name='appointment_public_id_index'),

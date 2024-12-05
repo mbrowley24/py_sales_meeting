@@ -1,0 +1,1476 @@
+{
+  "organization" : "nebula works",
+  "groups"  : [
+    {
+      "name"        : "sales engineer managers",
+      "description" : "sales engineer supervisors"
+    },
+    {
+      "name"        : "sales engineers",
+      "description" : "sales support engineer"
+    },
+    {
+      "name"        : "sbs",
+      "description" : "small business"
+    },
+    {
+      "name"        : "eae",
+      "description" : "enterprise sales"
+    },
+    {
+      "name"        : "eam",
+      "description" : "enterprise account manager"
+    }
+  ],
+  "sales engineer managers" : [
+    {
+      "first_name"      : "jordan",
+      "last_name"       : "techman",
+      "email"           : "jtechman@nebulaworks.com",
+      "timezone"        : "America / New_York",
+      "sales engineers" : [
+        {
+          "first_name" : "parker",
+          "last_name"  : "switchman",
+          "email"      : "pswitchman@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "jordan",
+              "last_name"  : "logicson",
+              "email"      : "jlogicson@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "avery",
+              "last_name"  : "techfield",
+              "email"      : "atechfield@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "hunter",
+              "last_name"  : "innovates",
+              "email"      : "hinnovates@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "jamie",
+              "last_name"  : "voltman",
+              "email"      : "jvoltman@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "blake",
+              "last_name"  : "datastream",
+              "email"      : "bdatastream@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "peyton",
+              "last_name"  : "cloudsmith",
+              "email"      : "pcloudsmith@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "morgan",
+          "last_name"  : "volt",
+          "email"      : "mvolt@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "riley",
+              "last_name"  : "enginuity",
+              "email"      : "renginuity@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "alex",
+              "last_name"  : "pipeline",
+              "email"      : "apipeline@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "quinn",
+              "last_name"  : "nexon",
+              "email"      : "qnexon@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "skyler",
+              "last_name"  : "engineerix",
+              "email"      : "sengineerix@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "reese",
+              "last_name"  : "datashard",
+              "email"      : "rdatashard@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "dakota",
+              "last_name"  : "voltstream",
+              "email"      : "dvoltstream@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "casey",
+          "last_name"  : "hardwire",
+          "email"      : "chardwire@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "casey",
+              "last_name"  : "scalebuilder",
+              "email"      : "cscalebuilder@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "jordan",
+              "last_name"  : "wireman",
+              "email"      : "jwireman@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "last_name" : "structix",
+              "email"     : "estructix@nebulaworks.com",
+              "quota"     : 420000
+            },
+            {
+              "first_name" : "logan",
+              "last_name"  : "byteforge",
+              "email"      : "lbyteforge@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "Charlie Bitstream",
+              "last_name"  : "Charlie Bitstream",
+              "email"      : "Charlie Bitstream@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "harper",
+              "last_name"  : "codestream",
+              "email"      : "hcodestream@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "jamie",
+          "last_name"  : "cloudson",
+          "email"      : "Jcloudson@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "elliot",
+              "last_name"  : "gearworks",
+              "email"      : "egearworks@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "spencer",
+              "last_name"  : "dataflow",
+              "email"      : "sdataflow@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "Sawyer Overlap",
+              "last_name"  : "Sawyer Overlap",
+              "email"      : "Sawyer Overlap@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "rowan",
+              "last_name"  : "protocols",
+              "email"      : "rprotocols@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "Phoenix Techline",
+              "last_name"  : "Phoenix Techline",
+              "email"      : "Phoenix Techline@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "parker",
+              "last_name"  : "moduleman",
+              "email"      : "pmoduleman@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },{
+          "first_name" : "drew",
+          "last_name"  : "quantum",
+          "email"      : "dquantum@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "cameron",
+              "last_name"  : "gridfield",
+              "email"      : "cgridfield@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "taylor",
+              "last_name"  : "coreforge",
+              "email"      : "tcoreforge@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "bailey",
+              "last_name"  : "buildwell",
+              "email"      : "bbuildwell@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "jamie",
+              "last_name"  : "sparks",
+              "email"      : "jsparks@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "alex",
+              "last_name"  : "firmware",
+              "email"      : "afirmware@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "drew",
+              "last_name"  : "quantum",
+              "email"      : "dquantum@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "first_name"      : "alexa",
+      "last_name"       : "gearsby",
+      "email"           : "agearsby@nebulaworks.com",
+      "timezone"        : "America / New_York",
+      "sbs": [
+            {
+              "first_name" : "sam",
+              "last_name"  : "vectoron",
+              "email"      : "svectoron@nebulaworks.com",
+              "quota"       : 240000
+            },
+            {
+              "first_name" : "quinn",
+              "last_name"  : "cloudline",
+              "email"      : "qcloudline@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "riley",
+              "last_name"  : "netmaster",
+              "email"      : "rnetmaster@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "charlie",
+              "last_name"  : "patchson",
+              "email"      : "cpatchson@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "skyler",
+              "last_name"  : "debuggs",
+              "email"      : "sdebuggs@nebulaworks.com",
+              "quota"      :  175000
+            },
+            {
+              "first_name" : "morgan",
+              "last_name"  : "syncwell",
+              "email"      : "Morgan Syncwell@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "skyler",
+          "last_name"  : "cipher",
+          "email"      : "scipher@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "emerson",
+              "last_name"  : "overclock",
+              "email"      : "eoverclock@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+               "first_name" : "jesse",
+              "last_name"   : "corebreaker",
+              "email"       : "jcorebreaker@nebulaworks.com",
+              "quota"       : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "bailey",
+              "last_name"  : "powerlink",
+              "email"      : "bpowerlink@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "spencer",
+              "last_name"  : "matrixon",
+              "email"      : "smatrixon@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "jordan",
+              "last_name"  : "datacraft",
+              "email"      : "jdatacraft@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "avery",
+              "last_name"  : "voltgear",
+              "email"      : "avoltgear@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "logan",
+          "last_name"  : "debugger",
+          "email"      : "ldebugger@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "logan",
+              "last_name"  : "flexpoint",
+              "email"      : "lflexpoint@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name": "reese",
+              "last_name" : "hexflow",
+              "email"     : "rhexflow@nebulaworks.com",
+              "quota"     : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "dakota",
+              "last_name"  : "modulus",
+              "email"      : "dmodulus@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "taylor",
+              "last_name"  : "streamridge",
+              "email"      : "tstreamridge@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "quinn",
+              "last_name"  : "architect",
+              "email"      : "qarchitect@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "parker",
+              "last_name"  : "hardline",
+              "email"      : "phardline@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "sam",
+          "last_name"  : "vectorfield",
+          "email"      : "svectorfield@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "jamie",
+              "last_name"  : "techridge",
+              "email"      : "Jamie Techridge@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "sawyer",
+              "last_name"  : "networkon",
+              "email"      : "snetworkon@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "jordan",
+              "last_name"  : "databerg",
+              "email"      : "jdataberg@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "elliot",
+              "last_name"  : "loadstone",
+              "email"      : "eloadstone@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "casey",
+              "last_name"  : "gridlock",
+              "email"      : "cgridlock@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "alex",
+              "last_name"  : "hardwire",
+              "email"      : "ahardwire@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },{
+          "first_name": "bailey",
+          "last_name": "processon",
+          "email": "bprocesson@nebulaworks.com",
+          "timezone": "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "aaron",
+              "last_name"  : "fluxman",
+              "email"      : "afluxman@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "cameron",
+              "last_name"  : "scaleforge",
+              "email"      : "cscaleforge@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "emerson",
+              "last_name"  : "flexline",
+              "email"      : "eflexline@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "phoenix",
+              "last_name"  : "buildstream",
+              "email"      : "pbuildstream@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name": "m",
+              "last_name" : "patchman",
+              "email"     : "mpatchman@nebulaworks.com",
+              "quota"     : 175000
+            },
+            {
+              "first_name" : "aaron",
+              "last_name"  : "codeforge",
+              "email"      : "acodeforge@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+    },
+    {
+      "first_name"      : "taylor",
+      "last_name"       : "circuit",
+      "email"           : "tcircuit@nebulaworks.com",
+      "timezone"        : "America / New_York",
+      "sbs": [
+            {
+              "first_name" : "adrian",
+              "last_name"  : "codeforge",
+              "email"      : "acodeforge@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "alexia",
+              "last_name"  : "bitlink",
+              "email"      : "abitlink@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "amara",
+              "last_name"  : "circuitwell",
+              "email"      : "acircuitwell@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "andre",
+              "last_name"  : "datastream",
+              "email"      : "adatastream@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "ashton",
+              "last_name"  : "techridge",
+              "email"      : "atechridge@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "bella",
+              "last_name"  : "coreline",
+              "email"      : "ccoreline@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "dakota",
+          "last_name"  : "corewell",
+          "email"      : "dcorewell@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "bennett",
+              "last_name"  : "debugson",
+              "email"      : "bdebugson@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "blake",
+              "last_name"  : "enginify",
+              "email"      : "benginify@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "brianna",
+              "last_name"  : "syncfield",
+              "email"      : "bsyncfield@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "caleb",
+              "last_name"  : "gearsmith",
+              "email"      : "cgearsmith@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "cameron",
+              "last_name"  : "gridline",
+              "email"      : "cgridline@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "carter",
+              "last_name"  : "techpath",
+              "email"      : "ctechpath@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "blake",
+          "last_name"  : "iteration",
+          "email"      : "biteration@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "casey",
+              "last_name"  : "voltcraft",
+              "email"      : "cvoltcraft@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "celeste",
+              "last_name"  : "netforge",
+              "email"      : "cnetforge@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "chandler",
+              "last_name"  : "powernode",
+              "email"      : "cpowernode@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "charlie",
+              "last_name"  : "linkwell",
+              "email"      : "clinkwell@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "claire",
+              "last_name"  : "processon",
+              "email"      : "cprocesson@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "colton",
+              "last_name"  : "loadridge",
+              "email"      : "cloadridge@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "elliot",
+          "last_name"  : "streamline",
+          "email"      : "estreamline@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "dakota",
+              "last_name"  : "patchwell",
+              "email"      : "dpatchwell@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "daniella",
+              "last_name"  : "nexline",
+              "email"      : "dnexline@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "drew",
+              "last_name"  : "corebuilder",
+              "email"      : "dcorebuilder@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "emerson",
+              "last_name"  : "scalepoint",
+              "email"      : "escalepoint@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "easton",
+              "last_name"  : "networker",
+              "email"      : "enetworker@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "elliot",
+              "last_name"  : "pipemaster",
+              "email"      : "epipemaster@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },{
+          "first_name" : "charlie",
+          "last_name"  : "patchman",
+          "email"      : "cpatchman@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "eva",
+              "last_name"  : "bytepath",
+              "email"      : "bbytepath@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "ezra",
+              "last_name"  : "voltix",
+              "email"      : "evoltix@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "finn",
+              "last_name"  : "hardlink",
+              "email"      : "fhardlink@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "grace",
+              "last_name"  : "enginuity",
+              "email"      : "genginuity@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "grant",
+              "last_name"  : "syncson",
+              "email"      : "gsyncson@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "hailey",
+              "last_name"  : "datapoint",
+              "email"      : "hdatapoint@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+    },
+    {
+      "first_name"      : "riley",
+      "last_name"       : "bytefield",
+      "email"           : "rbytefield@nebulaworks.com",
+      "timezone"        : "America / New_York",
+      "sales engineers" : [
+        {
+          "first_name" : "spencer",
+          "last_name"  : "matrix",
+          "email"      : "smatrix@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "hannah",
+              "last_name"  : "gridflow",
+              "email"      : "hgridflow@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "harper",
+              "last_name"  : "buildman",
+              "email"      : "hbuildman@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "harper",
+              "last_name"  : "buildman",
+              "email"      : "hbuildman@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "hayden",
+              "last_name"  : "corelink",
+              "email"      : "hcorelink@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "ian",
+              "last_name"  : "firmware",
+              "email"      : "ifirmware@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "isabella",
+              "last_name"  : "processman",
+              "email"      : "iprocessman@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "harper",
+          "last_name"  : "syncfield",
+          "email"      : "hsyncfield@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "jackson",
+              "last_name"  : "overload",
+              "email"      : "joverload@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "james",
+              "last_name"  : "codestorm",
+              "email"      : "jcodestorm@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "jordan",
+              "last_name"  : "powerstream",
+              "email"      : "jpowerstream@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "joseph",
+              "last_name"  : "hexline",
+              "email"      : "jhexline@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "jamie",
+              "last_name"  : "voltforge",
+              "email"      : "jvoltforge@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "jayden",
+              "last_name"  : "flexpath",
+              "email"      : "jflexpath@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ]
+        },
+        {
+          "first_name" : "emerson",
+          "last_name"  : "overclock",
+          "email"      : "eoverclock@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "julian",
+              "last_name"  : "gearwell",
+              "email"      : "jgearwell@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "kelsey",
+              "last_name"  : "matrixon",
+              "email"      : "kmatrixon@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "kyle",
+              "last_name"  : "bitfield",
+              "email"      : "kbitfield@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "kendall",
+              "last_name"  : "hardgear",
+              "email"      : "khardgear@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "kevin",
+              "last_name"  : "scalebridge",
+              "email"      : "kscalebridge@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "kingston",
+              "last_name"  : "modulepath",
+              "email"      : "kmodulepath@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ]
+        },
+        {
+          "first_name" : "sawyer",
+          "last_name"  : "networker",
+          "email"      : "snetworker@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "laila",
+              "last_name"  : "syncberg",
+              "email"      : "lsyncberg@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "landon",
+              "last_name"  : "databuilder",
+              "email"      : "ldatabuilder@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "lauren",
+              "last_name"  : "techbridge",
+              "email"      : "ltechbridge@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "levi",
+              "last_name"  : "voltson",
+              "email"      : "lvoltson@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "lily",
+              "last_name"  : "codemaster",
+              "email"      : "lcodemaster@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "logan",
+              "last_name"  : "streamsmith",
+              "email"      : "lstreamsmith@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },{
+          "first_name": "rowan",
+          "last_name": "powerdrive",
+          "email": "rpowerdrive@nebulaworks.com",
+          "timezone": "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "mackenzie",
+              "last_name"  : "patchcraft",
+              "email"      : "mpatchcraft@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "maddox",
+              "last_name"  : "processon",
+              "email"      : "mprocesson@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "maria",
+              "last_name"  : "corestream",
+              "email"      : "mcorestream@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "mateo",
+              "last_name"  : "hardbuilder",
+              "email"      : "mhardbuilder@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "matthew",
+              "last_name"  : "gridpath",
+              "email"      : "mgridpath@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "micah",
+              "last_name"  : "loadsmith",
+              "email"      : "mloadsmith@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "first_name"      : "cameron",
+      "last_name"       : "codewell",
+      "email"           : "ccodewell@nebulaworks.com",
+      "timezone"        : "America / New_York",
+      "sbs": [
+            {
+              "first_name" : "morgan",
+              "last_name"  : "databerg",
+              "email"      : "mdataberg@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "natalie",
+              "last_name"  : "pipeline",
+              "email"      : "npipeline@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "nathan",
+              "last_name"  : "debugforge",
+              "email"      : "ndebugforge@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "noah",
+              "last_name"  : "streamline",
+              "email"      : "nstreamline@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "olivia",
+              "last_name"  : "buildstream",
+              "email"      : "obuildstream@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "owen",
+              "last_name"  : "syncforge",
+              "email"      : "osyncforge@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "jesse",
+          "last_name"  : "scalebridge",
+          "email"      : "jscalebridge@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "paige",
+              "last_name"  : "hardfield",
+              "email"      : "phardfield@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "parker",
+              "last_name"  : "gearpoint",
+              "email"      : "pgearpoint@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "patrick",
+              "last_name"  : "bitnode",
+              "email"      : "pbitnode@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "peyton",
+              "last_name"  : "netline",
+              "email"      : "pnetline@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "phoenix",
+              "last_name"  : "flexstream",
+              "email"      : "pflexstream@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "quinn",
+              "last_name"  : "powerfield",
+              "email"      : "qpowerfield@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "phoenix",
+          "last_name"  : "architect",
+          "email"      : "parchitect@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "rachel",
+              "last_name"  : "bytegear",
+              "email"      : "rbytegear@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "riley",
+              "last_name"  : "voltpath",
+              "email"      : "rvoltpath@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "river",
+              "last_name"  : "datacircuit",
+              "email"      : "rdatacircuit@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "rowan",
+              "last_name"  : "codelink",
+              "email"      : "rcodelink@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "ruby",
+              "last_name"  : "processgear",
+              "email"      : "rprocessgear@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "ryan",
+              "last_name"  : "patchridge",
+              "email"      : "ryanpatchridge@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "taylor",
+          "last_name"  : "loadstone",
+          "email"      : "tloadstone@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "ryder",
+              "last_name"  : "scaleforge",
+              "email"      : "rscaleforge@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "sadie",
+              "last_name"  : "coreline",
+              "email"      : "scoreline@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "sawyer",
+              "last_name"  : "techpoint",
+              "email"      : "stechpoint@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "scarlett",
+              "last_name"  : "syncnode",
+              "email"      : "ssyncnode@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "sean",
+              "last_name"  : "architecton",
+              "email"      : "sarchitecton@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "skylar",
+              "last_name"  : "firmwarepath",
+              "email"      : "sfirmwarepath@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },{
+          "first_name" : "jordan",
+          "last_name"  : "logic",
+          "email"      : "jlogic@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "sencer",
+              "last_name"  : "overclock",
+              "email"      : "soverclock@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "stella",
+              "last_name"  : "moduleridge",
+              "email"      : "smoduleridge@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "taylor",
+              "last_name"  : "gearlock",
+              "email"      : "tgearlock@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "theo",
+              "last_name"  : "bitpath",
+              "email"      : "tbitpath@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "thomas",
+              "last_name"  : "debuglock",
+              "email"      : "tdebuglock@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "tristan",
+              "last_name"  : "pipemaster",
+              "email"      : "tpipemaster@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+    },
+    {
+      "first_name"      : "quinn",
+      "last_name"       : "databerg",
+      "email"           : "qdataberg@nebulaworks.com",
+      "timezone"        : "America / New_York",
+      "sbs": [
+            {
+              "first_name" : "victoria",
+              "last_name"  : "netbridge",
+              "email"      : "vnetbridge@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "vincent",
+              "last_name"  : "processridge",
+              "email"      : "vprocessridge@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "vivian",
+              "last_name"  : "loadwell",
+              "email"      : "vivianloadwell@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "wesley",
+              "last_name"  : "corepath",
+              "email"      : "wcorepath@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "wyatt",
+              "last_name"  : "powernode",
+              "email"      : "wpowernode@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "xavier",
+              "last_name"  : "scalebridge",
+              "email"      : "xscalebridge@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ]
+        },
+        {
+          "first_name" : "morgan",
+          "last_name"  : "innovate",
+          "email"      : "minnovate@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "yara",
+              "last_name"  : "hardcircuit",
+              "email"      : "yhardcircuit@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "zachary",
+              "last_name"  : "enginify",
+              "email"      : "zenginify@nebulaworks.com",
+              "quota"      : 2400000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "adam",
+              "last_name"  : "fluxline",
+              "email"      : "adamfluxline@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "alan",
+              "last_name"  : "codepath",
+              "email"      : "acodepathnebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "alicia",
+              "last_name"  : "coreman",
+              "email"      : "acoreman@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "allison",
+              "last_name"  : "datastorm",
+              "email"      : "adatastorm@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "blake",
+          "last_name"  : "circuitry",
+          "email"      : "bcircuitry@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "andrew",
+              "last_name"  : "hardson",
+              "email"      : "ahardson@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "apipestream",
+              "last_name"  : "pipestream",
+              "email"      : "apipestream@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "archer",
+              "last_name"  : "gridforge",
+              "email"      : "agridforge@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "aria",
+              "last_name"  : "voltfield",
+              "email"      : "ariavoltfield@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "ashton",
+              "last_name"  : "engineridge",
+              "email"      : "aengineridge@nebulaworks.com",
+              "quota"      : 175000
+            },
+            {
+              "first_name" : "aubrey",
+              "last_name"  : "matrixon",
+              "email"      : "amatrixon@nebulaworks.com",
+              "quota"      : 175000
+            }
+          ]
+        },
+        {
+          "first_name" : "autumn",
+          "last_name"  : "syncpath",
+          "email"      : "asyncpath@nebulaworks.com",
+          "timezone"   : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "barrett",
+              "last_name"  : "buildridge",
+              "email"      : "bbuildridge@nebulaworks.com",
+              "quota"      : 240000
+            },
+            {
+              "first_name" : "becca",
+              "last_name"  : "bytecraft",
+              "email"      : "bbytecraft@nebulaworks.com",
+              "quota"      : 240000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "benjamin",
+              "last_name"  : "codestream",
+              "email"      : "Benjamin Codestream@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "briar",
+              "last_name"  : "processridge",
+              "email"      : "bprocessridge@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "brock",
+              "last_name"  : "powerlink",
+              "email"      : "bpowerlink@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "brynn",
+              "last_name"  : "nexflow",
+              "email"      : "bnexflow@nebulaworks.com",
+              "quota"      : 4200000
+            }
+          ]
+        },{
+          "first_name"     : "taylor",
+          "last_name"      : "gridley",
+          "email"          : "tgridley@nebulaworks.com",
+          "timezone"       : "America / New_York",
+          "sbs": [
+            {
+              "first_name" : "Calvin Modulus",
+              "last_name"  : "Calvin Modulus",
+              "email"      : "Calvin Modulus@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "camden",
+              "last_name"  : "architectix",
+              "email"      : "carchitectix@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eae" : [
+            {
+              "first_name" : "carter",
+              "last_name"  : "voltforge",
+              "email"      : "cvoltforge@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "cecilia",
+              "last_name"  : "scalepath",
+              "email"      : "cscalepath@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ],
+          "eam" : [
+            {
+              "first_name" : "clara",
+              "last_name"  : "debugpath",
+              "email"      : "cdebugpath@nebulaworks.com",
+              "quota"      : 420000
+            },
+            {
+              "first_name" : "conrad",
+              "last_name"  : "hardline",
+              "email"      : "chardline@nebulaworks.com",
+              "quota"      : 420000
+            }
+          ]
+        }
+      ]
+}

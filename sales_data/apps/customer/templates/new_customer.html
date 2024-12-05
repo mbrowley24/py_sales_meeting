@@ -18,30 +18,71 @@
 
            </div>
             <div class="form-column">
-                <form class="form-med" method="POST" action="{% url 'apps.appointments:new_appointment' %}">
+                <form class="form-med" method="POST" action="{% url 'apps.customer:new_customer' %}">
                      <div class="form-group">
                         {{ form.name.label_tag }}
                         {{ form.name }}
-                        <p class="errors" id="title_error_message"></p>
+                         {% if form.errors.name %}
+
+                             <p class="errors" id="name_error_message">{{ form.errors.name.0 }}</p>
+
+                         {% else %}
+
+                             <p class="errors" id="name_error_message"></p>
+
+                         {% endif %}
                     </div>
                     <div class="form-group">
                         {{ form.vertical.label_tag }}
                         {{ form.vertical }}
-                        <p class="errors" id="time_error_message"></p>
+                        {% if form.errors.vertical %}
+
+                            <p class="errors" id="vertical_error_message">{{ form.errors.vertical.0 }}</p>
+
+                        {% else %}
+
+                            <p class="errors" id="vertical_error_message"></p>
+
+                        {% endif %}
                     </div>
                     <div class="form-group">
                         {{ form.sales_rep.label_tag }}
                         {{ form.sales_rep }}
-                        <p class="errors" id="date_error_message"></p>
+                        {% if form.errors.sales_rep %}
+
+                            <p class="errors" id="vertical_error_message">{{ form.errors.sales_rep.0 }}</p>
+
+                        {% else %}
+
+                            <p class="errors" id="sales_rep_error_message"></p>
+
+                        {% endif %}
                     </div>
                     <div class="form-group">
                         {{ form.sales_engineer.label_tag }}
                         {{ form.sales_engineer }}
+                        {% if form.errors.sales_engineer %}
+
+                            <p class="errors" id="vertical_error_message">{{ form.errors.sales_engineer.0 }}</p>
+
+                        {% else %}
+
+                            <p class="errors" id="sales_eng_error_message"></p>
+
+                        {% endif %}
                     </div>
                     <div class="form-group-textarea">
                         {{ form.notes.label_tag }}
                         {{ form.notes }}
-                        <p class="errors" id="notes_error_message"></p>
+                        {% if form.errors.notes %}
+
+                            <p class="errors" id="vertical_error_message">{{ form.errors.notes.0 }}</p>
+
+                        {% else %}
+
+                            <p class="errors" id="notes_error_message"></p>
+
+                        {% endif %}
                     </div>
                     <div class="submit">
                         {% csrf_token %}
@@ -56,12 +97,7 @@
 {% endblock %}
 
 {% block page_scripts %}
-
-    <script src="{% static 'js/validation.js' %}"></script>
-    <script type="module" src="{% static 'js/appointments/new_appointment.js' %}"></script>
-{% endblock %}</title>
-</head>
-<body>
-
-</body>
-</html>
+    {{ sales_eng|json_script:"sales_eng" }}
+    <script type="module" src="{% static 'js/validation.js' %}"></script>
+    <script type="module" src="{% static 'js/customer/new_customer.js' %}"></script>
+{% endblock %}

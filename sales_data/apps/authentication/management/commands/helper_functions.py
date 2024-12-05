@@ -1,254 +1,237 @@
-from apps.authentication.models import UserProfile
-from apps.salesreps.models import SalesRepresentative, SalesRoles
-from apps.formData.models.timezone import Timezone
-from apps.formData.models.division import Region
-from apps.formData.models.Vertical import Vertical
+from random import random
 
+
+
+from apps.formData.models.timezone import Timezone
+from apps.demo_data.models import (TestSalesRepresentative, TestSalesEngineer, TestGroup, TestAppointment,
+                                   TestCustomer, TestOrganization, TestSalesEngineerManager, TestAppointmentType)
 from datetime import time
-from django.contrib.auth.models import User, Group
 from faker import Faker
 import os
-import random
-from utils.helper import generate_public_id
+import json
+from apps.formData.models.timezone import Timezone
+from apps.salesreps.views import sales_reps
+from utils.helper import generate_public_id, generate_random_string
 
 
 
+def random_time():
 
-def create_user():
-    faker = Faker()
+    #fake data generator
+    fake = Faker()
 
-    first_name = faker.first_name().lower()
-    last_name = faker.last_name().lower()
-    username = f'{first_name[0]}{last_name}'
+    #days allow in timezone
+    allowed_days = [0, 1, 2, 3, 4]  # Monday, Tuesday, Wednesday, Thursday, Friday
 
-    final_username = username
+    #set start and end date variables
+    start_time = (8, 0)  # 8:00 AM
+    end_time = (17, 0)  # 5:00 PM
 
-    # check if the username is in use. if in use generate another username
-    while User.objects.filter(username=final_username).exists():
-        final_username = f'{username}{random.randint(1, 999)}'
+    #generate date and time
+    while True:
 
-    email = f'{final_username}@sellcrew.com'
+        #dates between the current time and three years in the past
+        random_date_time = fake.date_time_between(start_date='-3y', end_date='now')
 
-    manager = User.objects.create_user(
-        username=final_username,
-        first_name=first_name,
-        last_name=last_name,
-        email=email,
-        password=faker.password(),
-        is_active=False,
-        is_staff=False,
-        is_superuser=False,
-    )
+        if random_date_time.weekday() in allowed_days:
 
-    sales_timezones = Timezone.objects.get(name = "America / Denver")
-    region          = Region.objects.get(name = 'mountain west')
-    public_id       = generate_public_id(UserProfile)
+            if start_time <= (random_date_time.hour, random_date_time.minute) <= end_time:
 
-    UserProfile.objects.create(
-        public_id = public_id,
-        user      = manager,
-        time_zone = sales_timezones,
-        region    = region,
-
-    )
+                return random_date_time
 
 
-    return manager
+def create_organization(name):
 
-def create_sales_representative(sales_engineer):
-    faker = Faker()
+    # organization container
+    try:
+        # check if the organization exists
+        organization = TestOrganization.objects.get(name = name)
 
-    sales_rep_count = sales_engineer.sales_reps.count()
+        return organization
 
-    #if sales rep count greater than 5
-    if sales_rep_count > 5:
-        return None
+    except TestOrganization.DoesNotExist:
 
-    eae_count = (SalesRepresentative.objects
-                     .filter(sales_engineer = sales_engineer)
-                     .filter('eae')
-                     .count())
+        # create if it doesn't exist
+        return TestOrganization.objects.create(
+            public_id  = generate_public_id(TestOrganization),
+            name       = name
+        )
 
-    eam_count = (SalesRepresentative.objects
-                        .filter(sales_engineer = sales_engineer)
-                        .filter('eam')
-                        .count())
+def create_sales_groups(groups, organization):
+    # generate groups from json and append to list to recall later
+    groups = []
+    for group in groups:
 
-    sbs_count = (SalesRepresentative.objects
-                     .filter(sales_engineer = sales_engineer)
-                     .filter('sbs')
-                     .count())
+        try:
 
-    while (eae_count + sbs_count + eam_count) < 6:
-
-        public_id  = generate_public_id(SalesRepresentative)
-        first_name = faker.first_name().lower()
-        last_name  = faker.last_name().lower()
-        email      = f'{first_name[0]}{last_name}@sellcrew.com'
-        role       = None
-
-        #modify password if email exists
-        while SalesRepresentative.objects.filter(email = email).exists():
-            email = f'{first_name[0]}{last_name}{random.randint(1, 999)}@sellcrew.com'
-
-
-        if eae_count < 2:
-            role = SalesRoles.objects.get("eae")
-            new_eae = SalesRepresentative.objects.create(
-                public_id      = public_id,
-                first_name     = first_name,
-                last_name      = last_name,
-                email          = email,
-                role           = role,
-                quota          = 4200,
-                sales_engineer = sales_engineer,
+            test_group = TestGroup.objects.get(
+                name = group,
+                organization = organization
             )
 
+            groups.append(test_group)
 
-        if eam_count < 2:
-            role = SalesRoles.objects.get("eam")
-            eam = SalesRepresentative.objects.create(
-                public_id      = public_id,
-                first_name     = first_name,
-                last_name      = last_name,
-                email          = email,
-                role           = role,
-                quota          = 1750,
-                sales_engineer = sales_engineer,
+        except TestGroup.DoesNotExist:
+
+            test_group = TestGroup.objects.create(
+                public_id    = generate_public_id(TestGroup),
+                name         = group["name"],
+                description  = group["description"],
+                organization = organization,
             )
 
-
-        if sbs_count < 2:
-            role = SalesRoles.objects.get("sbs")
-            sbs = SalesRepresentative.objects.create(
-                public_id      = public_id,
-                first_name     = first_name,
-                last_name      = last_name,
-                email          = email,
-                role           = role,
-                quota          = 2400,
-                sales_engineer = sales_engineer,
-            )
+            groups.append(test_group)
 
 
-            eae_count = (SalesRepresentative.objects
-                         .filter(sales_engineer=sales_engineer)
-                         .filter('eae')
-                         .count())
-
-            eam_count = (SalesRepresentative.objects
-                         .filter(sales_engineer=sales_engineer)
-                         .filter('eam')
-                         .count())
-
-            sbs_count = (SalesRepresentative.objects
-                         .filter(sales_engineer=sales_engineer)
-                         .filter('sbs')
-                         .count())
+    return groups
 
 
+#create sales reps companies and appointments
+def create_sales_representatives(rep, sales_engineer, role):
 
-def get_create_group(group_name):
+    sales_rep = None
 
     try:
 
-        return Group.objects.get(name = group_name)
+         return TestSalesRepresentative.objects.get(email = rep.email)
 
-    except Group.DoesNotExist:
-        return Group.objects.create(name = group_name)
+    except TestSalesRepresentative.DoesNotExist:
 
-
-def create_dummy_sales_managers():
-
-    dummy_sales_managers_count = User.objects.filter(groups__name='dummy se mgmt').count()
-
-    if dummy_sales_managers_count > 3:
-        print("skip")
-        return
-
-    for _ in range(5):
-
-        sales_manager = create_user()
-
-        group = get_create_group('dummy se mgmt')
-
-        sales_manager.groups.add(group)
-        sales_manager.save()
-
-
-
-def create_dummy_se_account():
-    faker = Faker()
-
-    dummy_managers = User.objects.filter(groups__name = 'dummy se mgmt')
-
-    for manager in dummy_managers:
-
-        #if manager has more than 5 reps skip
-        if manager.sales_engineers.count() > 5:
-            continue
-
-        sales_engineer = create_user()
-
-        public_id = generate_public_id(SalesRepresentative)
-        sales_timezones = Timezone.objects.get(name="America / Denver")
-        region = Region.objects.get(name='mountain west')
-
-        UserProfile.objects.create(
-            public_id = public_id,
-            user      = sales_engineer,
-            manager   = manager,
-            time_zone = sales_timezones,
-            region    = region,
+        return TestSalesRepresentative.objects.get(
+                   public_id      = generate_public_id(TestSalesRepresentative),
+                   first_name     = rep.first_name,
+                   last_name      = rep.last_name,
+                   email          = rep.email,
+                   sales_engineer = sales_engineer,
+                   quota          = rep.quota,
+                   role           = role
         )
 
 
-        group = get_create_group('dummy se')
 
-        sales_engineer.managers.add(manager)
-        sales_engineer.groups.add(group)
+#creates sales engineer, sales reps and appointments
+def create_sales_engineer(sales_manager,
+                          sales_engineer,
+                          timezone,
+                          organization,
+                          groups):
 
-        sales_engineer.save()
-
-        create_sales_representative(sales_engineer)
-
-
-
-
-def create_sales_appointment(sales_engineer):
-    faker       = Faker()
-    random_date = faker.date_between(start_date= '-3y', end_date= '+3y' )
-    hour        = random.randint(0, 23)
-    minute      = random.randint(0, 59)
-
-    random_time = time(hour   = hour,
-                       minute = minute
-                       )
-
-
-
-def create_verticals():
-    # Get the current file's directory
-    current_folder = os.path.dirname(__file__)
-    file_path      = os.path.join(current_folder, 'vertical.txt')
+    sales_engineer_obj = None
+    sales_engineer_group = [group.name == "sales engineers" for group in groups]
 
     try:
-        with open(file_path, 'r') as file:
 
-            for line in file:
-                text = line.lower().strip().split(':')
+        sales_engineer_obj = TestSalesEngineer.objects.get(email = sales_engineer.email)
 
-                try:
-                    Vertical.objects.get(name = text[0])
+    except TestSalesEngineer.DoesNotExist:
 
-                    continue
-                except Vertical.DoesNotExist:
-                    Vertical.objects.create(
-                        public_id = generate_public_id(Vertical),
-                        name = text[0],
-                        description = text[1],
-                    )
+        #create the sales engineer
+        sales_engineer_obj = TestSalesEngineer.objects.create(
 
-    except FileNotFoundError as  e:
-        print(e)
+            first_name = sales_manager.first_name,
+            last_name  = sales_manager.last_name,
+            email      = sales_manager.email,
+        )
+
+        #create the user group
+        TestGroup.objects.create(
+            user  = sales_engineer_obj,
+            group = sales_engineer_group,
+        )
+
+    sbs_group = [group.name == 'sbs' for group in groups][0]
+    for new_sales_rep in sales_engineer.sbs:
+
+        create_sales_representatives(new_sales_rep, sales_engineer, sbs_group)
+
+
+    eae_group = [group.name == 'eae' for group in groups][0]
+    for new_sales_role in sales_engineer.eae:
+
+        create_sales_representatives(new_sales_role, sales_engineer, eae_group)
+
+
+    eam_group = [group.name == 'eam' for group in groups][0]
+    for new_sales_role in sales_engineer.eam:
+
+        create_sales_representatives(new_sales_role, sales_engineer, eam_group)
+
+
+#create sales manager, sales_engineer, sales reps and meetings
+def create_sales_manager(sales_manager, organization, timezones, groups):
+
+    sales_manager_obj = None
+
+    timezone          = [sales_manager['timezone'] == x.name for x in timezones][0]
+
+    sales_manager     = [group.name == "sales engineer managers" for group in groups][0]
+
+    # check if timezone is in timezone if not skip sales_manager
+    if timezone is None:
         return None
+
+    username           = sales_manager['email'].split('@')[0]
+
+    try:
+
+        sales_manager_obj = TestSalesEngineerManager.objects.get( email = sales_manager['email'] )
+
+    except TestSalesEngineerManager.DoesNotExist:
+
+        #create a new sales manager
+        sales_manager_obj = TestSalesEngineerManager(
+            first_name    = sales_manager['first_name'],
+            last_name     = sales_manager['first_name'],
+            username      = username,
+            email         = sales_manager['email'],
+            is_superuser  = False,
+            is_staff      = False,
+            is_active     = False,
+        )
+
+
+        #attach the sales manager to user group entity
+        TestGroup.objects.create(
+            user  = sales_manager,
+            group = sales_manager,
+        )
+
+
+    for sales_engineer in sales_manager.sales_engineers:
+
+        create_sales_engineer(sales_manager_obj, sales_engineer, timezone, organization, groups)
+
+
+    return sales_manager
+
+
+def get_sales_manager_group(groups):
+
+    sales_manager = [group.name == "sales engineer managers" for group in groups]
+
+    if len(sales_manager) != 1:
+        return None
+
+    return sales_manager[0]
+
+def start_data():
+
+
+    #generate file path
+    file_name             = "fake_data.json"
+    current_directory     = os.path.dirname(os.path.abspath(__file__))
+    folder                = f"{current_directory}/{file_name}"
+    timezones             = Timezone.objects.all()
+    appointment_types      = TestAppointmentType.objects.all()
+
+    #open file and load to json to create the sample data from the web application
+    with open(folder, 'r') as file:
+        data          = json.load(file)
+
+        #get or create organization
+        organization  = create_organization(data['organization'])
+
+        #get or create groups for dummy organization
+        groups        = create_sales_groups(data['groups'], organization)
+
+

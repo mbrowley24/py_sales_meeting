@@ -2,7 +2,7 @@ console.log("validation")
 
 
 //value functions
-const add_commas_to_value = (value) =>{
+export const add_commas_to_value = (value) =>{
 
     if(isNaN(value)){
         return 0
@@ -10,7 +10,8 @@ const add_commas_to_value = (value) =>{
 
     return value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-export const clean_value =(text) =>{
+
+export const clean_value = (text) => {
 
     return text.replace(/\D/g, "");
 }
