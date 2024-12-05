@@ -234,4 +234,5 @@ def start_data():
         #get or create groups for dummy organization
         groups        = create_sales_groups(data['groups'], organization)
 
+        #ToDo generate sales manager data
 
