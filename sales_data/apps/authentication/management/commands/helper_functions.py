@@ -1,238 +1,139 @@
-from random import random
+from .appointment_functions import create_appointments, create_appointment_types
 
+from apps.demo_data.models import TestSalesRepresentative, TestSalesEngineer, TestSalesEngineerManager, TestVertical
+from apps.formData.models.Vertical import Vertical
+from .customer_functions import create_customers
 
-
-from apps.formData.models.timezone import Timezone
-from apps.demo_data.models import (TestSalesRepresentative, TestSalesEngineer, TestGroup, TestAppointment,
-                                   TestCustomer, TestOrganization, TestSalesEngineerManager, TestAppointmentType)
-from datetime import time
 from faker import Faker
+from .organization_functions import create_organization
+from .sales_engineer_functions import create_sales_engineers, sales_engineers_group, create_sales_engineer_groups
+from .sales_engineer_mgr_functions import create_sales_engineer_manager, sales_engineer_managers_group
+from .sales_rep_functions import create_sales_representatives
+from .sales_role_functions import create_sales_roles
 import os
 import json
-from apps.formData.models.timezone import Timezone
-from apps.salesreps.views import sales_reps
-from utils.helper import generate_public_id, generate_random_string
+
+from utils.helper import generate_public_id
 
 
+# generic filter for group list
+def filter_group(groups, grp_name):
 
-def random_time():
+    return [grp for grp in groups if grp.name == grp_name][0]
 
-    #fake data generator
-    fake = Faker()
+#create test verticals/industries for test data
+def create_verticals(organization_obj, verticals):
 
-    #days allow in timezone
-    allowed_days = [0, 1, 2, 3, 4]  # Monday, Tuesday, Wednesday, Thursday, Friday
+    for vertical in verticals:
 
-    #set start and end date variables
-    start_time = (8, 0)  # 8:00 AM
-    end_time = (17, 0)  # 5:00 PM
+        if TestVertical.objects.filter(
+                organization_id = organization_obj,
+                name            = vertical
+        ).exists():
+            continue
 
-    #generate date and time
-    while True:
-
-        #dates between the current time and three years in the past
-        random_date_time = fake.date_time_between(start_date='-3y', end_date='now')
-
-        if random_date_time.weekday() in allowed_days:
-
-            if start_time <= (random_date_time.hour, random_date_time.minute) <= end_time:
-
-                return random_date_time
-
-
-def create_organization(name):
-
-    # organization container
-    try:
-        # check if the organization exists
-        organization = TestOrganization.objects.get(name = name)
-
-        return organization
-
-    except TestOrganization.DoesNotExist:
-
-        # create if it doesn't exist
-        return TestOrganization.objects.create(
-            public_id  = generate_public_id(TestOrganization),
-            name       = name
+        TestVertical.objects.create(
+            public_id       = generate_public_id(TestVertical),
+            organization    = organization_obj,
+            name            = vertical
         )
 
-def create_sales_groups(groups, organization):
-    # generate groups from json and append to list to recall later
-    groups = []
-    for group in groups:
-
-        try:
-
-            test_group = TestGroup.objects.get(
-                name = group,
-                organization = organization
-            )
-
-            groups.append(test_group)
-
-        except TestGroup.DoesNotExist:
-
-            test_group = TestGroup.objects.create(
-                public_id    = generate_public_id(TestGroup),
-                name         = group["name"],
-                description  = group["description"],
-                organization = organization,
-            )
-
-            groups.append(test_group)
+    return list(TestVertical.objects.filter(organization = organization_obj))
 
 
-    return groups
-
-
-#create sales reps companies and appointments
-def create_sales_representatives(rep, sales_engineer, role):
-
-    sales_rep = None
-
-    try:
-
-         return TestSalesRepresentative.objects.get(email = rep.email)
-
-    except TestSalesRepresentative.DoesNotExist:
-
-        return TestSalesRepresentative.objects.get(
-                   public_id      = generate_public_id(TestSalesRepresentative),
-                   first_name     = rep.first_name,
-                   last_name      = rep.last_name,
-                   email          = rep.email,
-                   sales_engineer = sales_engineer,
-                   quota          = rep.quota,
-                   role           = role
-        )
-
-
-
-#creates sales engineer, sales reps and appointments
-def create_sales_engineer(sales_manager,
-                          sales_engineer,
-                          timezone,
-                          organization,
-                          groups):
-
-    sales_engineer_obj = None
-    sales_engineer_group = [group.name == "sales engineers" for group in groups]
-
-    try:
-
-        sales_engineer_obj = TestSalesEngineer.objects.get(email = sales_engineer.email)
-
-    except TestSalesEngineer.DoesNotExist:
-
-        #create the sales engineer
-        sales_engineer_obj = TestSalesEngineer.objects.create(
-
-            first_name = sales_manager.first_name,
-            last_name  = sales_manager.last_name,
-            email      = sales_manager.email,
-        )
-
-        #create the user group
-        TestGroup.objects.create(
-            user  = sales_engineer_obj,
-            group = sales_engineer_group,
-        )
-
-    sbs_group = [group.name == 'sbs' for group in groups][0]
-    for new_sales_rep in sales_engineer.sbs:
-
-        create_sales_representatives(new_sales_rep, sales_engineer, sbs_group)
-
-
-    eae_group = [group.name == 'eae' for group in groups][0]
-    for new_sales_role in sales_engineer.eae:
-
-        create_sales_representatives(new_sales_role, sales_engineer, eae_group)
-
-
-    eam_group = [group.name == 'eam' for group in groups][0]
-    for new_sales_role in sales_engineer.eam:
-
-        create_sales_representatives(new_sales_role, sales_engineer, eam_group)
-
-
-#create sales manager, sales_engineer, sales reps and meetings
-def create_sales_manager(sales_manager, organization, timezones, groups):
-
-    sales_manager_obj = None
-
-    timezone          = [sales_manager['timezone'] == x.name for x in timezones][0]
-
-    sales_manager     = [group.name == "sales engineer managers" for group in groups][0]
-
-    # check if timezone is in timezone if not skip sales_manager
-    if timezone is None:
-        return None
-
-    username           = sales_manager['email'].split('@')[0]
-
-    try:
-
-        sales_manager_obj = TestSalesEngineerManager.objects.get( email = sales_manager['email'] )
-
-    except TestSalesEngineerManager.DoesNotExist:
-
-        #create a new sales manager
-        sales_manager_obj = TestSalesEngineerManager(
-            first_name    = sales_manager['first_name'],
-            last_name     = sales_manager['first_name'],
-            username      = username,
-            email         = sales_manager['email'],
-            is_superuser  = False,
-            is_staff      = False,
-            is_active     = False,
-        )
-
-
-        #attach the sales manager to user group entity
-        TestGroup.objects.create(
-            user  = sales_manager,
-            group = sales_manager,
-        )
-
-
-    for sales_engineer in sales_manager.sales_engineers:
-
-        create_sales_engineer(sales_manager_obj, sales_engineer, timezone, organization, groups)
-
-
-    return sales_manager
-
-
-def get_sales_manager_group(groups):
-
-    sales_manager = [group.name == "sales engineer managers" for group in groups]
-
-    if len(sales_manager) != 1:
-        return None
-
-    return sales_manager[0]
-
+# main function to create test data for display on the demo side of the application
 def start_data():
 
+    #faker data generator
+    faker = Faker()
 
     #generate file path
     file_name             = "fake_data.json"
     current_directory     = os.path.dirname(os.path.abspath(__file__))
     folder                = f"{current_directory}/{file_name}"
-    timezones             = Timezone.objects.all()
-    appointment_types      = TestAppointmentType.objects.all()
+
 
     #open file and load to json to create the sample data from the web application
     with open(folder, 'r') as file:
-        data          = json.load(file)
+        data                          = json.load(file)
 
         #get or create organization
-        organization  = create_organization(data['organization'])
+        organization_obj              = create_organization(data['organization'])
 
-        #get or create groups for dummy organization
-        groups        = create_sales_groups(data['groups'], organization)
+        #get or create groups and sales roles for dummy organization
+        sales_engineering_groups      = create_sales_engineer_groups(data['groups'], organization_obj)
+        sales_roles                   = create_sales_roles(data['sales_roles'], organization_obj)
 
-        #ToDo generate sales manager data
+        #get or create appointment meeting type
+        appointment_types             = create_appointment_types(organization_obj, data['appointment_types'])
 
+        verticals                     = create_verticals(organization_obj, data['verticals'])
+
+        #sales engineer managers
+        sales_engineer_managers       = create_sales_engineer_manager(organization_obj, faker)
+
+        #create se sales manager group relationship
+        sales_engineer_managers_group(sales_engineer_managers,
+                                      filter_group(sales_engineering_groups, 'sales engineer managers')
+                                      )
+
+        #sales engineer managers
+        for sales_manager in sales_engineer_managers:
+
+            #create sales engineers
+            sales_engineers           = create_sales_engineers(sales_manager, organization_obj, faker)
+
+            #sales engineer group
+            sales_engineers_group(sales_engineers,
+                                  filter_group(sales_engineering_groups, 'sales engineers')
+                                  )
+
+            #loop through sales engineers, create sales reps and appointments to sales reps
+            for sales_engineer in sales_engineers:
+
+                #create sbs sales reps, customer and meetings
+                sbs_sales_reps        = create_sales_representatives(sales_engineer,
+                                                               filter_group(sales_roles, 'sbs'),
+                                                               organization_obj,
+                                                               faker)
+
+                sbs_customers         = create_customers(faker,
+                                                   sales_engineer,
+                                                   sbs_sales_reps,
+                                                   organization_obj,
+                                                   verticals,
+                                                   500
+                                                   )
+
+                create_appointments(sbs_customers, faker, appointment_types, 5)
+
+                # create eae sales reps, customer and meetings
+                eae_sales_reps        = create_sales_representatives(sales_engineer,
+                                                              filter_group(sales_roles, 'eae'),
+                                                              organization_obj,
+                                                              faker)
+
+                eae_customers         = create_customers(faker,
+                                                   sales_engineer,
+                                                   eae_sales_reps,
+                                                   organization_obj,
+                                                   verticals,
+                                                   300
+                                                   )
+                create_appointments(eae_customers, faker, appointment_types, 15)
+
+                # create eam sales reps, customer and meetings
+                eam_sales_reps        = create_sales_representatives(sales_engineer,
+                                                              filter_group(sales_roles, 'eam'),
+                                                              organization_obj,
+                                                              faker)
+
+                eam_customers         = create_customers(faker,
+                                                 sales_engineer,
+                                                 eam_sales_reps,
+                                                 organization_obj,
+                                                 verticals,
+                                                 700
+                                                 )
+
+                create_appointments(eam_customers, faker, appointment_types, 10)

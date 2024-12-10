@@ -47,7 +47,8 @@ def create_appointment_type():
         try:
 
 
-            AppointmentType.objects.get(name=key)
+            AppointmentType.objects.get(name = key)
+
             continue
         except AppointmentType.DoesNotExist:
 
@@ -82,7 +83,6 @@ def create_products():
                     name        = parts[0],
                     description = parts[1],
                 )
-                print("created product")
 
     except FileNotFoundError:
         print("File doesn't exist")
