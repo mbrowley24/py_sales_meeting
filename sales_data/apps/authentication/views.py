@@ -66,6 +66,14 @@ def app_login(request):
         return render(request, 'login.html', context)
 
 
+
+def landing_page(request):
+
+    if request.method == 'GET':
+
+        return render(request, 'landing_page.html')
+
+
 def logout_view(request):
     logout(request)
     return redirect(reverse('apps.authentication:login'))

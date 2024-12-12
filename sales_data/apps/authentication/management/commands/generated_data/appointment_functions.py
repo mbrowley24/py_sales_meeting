@@ -1,4 +1,4 @@
-from apps.demo_data.models import TestAppointment, TestAppointmentType
+from apps.demo_data.models import TestAppointment, TestAppointmentType, TestAppointmentProduct
 from utils.helper import generate_public_id
 
 import random
@@ -70,8 +70,8 @@ def create_appointment(appointment_type, customer, faker):
 # create multiple appointments with the default set to 100 max appointments. The meeting_count_max
 # is the upper bound for a random number of meetings starting from 1. Function will also ensure
 # every customer has at least 1 meeting (iah). customers will only have on run of meetings ensuring
-# meetings will not be added when initialize data functions run more that one time
-def create_appointments(customers, faker, appointment_types, meeting_count_max = 100):
+# meetings will not be added when initialize data functions run more one time
+def create_appointments(customers, faker, appointment_types, products, meeting_count_max = 100):
 
     iah                = [x for x in appointment_types if x.name == 'iah'][0]
     other_meeting_type = [x for x in appointment_types if x.name != 'iah']
@@ -93,18 +93,26 @@ def create_appointments(customers, faker, appointment_types, meeting_count_max =
 
         for _ in range(remaining_appointments):
 
+            appointment = None
+
             if has_iah:
 
-                idx = random.randint(0, len(other_meeting_type) -1)
+                idx         = random.randint(0, len(other_meeting_type) - 1)
 
-                create_appointment(other_meeting_type[idx], customer, faker)
+                appointment = create_appointment(other_meeting_type[idx], customer, faker)
 
 
             else:
 
-                create_appointment(iah, customer, faker)
+                appointment = create_appointment(iah, customer, faker)
 
-                has_iah = True
+                has_iah     = True
+
+            products_appointment(appointment, products)
+
+
+
+
 
 
 
@@ -126,4 +134,43 @@ def create_appointment_types(organization_obj, appointment_types):
 
     return list(TestAppointmentType.objects.filter(organization = organization_obj))
 
+
+def products_appointment(appointment, products):
+
+    if appointment is None:
+        return
+
+    for product in products:
+
+        if TestAppointmentProduct.objects.filter(appointment = appointment, product = product).exists():
+            continue
+
+        TestAppointmentProduct.objects.create(
+            product     = product,
+            appointment = appointment,
+        )
+
+def product_list(products):
+
+    product_count = random.randint(1, 5)
+
+    track_idx = []
+    prod_list = []
+
+    i         = 0
+
+    while i < product_count:
+
+        prod_idx = random.randint(0, len(products) - 1)
+
+        if prod_idx not in track_idx:
+
+
+            prod_list.append(products[prod_idx])
+
+            i += 1
+
+
+
+    return prod_list
 

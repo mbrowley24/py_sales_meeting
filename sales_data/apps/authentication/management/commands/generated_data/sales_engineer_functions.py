@@ -1,6 +1,6 @@
 from apps.demo_data.models import TestSalesEngineer, TestSalesEngineerGroup, TestGroup
 from utils.helper import generate_public_id
-from .generate_user_data import generate_unique_user_data
+from apps.authentication.management.commands.generated_data.generate_user_data import generate_unique_user_data
 
 
 #creates sales engineer user faker data

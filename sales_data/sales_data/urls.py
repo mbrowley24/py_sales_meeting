@@ -21,10 +21,11 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(('apps.authentication.urls', 'sales_data'), namespace='apps.authentication')),
+    path('',               include(('apps.authentication.urls', 'sales_data'), namespace='apps.authentication')),
     path('appManagement/', include(('apps.Management.urls', 'sales_data'), namespace='apps.management')),
-    path('appointments/', include(('apps.appointments.urls', 'sales_data'), namespace='apps.appointments')),
-    path('customers/', include(('apps.customer.urls', 'sales_data'), namespace='apps.customer')),
-    path('dashboard/', include(('apps.dashboard.urls', 'sales_data'), namespace='apps.dashboard')),
-    path('sales_reps/', include(('apps.salesreps.urls', 'sales_data'), namespace='apps.sales_rep')),
+    path('appointments/',  include(('apps.appointments.urls', 'sales_data'), namespace='apps.appointments')),
+    path('customers/',     include(('apps.customer.urls', 'sales_data'), namespace='apps.customer')),
+    path('dashboard/',     include(('apps.dashboard.urls', 'sales_data'), namespace='apps.dashboard')),
+    path('demo/',          include(('apps.demo_data.urls', 'sales_data'), namespace='apps.demo')),
+    path('sales_reps/',    include(('apps.salesreps.urls', 'sales_data'), namespace='apps.sales_rep')),
 ]

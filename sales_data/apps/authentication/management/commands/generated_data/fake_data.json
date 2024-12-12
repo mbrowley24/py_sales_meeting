@@ -88,6 +88,27 @@
     "Education Technology (EdTech)",
     "Virtual Reality and Augmented Reality",
     "Data Analytics and Business Intelligence"
+  ],
+  "products": [
+    "UCaaS",
+    "VoIP",
+    "DRaaS",
+    "BaaS",
+    "Dedicated Internet",
+    "Cloud Connectivity",
+    "WAN Management",
+    "MDR",
+    "EDR",
+    "Cloud Hosting",
+    "Metro Ethernet",
+    "Professional Services",
+    "Incident Response",
+    "Penetration Testing",
+    "Managed Wi-Fi",
+    "SD-WAN",
+    "SOCaaS",
+    "DDoS Protection"
+
   ]
 }
 

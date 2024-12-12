@@ -1,9 +1,7 @@
-from apps.demo_data.models import (TestSalesRepresentative, TestSalesEngineer, TestGroup, TestAppointment, TestCustomer,
-                                   TestOrganization, TestSalesEngineerManager, TestSalesEngineerManagerGroup,
-                                   TestAppointmentType, TestSalesEngineerGroup, TestSalesRole, TestVertical)
+from apps.demo_data.models import (TestSalesEngineerManager, TestSalesEngineerManagerGroup)
 
 from utils.helper import generate_public_id
-from .generate_user_data import generate_unique_user_data
+from apps.authentication.management.commands.generated_data.generate_user_data import generate_unique_user_data
 
 
 

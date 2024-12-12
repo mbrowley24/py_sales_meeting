@@ -1,5 +1,5 @@
 from apps.demo_data.models import TestSalesRepresentative
-from .generate_user_data import generate_unique_user_data, data_exists
+from apps.authentication.management.commands.generated_data.generate_user_data import generate_unique_user_data, data_exists
 from utils.helper import generate_public_id
 
 

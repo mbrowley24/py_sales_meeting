@@ -3,9 +3,9 @@ from apps.appointments.models import AppointmentType
 from apps.formData.models.timezone import Timezone
 from apps.formData.models.products import Products
 from django.conf import settings
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 import os
-from .helper_functions import start_data
+from apps.authentication.management.commands.generated_data.helper_functions import start_data
 from utils.helper import generate_public_id
 
 #Create sales roles to identify the sale rep roles

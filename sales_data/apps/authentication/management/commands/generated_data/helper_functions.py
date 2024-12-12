@@ -1,19 +1,17 @@
-from .appointment_functions import create_appointments, create_appointment_types
-
-from apps.demo_data.models import TestSalesRepresentative, TestSalesEngineer, TestSalesEngineerManager, TestVertical
-from apps.formData.models.Vertical import Vertical
-from .customer_functions import create_customers
-
-from faker import Faker
-from .organization_functions import create_organization
-from .sales_engineer_functions import create_sales_engineers, sales_engineers_group, create_sales_engineer_groups
+from .appointment_functions        import create_appointments, create_appointment_types
+from apps.demo_data.models         import TestVertical
+from .customer_functions           import create_customers
+from faker                         import Faker
+from .organization_functions       import create_organization
+from .product_data                 import generate_product_data
+from .sales_engineer_functions     import create_sales_engineers, sales_engineers_group,create_sales_engineer_groups
 from .sales_engineer_mgr_functions import create_sales_engineer_manager, sales_engineer_managers_group
-from .sales_rep_functions import create_sales_representatives
-from .sales_role_functions import create_sales_roles
+from .sales_rep_functions          import create_sales_representatives
+from .sales_role_functions         import create_sales_roles
+from utils.helper                  import generate_public_id
 import os
 import json
 
-from utils.helper import generate_public_id
 
 
 # generic filter for group list
@@ -67,7 +65,11 @@ def start_data():
         #get or create appointment meeting type
         appointment_types             = create_appointment_types(organization_obj, data['appointment_types'])
 
+        #create verticals
         verticals                     = create_verticals(organization_obj, data['verticals'])
+
+        #create products
+        products                      = generate_product_data(data['products'])
 
         #sales engineer managers
         sales_engineer_managers       = create_sales_engineer_manager(organization_obj, faker)
@@ -102,10 +104,10 @@ def start_data():
                                                    sbs_sales_reps,
                                                    organization_obj,
                                                    verticals,
-                                                   500
+                                                   100
                                                    )
 
-                create_appointments(sbs_customers, faker, appointment_types, 5)
+                create_appointments(sbs_customers, faker, appointment_types, products, 5)
 
                 # create eae sales reps, customer and meetings
                 eae_sales_reps        = create_sales_representatives(sales_engineer,
@@ -118,9 +120,9 @@ def start_data():
                                                    eae_sales_reps,
                                                    organization_obj,
                                                    verticals,
-                                                   300
+                                                   100
                                                    )
-                create_appointments(eae_customers, faker, appointment_types, 15)
+                create_appointments(eae_customers, faker, appointment_types, products, 15)
 
                 # create eam sales reps, customer and meetings
                 eam_sales_reps        = create_sales_representatives(sales_engineer,
@@ -133,7 +135,7 @@ def start_data():
                                                  eam_sales_reps,
                                                  organization_obj,
                                                  verticals,
-                                                 700
+                                                 100
                                                  )
 
-                create_appointments(eam_customers, faker, appointment_types, 10)
+                create_appointments(eam_customers, faker, appointment_types, products, 10)
