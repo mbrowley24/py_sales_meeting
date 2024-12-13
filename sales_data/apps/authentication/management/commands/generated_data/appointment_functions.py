@@ -1,4 +1,5 @@
 from apps.demo_data.models import TestAppointment, TestAppointmentType, TestAppointmentProduct
+from django.utils import timezone
 from utils.helper import generate_public_id
 
 import random
@@ -49,7 +50,7 @@ def create_appointment(appointment_type, customer, faker):
     #create appointment using random date. check for duplicate dates
     while True:
 
-        random_date = random_time(faker)
+        random_date = timezone.make_aware(random_time(faker))
 
         if TestAppointment.objects.filter(customer = customer, date = random_date ).exists():
             continue
@@ -58,7 +59,7 @@ def create_appointment(appointment_type, customer, faker):
         return TestAppointment.objects.create(
             public_id      = generate_public_id(TestAppointment),
             customer       = customer,
-            date           = random_time(faker),
+            date           = random_date,
             notes          = notes,
             organization   = customer.organization,
             sales_engineer = customer.sales_engineer,
@@ -71,7 +72,7 @@ def create_appointment(appointment_type, customer, faker):
 # is the upper bound for a random number of meetings starting from 1. Function will also ensure
 # every customer has at least 1 meeting (iah). customers will only have on run of meetings ensuring
 # meetings will not be added when initialize data functions run more one time
-def create_appointments(customers, faker, appointment_types, products, meeting_count_max = 100):
+def create_appointments(customers, faker, appointment_types, products, meeting_count_max = 12):
 
     iah                = [x for x in appointment_types if x.name == 'iah'][0]
     other_meeting_type = [x for x in appointment_types if x.name != 'iah']
@@ -79,12 +80,12 @@ def create_appointments(customers, faker, appointment_types, products, meeting_c
 
     for customer in customers:
 
-        has_iah       = TestAppointment.objects.filter(customer = customer, type = iah).exists()
-        appointments  = list(TestAppointment.objects.filter(customer = customer))
+        has_iah        = TestAppointment.objects.filter(customer = customer, type = iah).exists()
+        appointments   = list(TestAppointment.objects.filter(customer = customer))
 
 
 
-        meeting_count = random.randint(1, (meeting_count_max + 1))
+        meeting_count  = random.randint(1, (meeting_count_max + 1))
 
         if len(appointments) >= meeting_count or len(appointments) > 0:
             continue
@@ -108,9 +109,7 @@ def create_appointments(customers, faker, appointment_types, products, meeting_c
 
                 has_iah     = True
 
-            products_appointment(appointment, products)
-
-
+            products_appointment(appointment, product_list(products))
 
 
 
@@ -152,7 +151,7 @@ def products_appointment(appointment, products):
 
 def product_list(products):
 
-    product_count = random.randint(1, 5)
+    product_count = random.randint(1, 3)
 
     track_idx = []
     prod_list = []
@@ -165,6 +164,7 @@ def product_list(products):
 
         if prod_idx not in track_idx:
 
+            track_idx.append(prod_idx)
 
             prod_list.append(products[prod_idx])
 

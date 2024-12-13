@@ -35,10 +35,11 @@
 {% endblock %}
 
 {% block page_scripts %}
-    {{ appointment_data|json_script:"appointment_data" }}
-    {{ sales_reps|json_script:"sales_reps" }}
-    {{ products|json_script:"products" }}
-    {{ appointment_type_names|json_script:"appointment_type_names" }}
+    {{ data|json_script:"data" }}
+{#    {{ appointment_data|json_script:"appointment_data" }}#}
+{#    {{ sales_reps|json_script:"sales_reps" }}#}
+{#    {{ products|json_script:"products" }}#}
+{#    {{ appointment_type_names|json_script:"appointment_type_names" }}#}
 
     <script type="module" src="{% static 'js/dashboard/dashboard.js' %}"></script>
 {% endblock %}

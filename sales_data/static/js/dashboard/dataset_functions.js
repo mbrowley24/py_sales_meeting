@@ -26,6 +26,30 @@ const colors = [
   'rgba(174, 214, 241, 0.8)'
 ];
 
+const sales_eng_list = (sales_eng_mgr_names) =>{
+
+    const data            = {}
+    const mgr             = Object.keys(sales_eng_mgr_names)[0]
+    const sales_eng_names = Object.keys(sales_eng_mgr_names[mgr])
+
+    for(let i = 0; i < sales_eng_names.length; i++){
+
+        const sales_rep_structure     = JSON.parse(JSON.stringify(sales_eng_mgr_names[mgr][sales_eng_names[i]]));
+
+        const sales_rep_keys          = Object.keys(sales_rep_structure);
+
+        for(let j = 0; j < sales_rep_keys.length; j++){
+
+            const appointment_list    = [...sales_rep_structure[sales_rep_keys[j]]];
+
+            for(let k = 0; k < appointment_list.length; k++){
+
+                console.log(appointment_list[k])
+
+            }
+        }
+    }
+}
 
 
 //create_total_meeting_line create line for total meetings for the given period
@@ -45,7 +69,14 @@ export const create_total_meeting_data = (total_meetings) =>{
 }
 
 //create product name map
-export const create_product_structure = (product_names) =>{
+export const create_product_structure = (json_data) =>{
+
+    console.log(json_data)
+
+    const product_names = [...json_data['products']];
+    const mgr             = Object.keys(json_data['sales_eng_mgr'])[0]
+    const sales_eng_names = Object.keys(json_data['sales_eng_mgr'][mgr])
+
     const data = {}
 
     for(let i = 0; i < product_names.length; i++){
@@ -57,31 +88,116 @@ export const create_product_structure = (product_names) =>{
         data[product_names[i]] = Array(12).fill(0);
     }
 
+    for(let i = 0; i < sales_eng_names.length; i++){
+
+        const sales_rep_structure     = JSON.parse(JSON.stringify(json_data['sales_eng_mgr'][mgr][sales_eng_names[i]]));
+
+        const sales_rep_keys          = Object.keys(sales_rep_structure);
+
+        for(let j = 0; j < sales_rep_keys.length; j++){
+
+            const appointment_list    = [...sales_rep_structure[sales_rep_keys[j]]];
+
+            for(let k = 0; k < appointment_list.length; k++){
+
+                const appointment = JSON.parse(JSON.stringify(appointment_list[k]))
+                console.log(appointment)
+
+                const products    = [...appointment.products];
+
+                for(let l = 0; l < products.length; l++){
+
+                    const product = JSON.parse(JSON.stringify(products[l]))
+
+                    console.log(product)
+                    const month = new Date(appointment.date).getMonth();
+
+                    data[product][month]++
+
+                }
+
+            }
+        }
+    }
+
+
+
 
     return data;
 }
 
 //create sales rep structure
-export const create_sales_reps_data_structure = (names) =>{
+export const create_sales_eng_data_structure = (names) =>{
+
     const data = {}
+    const mgr  = Object.keys(names)[0]
+    const sales_eng_names = Object.keys(names[mgr])
 
-    for(let i = 0; i < names.length; i++){
 
-        data[names[i]] = Array(12).fill(0);
+    for(let i = 0; i < sales_eng_names.length; i++){
+
+        data[sales_eng_names[i]] = Array(12).fill(0);
+
+        const sales_reps     = JSON.parse(JSON.stringify(names[mgr][sales_eng_names[i]]))
+        const sales_rep_keys = Object.keys(sales_reps);
+
+        for(let j = 0; j < sales_rep_keys.length; j++){
+
+            const appointment = [...sales_reps[sales_rep_keys[j]]];
+
+            for(let k = 0; k < appointment.length; k++){
+
+                const date = new Date(appointment[k].date);
+
+                data[sales_eng_names[i]][date.getMonth()] = data[sales_eng_names[i]][date.getMonth()] + 1
+
+            }
+
+        }
+
     }
-
     return data;
 }
 
-//create meeting type map
-export const create_type_meeting_structure = (types) =>{
 
-    const data = {};
+//create meeting type map
+export const create_type_meeting_structure = (json_data) =>{
+
+    console.log(json_data)
+
+    const data            = {};
+    const mgr             = Object.keys(json_data['sales_eng_mgr'])[0]
+    const sales_eng_names = Object.keys(json_data['sales_eng_mgr'][mgr])
+    const types           = [...json_data['meeting_types']];
 
     for(let i = 0; i < types.length; i++){
 
         data[types[i]] = Array(12).fill(0);
     }
+
+
+    for(let i = 0; i < sales_eng_names.length; i++){
+
+        console.log(sales_eng_names[i]);
+        const sales_eng_structure     = JSON.parse(JSON.stringify(json_data['sales_eng_mgr'][mgr][sales_eng_names[i]]));
+
+        const sales_eng_keys          = Object.keys(sales_eng_structure);
+
+        for(let j = 0; j < sales_eng_keys.length; j++){
+
+            const appointment_list    = [...sales_eng_structure[sales_eng_keys[j]]];
+
+            for(let k = 0; k < appointment_list.length; k++){
+
+                const appointment = JSON.parse(JSON.stringify(appointment_list[k]))
+                const month = new Date(appointment.date).getMonth();
+
+                data[appointment.type][month]++
+
+            }
+        }
+    }
+
 
     return data;
 }
@@ -109,7 +225,7 @@ export const create_product_data = (products) =>{
 
 //create_type_meeting_data_structure for graph
 export const create_type_meeting_data = (type_meetings) =>{
-
+    console.log(type_meetings)
     const dataset = [];
 
     const keys = Object.keys(type_meetings)
@@ -134,9 +250,9 @@ export const create_type_meeting_data = (type_meetings) =>{
 
 
 //create data points for sales reps and return an array
-export const create_sep_rep_sales_data = (sales_rep_data) =>{
+export const create_sep_eng_sales_data = (sales_rep_data) =>{
     const data_set       = []
-    console.log(sales_rep_data)
+
     const keys = Object.keys(sales_rep_data)
 
     for(let i = 0; i < keys.length; i++){
@@ -153,4 +269,34 @@ export const create_sep_rep_sales_data = (sales_rep_data) =>{
     }
 
     return data_set;
+}
+
+
+export const meeting_tracker = (sales_eng_mgr_names) =>{
+
+    const data            = Array(12).fill(0);
+    const mgr             = Object.keys(sales_eng_mgr_names)[0]
+    const sales_eng_names = Object.keys(sales_eng_mgr_names[mgr])
+
+    for(let i = 0; i < sales_eng_names.length; i++){
+
+        const sales_rep_structure     = JSON.parse(JSON.stringify(sales_eng_mgr_names[mgr][sales_eng_names[i]]));
+
+        const sales_rep_keys          = Object.keys(sales_rep_structure);
+
+        for(let j = 0; j < sales_rep_keys.length; j++){
+
+            const appointment_list    = [...sales_rep_structure[sales_rep_keys[j]]];
+
+            for(let k = 0; k < appointment_list.length; k++){
+
+                const date            = new Date(appointment_list[k].date)
+
+
+                data[date.getMonth()] = data[date.getMonth()] + 1
+
+            }
+        }
+    }
+    return data;
 }

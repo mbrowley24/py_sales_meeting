@@ -17,9 +17,10 @@ def dashboard(request):
 
     #meeting data for the last year
     if request.method == 'GET':
+
         #get user and set the time frame
         user             = request.user
-        year             = datetime.now().year
+        year             = int(request.GET.get('year', datetime.now().year))
         start            = make_aware(datetime(year = year, month = 1, day = 1, hour = 0, minute = 0, second = 0))
         end              = make_aware(datetime(year = year, month = 12, day = 31, hour = 23, minute = 59, second = 59))
 
@@ -32,8 +33,7 @@ def dashboard(request):
                             .prefetch_related('type')
                             ).order_by('date')
 
-        print("what is the error")
-        print(appointments)
+
         appointment_data = []
         for appointment in appointments:
             product_strings   = []

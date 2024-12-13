@@ -10,10 +10,10 @@ def create_sales_engineer_manager(organization_obj, faker):
 
     sales_engineer_managers = list(TestSalesEngineerManager.objects.filter(organization = organization_obj))
 
-    if len(sales_engineer_managers) > 5:
+    if len(sales_engineer_managers) > 1:
         return sales_engineer_managers
 
-    range_count = 6 - len(sales_engineer_managers)
+    range_count = 1 - len(sales_engineer_managers)
 
     for _ in range(range_count):
 

@@ -47,11 +47,11 @@ def create_sales_engineers(sales_manager, organization_obj, faker):
     sales_engineers = list(TestSalesEngineer.objects.filter(manager = sales_manager))
 
     # if sales manager has count greater than 5 return sales engineer list
-    if len(sales_engineers) > 5:
+    if len(sales_engineers) > 2:
         return sales_engineers
 
     #check the remaining sales engineer needed
-    remaining_engineer_count = 6 - len(sales_engineers)
+    remaining_engineer_count = 3 - len(sales_engineers)
 
     #create remaining sales engineer
     for _ in range(remaining_engineer_count):

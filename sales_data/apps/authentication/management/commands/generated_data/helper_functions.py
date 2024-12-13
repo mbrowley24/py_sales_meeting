@@ -104,10 +104,10 @@ def start_data():
                                                    sbs_sales_reps,
                                                    organization_obj,
                                                    verticals,
-                                                   100
+                                                   50
                                                    )
 
-                create_appointments(sbs_customers, faker, appointment_types, products, 5)
+                create_appointments(sbs_customers, faker, appointment_types, products, 3)
 
                 # create eae sales reps, customer and meetings
                 eae_sales_reps        = create_sales_representatives(sales_engineer,
@@ -120,9 +120,9 @@ def start_data():
                                                    eae_sales_reps,
                                                    organization_obj,
                                                    verticals,
-                                                   100
+                                                   25
                                                    )
-                create_appointments(eae_customers, faker, appointment_types, products, 15)
+                create_appointments(eae_customers, faker, appointment_types, products, 10)
 
                 # create eam sales reps, customer and meetings
                 eam_sales_reps        = create_sales_representatives(sales_engineer,
@@ -135,7 +135,7 @@ def start_data():
                                                  eam_sales_reps,
                                                  organization_obj,
                                                  verticals,
-                                                 100
+                                                 25
                                                  )
 
                 create_appointments(eam_customers, faker, appointment_types, products, 10)
