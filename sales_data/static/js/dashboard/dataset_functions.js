@@ -9,7 +9,7 @@ export const Utils = {
 
 
 
-const colors = [
+export const colors = [
   'rgba(231, 76, 60, 0.8)',   'rgba(41, 128, 185, 0.8)',  'rgba(241, 196, 15, 0.8)',
   'rgba(39, 174, 96, 0.8)',   'rgba(155, 89, 182, 0.8)',  'rgba(236, 112, 99, 0.8)',
   'rgba(26, 188, 156, 0.8)',  'rgba(149, 165, 166, 0.8)', 'rgba(243, 156, 18, 0.8)',
@@ -57,12 +57,13 @@ export const create_total_meeting_data = (total_meetings) =>{
     const dataset  = []
 
     dataset.push({
-        label : "Meetings",
-        data  : [...total_meetings],
-        borderColor: 'rgba(0, 0, 0, 0.8)',
-        borderWidth: 2,
-        fill: false,
-        tension: 0.1
+        label           : "Meetings",
+        data            : [...total_meetings],
+        backgroundColor : 'rgba(65, 105, 225, 0.3)',
+        borderColor     : 'rgba(65, 105, 225, 1)',
+        borderWidth     : 2,
+        fill            : false,
+        tension         : 0.1
     });
 
     return dataset;
@@ -70,8 +71,6 @@ export const create_total_meeting_data = (total_meetings) =>{
 
 //create product name map
 export const create_product_structure = (json_data) =>{
-
-    console.log(json_data)
 
     const product_names = [...json_data['products']];
     const mgr             = Object.keys(json_data['sales_eng_mgr'])[0]
@@ -85,7 +84,7 @@ export const create_product_structure = (json_data) =>{
            continue;
         }
 
-        data[product_names[i]] = Array(12).fill(0);
+        data[product_names[i]] = 0;
     }
 
     for(let i = 0; i < sales_eng_names.length; i++){
@@ -101,7 +100,6 @@ export const create_product_structure = (json_data) =>{
             for(let k = 0; k < appointment_list.length; k++){
 
                 const appointment = JSON.parse(JSON.stringify(appointment_list[k]))
-                console.log(appointment)
 
                 const products    = [...appointment.products];
 
@@ -109,10 +107,8 @@ export const create_product_structure = (json_data) =>{
 
                     const product = JSON.parse(JSON.stringify(products[l]))
 
-                    console.log(product)
-                    const month = new Date(appointment.date).getMonth();
 
-                    data[product][month]++
+                    data[product]++
 
                 }
 
@@ -163,8 +159,6 @@ export const create_sales_eng_data_structure = (names) =>{
 //create meeting type map
 export const create_type_meeting_structure = (json_data) =>{
 
-    console.log(json_data)
-
     const data            = {};
     const mgr             = Object.keys(json_data['sales_eng_mgr'])[0]
     const sales_eng_names = Object.keys(json_data['sales_eng_mgr'][mgr])
@@ -178,7 +172,6 @@ export const create_type_meeting_structure = (json_data) =>{
 
     for(let i = 0; i < sales_eng_names.length; i++){
 
-        console.log(sales_eng_names[i]);
         const sales_eng_structure     = JSON.parse(JSON.stringify(json_data['sales_eng_mgr'][mgr][sales_eng_names[i]]));
 
         const sales_eng_keys          = Object.keys(sales_eng_structure);
@@ -202,30 +195,49 @@ export const create_type_meeting_structure = (json_data) =>{
     return data;
 }
 
+export const create_type_meeting_per_sales_eng = (json_data) =>{
+
+    const data            = {};
+    const mgr             = Object.keys(json_data['sales_eng_mgr'])[0]
+    const sales_eng_names = Object.keys(json_data['sales_eng_mgr'][mgr])
+    const types           = [...json_data['meeting_types']];
+
+
+    for(let i = 0; i < sales_eng_names.length; i++){
+
+        const name = sales_eng_names[i]
+
+        data[name] = []
+    }
+
+}
+
 export const create_product_data = (products) =>{
     const dataset = []
-    const keys = Object.keys(products)
-
-    for(let i = 0; i < keys.length; i++){
-
-        const data = {
-            label       : keys[i]?.toUpperCase(),
-            data        : [...products[keys[i]]],
-            borderColor : colors[i],
-            borderWidth : 2,
-            fill        : false
-        }
-
-        dataset.push(data)
-    }
+    const keys    = Object.keys(products)
+    const values  = Object.keys(products)
+    console.log(products)
+    // for(let i = 0; i < keys.length; i++){
+    //
+    //     const data = {
+    //         label       : keys[i]?.toUpperCase(),
+    //         data        : [...values],
+    //         backgroundColor: [...colors],
+    //         borderWidth : 2,
+    //         fill        : false
+    //     }
+    //
+    //     dataset.push(data)
+    // }
 
 
     return dataset
 }
 
+
 //create_type_meeting_data_structure for graph
 export const create_type_meeting_data = (type_meetings) =>{
-    console.log(type_meetings)
+
     const dataset = [];
 
     const keys = Object.keys(type_meetings)
@@ -300,3 +312,5 @@ export const meeting_tracker = (sales_eng_mgr_names) =>{
     }
     return data;
 }
+
+

@@ -4,15 +4,44 @@
 
 {% block css_files  %}
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/landing_page/land_page_style.css' %}">
 {% endblock %}
 
 
 {% block content %}
-    <div class="container">
+    <div class="public_container">
     <div>
-        <h1 class="title">dashboard</h1>
+        <h1 class = "title">{{org_name}}'s dashboard</h1>
     </div>
+        <div class = "landing_page_para">
+            <h1 class = "status_header">Meeting Status</h1>
+            <table class = "table">
+                <thead>
+                    <tr>
+                        <th>Sales Engineer</th>
+                        <th>Initial (IAH)</th>
+                        <th>Follow-up (FA)</th>
+                        <th>Proposal (PA)</th>
+                    </tr>
+                </thead>
+                <tbody id = "meeting_table_body">
 
+                </tbody>
+            </table>
+{#            <p>#}
+{#                I am working on developing a product that tracks sales meeting data and correlates it with sales reps'#}
+{#                performance in achieving their quotas. The goal is to provide actionable insights by connecting key#}
+{#                metrics such as meeting frequency, client engagement, and deal progress with individual and team sales#}
+{#                targets.#}
+{##}
+{#            </p>#}
+{#            <p>#}
+{#                By analyzing this data, the platform aims to highlight patterns that contribute to successful#}
+{#                quota attainment, enabling sales managers to make data-driven decisions. This project combines my#}
+{#                interest in business analytics and sales strategy, using advanced tracking and reporting features to#}
+{#                improve overall sales performance.#}
+{#            </p>#}
+        </div>
         <div>
             <div class="dashboard-row">
                 <div class="dashboard-chart" >
@@ -30,6 +59,14 @@
                     <canvas id="product-chart"></canvas>
                 </div>
             </div>
+{#            <div class = "dashboard-chart">#}
+{#                <div>#}
+{#                    <select name="" id="">#}
+{#                        <option value="">test</option>#}
+{#                    </select>#}
+{#                </div>#}
+{#                <canvas id = "sales-eng-meeting-type"></canvas>#}
+{#            </div>#}
         </div>
     </div>
 {% endblock %}

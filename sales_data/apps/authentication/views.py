@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm, User
 from django.contrib.auth       import login, logout, authenticate
 from django.utils.timezone     import make_aware
 
-from apps.demo_data.models import TestAppointment, TestSalesEngineer, TestProduct, TestAppointmentType
+from apps.demo_data.models import TestAppointment, TestSalesEngineer, TestProduct, TestAppointmentType, TestOrganization
 
 
 def app_login(request):
@@ -78,9 +78,11 @@ def landing_page(request):
         start       = make_aware(datetime(year = year, month = 1, day = 1, hour = 0, minute = 0, second = 0))
         end         = make_aware(datetime(year = year, month = 12, day = 31, hour = 23, minute = 59, second = 59))
 
+        organization_name = TestOrganization.objects.all()[0].name
+
         data = {
-                 'sales_eng_mgr' : {},
-                 'products'      : [],
+                 'sales_eng_mgr'  : {},
+                 'products'       : [],
                  'meeting_types'  : []
                 }
 
@@ -167,8 +169,11 @@ def landing_page(request):
 
                         data['sales_eng_mgr'][mgr_name][sales_eng][sales_rep].append(data_point)
 
+        print(organization_name)
+
         context = {
-            'data' : data
+            'data'      : data,
+            'org_name'  : organization_name
         }
 
         return render(request, 'landing_page.html', context)
