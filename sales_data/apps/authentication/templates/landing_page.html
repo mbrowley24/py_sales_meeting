@@ -1,82 +1,69 @@
-{%  extends 'base.html' %}
-
-{% load static %}
-
-{% block css_files  %}
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'css/landing_page/land_page_style.css' %}">
-{% endblock %}
-
-
-{% block content %}
-    <div class="public_container">
-    <div>
-        <h1 class = "title">{{org_name}}'s dashboard</h1>
-    </div>
-        <div class = "landing_page_para">
-            <h1 class = "status_header">Meeting Status</h1>
-            <table class = "table">
-                <thead>
-                    <tr>
-                        <th>Sales Engineer</th>
-                        <th>Initial (IAH)</th>
-                        <th>Follow-up (FA)</th>
-                        <th>Proposal (PA)</th>
-                    </tr>
-                </thead>
-                <tbody id = "meeting_table_body">
-
-                </tbody>
-            </table>
-{#            <p>#}
-{#                I am working on developing a product that tracks sales meeting data and correlates it with sales reps'#}
-{#                performance in achieving their quotas. The goal is to provide actionable insights by connecting key#}
-{#                metrics such as meeting frequency, client engagement, and deal progress with individual and team sales#}
-{#                targets.#}
-{##}
-{#            </p>#}
-{#            <p>#}
-{#                By analyzing this data, the platform aims to highlight patterns that contribute to successful#}
-{#                quota attainment, enabling sales managers to make data-driven decisions. This project combines my#}
-{#                interest in business analytics and sales strategy, using advanced tracking and reporting features to#}
-{#                improve overall sales performance.#}
-{#            </p>#}
-        </div>
-        <div>
-            <div class="dashboard-row">
-                <div class="dashboard-chart" >
-                    <canvas id="meeting-chart"></canvas>
-                </div>
-                <div class="dashboard-chart">
-                    <canvas id="sales-rep-meeting-chart"></canvas>
-                </div>
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Yeoman Meeting Tracker</title>
+      <link rel="stylesheet" href="{% static 'css/landing_page/land_page_style.css' %}">
+    </head>
+    <body>
+        <!-- Hero Section -->
+        <section class="hero">
+          <div class="container">
+            <h1>Boost Your Sales Performance</h1>
+            <p>Track, analyze, and optimize your sales activities with Yeoman Tracker.</p>
+            <div class="cta-buttons">
+              <button onclick="location.href='#features'">Learn More</button>
+              <button onclick="location.href='#signup'">Get Started</button>
             </div>
-            <div class="dashboard-row">
-                <div class="dashboard-chart" >
-                    <canvas id="type-meeting-chart"></canvas>
-                </div>
-                <div class="dashboard-chart">
-                    <canvas id="product-chart"></canvas>
-                </div>
+          </div>
+        </section>
+        <!-- Features Section -->
+        <section id="features" class="features">
+          <div class="container">
+            <h2>Why Choose SalesApp?</h2>
+            <div class="feature-grid">
+              <div class="feature-item">
+                <h3>Sales Summary Dashboard</h3>
+                <p>Access detailed sales summaries and team performance metrics through scheduled reports.</p>
+              </div>
+              <div class="feature-item">
+                <h3>Team Collaboration</h3>
+                <p>Work smarter by collaborating with your team to close deals faster.</p>
+              </div>
+              <div class="feature-item">
+                <h3>Custom Reports</h3>
+                <p>Create detailed reports and hit your targets with ease.</p>
+              </div>
             </div>
-{#            <div class = "dashboard-chart">#}
-{#                <div>#}
-{#                    <select name="" id="">#}
-{#                        <option value="">test</option>#}
-{#                    </select>#}
-{#                </div>#}
-{#                <canvas id = "sales-eng-meeting-type"></canvas>#}
-{#            </div>#}
-        </div>
-    </div>
-{% endblock %}
+          </div>
+        </section>
 
-{% block page_scripts %}
-    {{ data|json_script:"data" }}
-{#    {{ appointment_data|json_script:"appointment_data" }}#}
-{#    {{ sales_reps|json_script:"sales_reps" }}#}
-{#    {{ products|json_script:"products" }}#}
-{#    {{ appointment_type_names|json_script:"appointment_type_names" }}#}
+        <!-- App Preview Section -->
+        <section class="preview">
+          <div class="container">
+            <h2>See SalesApp in Action</h2>
+            <img src="screenshot.png" alt="App Screenshot">
+          </div>
+        </section>
 
-    <script type="module" src="{% static 'js/dashboard/dashboard.js' %}"></script>
-{% endblock %}
+        <!-- Signup Section -->
+        <section id="signup" class="signup">
+          <div class="container">
+            <h2>Get Started Today</h2>
+            <form action="/signup" method="POST">
+              <input type="email" placeholder="Enter your email" required>
+              <button type="submit">Sign Up</button>
+            </form>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+          <div class="container">
+            <p>&copy; 2024 SalesApp. All Rights Reserved.</p>
+          </div>
+        </footer>
+    </body>
+</html>

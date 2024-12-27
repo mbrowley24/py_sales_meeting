@@ -1,149 +1,158 @@
-*{
-    padding : 0;
-    margin  : 0;
+
+/* Reset Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.status_header{
-    text-align: center;
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+  color: #333;
 }
 
-.landing_page_para{
-    background       : rgba(220, 220, 220, 1);
-    border-radius    : .25rem;
-    margin-left      : auto;
-    margin-right     : auto;
-    padding          : 1%;
-    width            : 50%
-
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #007bff, #6610f2);
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
 }
 
-.landing_page_para p {
-    font-size     : 1vw;
-    margin-top    : 2%;
-    margin-bottom : 2%;
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
 }
 
-.table{
-    border: 1px solid black;
-    border-radius: .25rem;
-    margin-right: auto;
-    margin-left: auto;
-    padding: 0.5%;
-    background: rgba(200, 200, 200, .85);
-    width: 75%;
-
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
 }
 
-.table thead{
-    background: darkgray;
-    border-spacing: 0;
+.hero .cta-buttons button {
+  background: white;
+  color: #007bff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  margin: 0 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.table thead tr th{
-    font-size: .95vw;
-    height: 1rem;
-    overflow: hidden;
-    padding: 0.25%;
-    text-align: center;
-    text-overflow: ellipsis;
-    text-transform: capitalize;
-    width : 15vw;
-    white-space: nowrap;
+.hero .cta-buttons button:hover {
+  background: #0056b3;
+  color: white;
 }
 
-.table tbody tr{
-    margin-right: auto;
-    margin-left: auto;
+/* Features Section */
+.features {
+  padding: 80px 20px;
+  text-align: center;
 }
 
-.table tbody tr td{
-    text-transform: capitalize;
-    font-size     : .75vw;
-    overflow      : hidden;
-    padding-left  : .15vw;
-    padding-right : .15vw;
-    text-align    : center;
-    text-overflow : ellipsis;
-
+.features h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
 }
 
-.table tbody tr:nth-child(odd):hover{
-    background-color : rgb(210, 210, 210, .75);
-    text-align       : center;
-    padding          : 8px;
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
 }
 
-.table tbody tr:nth-child(even):hover{
-    background-color : rgb(169, 169, 169, 1);
-    text-align       : center;
-    padding          : 8px;
+.feature-item {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-.table tbody tr:nth-child(odd){
-    background-color : rgb(169, 169, 169, .5);
-    text-align       : center;
-    padding          : 8px;
+.feature-item h3 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
 }
 
-.table tbody tr:nth-child(even){
-    background-color : rgb(210, 210, 210, .75);
-    text-align       : center;
-    padding          : 8px;
+.feature-item p {
+  font-size: 1rem;
+  color: #555;
 }
 
-
-
-
-table_data{
-    width           : 70%;
-    border          : 1px solid white;
-    border-collapse : collapse;
-    border-radius   : .50rem;
-    margin-left     : auto;
-    margin-right    : auto;
-    padding         : 2%;
+/* App Preview Section */
+.preview {
+  background: #007bff;
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
 }
 
-.table_data thead tr th{
-    background-color : rgb(255, 255, 255, .75);
-    text-align       : center;
-    text-transform   : capitalize;
-    padding          : 8px;
+.preview h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
 }
 
-
-.table_data tbody tr:nth-child(odd):hover{
-    background-color : rgb(210, 210, 210, .75);
-    text-align       : center;
-    text-transform   : capitalize;
-    padding          : 8px;
+.preview img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.table_data tbody tr:nth-child(even):hover{
-
-    background-color: rgb(169, 169, 169, 1);
-    text-align: center;
-    text-transform: capitalize;
-    padding: 8px;
+/* Signup Section */
+.signup {
+  padding: 80px 20px;
+  text-align: center;
 }
 
-
-.table_data tbody tr:nth-child(odd){
-    background-color: rgb(169, 169, 169, .5);
-    text-align: center;
-    text-transform: capitalize;
-    padding: 8px;
+.signup h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
 }
 
-.table_data tbody tr:nth-child(even){
-    background-color: rgb(210, 210, 210, .75);
-    text-align: center;
-    text-transform: capitalize;
-    padding: 8px;
+.signup form {
+  display: inline-block;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.table_data tbody tr td{
-    text-align: center;
-    padding: 8px;
+.signup input[type="email"] {
+  padding: 10px;
+  width: 70%;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
 }
+
+.signup button {
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signup button:hover {
+  background: #0056b3;
+}
+
+/* Footer Section */
+footer {
+  background: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+

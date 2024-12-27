@@ -1,0 +1,387 @@
+*{
+    padding : 0;
+    margin  : 0;
+}
+
+.border{
+    border: 3px red solid;
+}
+.selected{
+    background: darkblue;
+    color: white;
+}
+
+.benefits-toggle{
+    display: flex;
+    justify-content: center;
+    margin-bottom: .5%;
+}
+
+.building{
+    width : 10vw;
+}
+
+.flex{
+    display: flex;
+}
+.e-line{
+    /*border          : 1px black solid;*/
+    display         : flex;
+    height          : 60vh ;
+    justify-content : center;
+    margin-top      : 1%;
+    width           : 90vw;
+}
+
+.drop_zone{
+    border       : 5px black solid;
+    height       : 40vh;
+    margin-right : auto;
+    margin-left  : auto;
+    overflow     : hidden;
+    width        : 70vw;
+}
+
+.e-line-length{
+    /*border: 1px black solid;*/
+    width : 90vw;
+}
+
+.circuit-tx{
+    stroke: green;
+    stroke-width: 4;
+    stroke-dasharray: 5, 5; /* Dotted Line */
+    /*stroke-dasharray: 400;*/
+    /*stroke-dashoffset: 400;*/
+    /*stroke-dashoffset: 0;*/
+    animation: tx-motion 20s linear infinite;
+}
+
+.circuit-rx{
+    stroke: blue;
+    stroke-width: 4;
+    stroke-dasharray: 5, 5; /* Dotted Line */
+    /*stroke-dasharray: 400;*/
+    /*stroke-dashoffset: 400;*/
+    /*stroke-dashoffset: 0;*/
+    animation: rx-motion 20s linear infinite;
+}
+
+/* Keyframe animation */
+@keyframes tx-motion {
+  from{
+     stroke-dashoffset: 400;
+     stroke: green;
+   }
+  /*to {*/
+  /*  stroke-dashoffset: -200;*/
+  /*  stroke: blue*/
+  /*}*/
+
+}
+
+
+/* Keyframe animation */
+@keyframes rx-motion {
+  from{
+     stroke-dashoffset: -400;
+     stroke: blue;
+   }
+  /*to {*/
+  /*  stroke-dashoffset: -200;*/
+  /*  stroke: blue*/
+  /*}*/
+
+}
+
+@keyframes looping-draw {
+    0% {
+        stroke-dashoffset: 400;
+        stroke: red;
+    }
+    50% {
+        stroke: green;
+    }
+    100% {
+        stroke-dashoffset: -400;
+        stroke: green;
+    }
+}
+
+
+
+.flip-horizontal {
+  transform: scaleX(-1);  /* Flips horizontally */
+}
+
+.hide{
+    display : none;
+}
+
+.options{
+    display         : flex;
+    justify-content : center;
+    margin-left     : auto;
+    margin-right    : auto;
+    width           : 95vw;
+}
+
+.option{
+}
+
+
+.option button{
+    font-size : .75vw;
+    padding   : .5%;
+    width     : 8vw;
+    text-wrap : nowrap;
+}
+
+
+.relative{
+    position: relative;
+}
+
+.e-line_cloud{
+    border   : 2px black solid;
+    height   : 14vh;
+    overflow : hidden;
+    position : absolute;
+    right    : 40%;
+    width    : 8vw;
+}
+
+.e-line-connection{
+    bottom        : 0;
+    border        : 2px solid black;
+    height        : 35%;
+    margin-bottom : 1%;
+    margin-left   : auto;
+    margin-right  : auto;
+    position      :  absolute;
+    width         : 49vw;
+
+}
+.e-line-router-site-a{
+    bottom   : 0;
+    position : absolute;
+    right    : 90%;
+    width    : 5vw;
+}
+
+.e-line-router-site-z{
+    bottom   : 0;
+    position : absolute;
+    right    : 0;
+    width    : 5vw;
+}
+
+.center_margin{
+    display: block;
+    margin: auto;
+}
+
+.relative-right-85{
+    position: absolute;
+    right: 85%;
+}
+
+.relative-right-80{
+    position: absolute;
+    right: 80%;
+}
+
+.relative-right-78{
+    position: absolute;
+    right: 78%;
+}
+
+.relative-right-75{
+    position: absolute;
+    right: 75%;
+}
+
+.relative-right-50{
+    position: absolute;
+    right: 50%;
+}
+
+.relative-right-25{
+    position: absolute;
+    right: 15%
+}
+
+.bottom{
+    position: absolute;
+    bottom: 0;
+}
+
+.pipe-switch{
+
+}
+
+.pipe-top{
+    position: absolute;
+    top: 0;
+}
+
+.tile{
+    background  : rgba(200, 200, 200, 1);
+    /*border      : 1px black solid;*/
+    font-size   : .75rem;
+    height      : 12vh;
+    width       : 5vw;
+    overflow    : hidden;
+    padding-top : .5%;
+    text-align  : center;
+}
+
+
+.tiles{
+    display         : flex;
+    justify-content : center;
+    height          : 10vh;
+    margin-left     : auto;
+    margin-right    : auto;
+    width           : 95vw;
+}
+
+.work-area{
+    align-items     : center;
+    background      : rgba(150, 150, 150, 1);
+    border          : 5px black solid;
+    display         : flex;
+    justify-content : center;
+    height          : 70vh ;
+    margin-right    : auto;
+    margin-left     : auto;
+    width           : 95vw;
+}
+
+
+
+.table-data-usecase{
+    border        : 5px solid black;
+    border-radius : .25rem;
+    height        : 10vh;
+    margin-right  : auto;
+    margin-left   : auto;
+    padding       : 0.5%;
+    background    : rgba(200, 200, 200, .85);
+    width         : 50vw;
+    overflow      : auto;
+
+}
+
+.table-data-usecase thead{
+    background: darkgray;
+    border-spacing: 0;
+}
+
+.table-data-usecase thead tr th{
+    font-size: .95vw;
+    height: 1rem;
+    overflow: hidden;
+    padding: 0.25%;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    width : 15vw;
+    white-space: nowrap;
+}
+
+.table-data-usecase tbody tr{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.table-data-usecase tbody tr td{
+    font-size: .70vw;
+    overflow: hidden;
+    padding-left: .15vw;
+    padding-right: .15vw;
+    text-align: center;
+    text-overflow: ellipsis;
+
+}
+
+.table-data-usecase tbody tr:nth-child(odd):hover{
+    background-color: rgb(210, 210, 210, .75);
+    text-align: center;
+    padding: 8px;
+}
+
+.table-data-usecase tbody tr:nth-child(even):hover{
+    background-color: rgb(169, 169, 169, 1);
+    text-align: center;
+    padding: 8px;
+}
+
+
+.table-data-usecase tbody tr:nth-child(odd){
+    background-color: rgb(169, 169, 169, .5);
+    text-align: center;
+    padding: 8px;
+}
+
+.table-data-usecase tbody tr:nth-child(even){
+    background-color: rgb(210, 210, 210, .75);
+    text-align: center;
+    padding: 8px;
+}
+
+
+
+
+/*table-data-usecase_data{*/
+/*    width: 70%;*/
+/*    border: 1px solid white;*/
+/*    border-collapse: collapse;*/
+/*    border-radius: .50rem;*/
+/*    margin-left: auto;*/
+/*    margin-right: auto;*/
+/*    padding: 2%;*/
+/*}*/
+
+/*.table-data-usecase_data thead tr th{*/
+/*    background-color: rgb(255, 255, 255, .75);*/
+/*    text-align: center;*/
+/*    text-transform: capitalize;*/
+/*    padding: 8px;*/
+/*}*/
+
+
+/*.table-data-usecase_data tbody tr:nth-child(odd):hover{*/
+/*    background-color: rgb(210, 210, 210, .75);*/
+/*    text-align: center;*/
+/*    text-transform: capitalize;*/
+/*    padding: 8px;*/
+/*}*/
+
+/*.table-data-usecase_data tbody tr:nth-child(even):hover{*/
+
+/*    background-color: rgb(169, 169, 169, 1);*/
+/*    text-align: center;*/
+/*    text-transform: capitalize;*/
+/*    padding: 8px;*/
+/*}*/
+
+
+/*.table-data-usecase_data tbody tr:nth-child(odd){*/
+/*    background-color: rgb(169, 169, 169, .5);*/
+/*    text-align: center;*/
+/*    text-transform: capitalize;*/
+/*    padding: 8px;*/
+/*}*/
+
+/*.table-data-usecase_data tbody tr:nth-child(even){*/
+/*    background-color: rgb(210, 210, 210, .75);*/
+/*    text-align: center;*/
+/*    text-transform: capitalize;*/
+/*    padding: 8px;*/
+/*}*/
+
+/*.table-data-usecase_data tbody tr td{*/
+/*    text-align: center;*/
+/*    padding: 8px;*/
+/*}*/

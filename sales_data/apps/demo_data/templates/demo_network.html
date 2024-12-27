@@ -1,0 +1,242 @@
+{%  extends 'base.html' %}
+
+{% load static %}
+
+{% block css_files  %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/demo/network.css' %}">
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    <div class="public_container">
+        <div>
+            <h1 class = "title"></h1>
+        </div>
+        <div class = "options">
+            <div class = "option">
+                <button id = "e-lan-action">E-Line</button>
+            </div>
+            <div class = "option">
+                <button>E-LAN</button>
+            </div>
+            <div class = "option">
+                <button> E-Tree </button>
+            </div>
+            <div class = "option">
+                <button>SD-WAN</button>
+            </div>
+            <div class = "option">
+                <button>Secure Network Edge</button>
+            </div>
+            <div class = "option">
+                <button>Single Site Security</button>
+            </div>
+            <div class = "option">
+                <button>DDoS</button>
+            </div>
+            <div class = "option">
+                <button>EDR</button>
+            </div>
+            <div class = "option">
+                <button>MDR</button>
+            </div>
+        </div>
+        <div class = "work-area">
+            <div class = "e-line" id = "e-line">
+                <div class="e-line-length">
+                    <div class = "">
+                        <div class="benefits-toggle">
+                            <button id="e-lan-use-case-action">Use Case</button>
+                            <button id="e-lan-feature-action">Features</button>
+                            <button id="e-lan-benefits-action">Benefits</button>
+                            <button id="e-lan-benefits-action">Design</button>
+                        </div>
+                        <div class="" id = "e-lan-use-case">
+                            <table class = 'table-data-usecase'>
+                                <thead>
+                                    <tr>
+                                        <th>Use Case</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Business WAN Links</td>
+                                        <td>Connecting branch offices securely.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data Center Interconnect</td>
+                                        <td>Linking data centers for disaster recovery.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Carrier Ethernet E-Line</td>
+                                        <td>Metro Ethernet for enterprise customers.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Campus Connectivity</td>
+                                        <td>Direct links between university or enterprise buildings.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Telecom Backhaul</td>
+                                        <td>Linking mobile towers to core networks.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="hide" id = "e-lan-feature">
+                             <table class = 'table-data-usecase'>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>OSI Layer</td>
+                                        <td>Operates at Layer 2 (Data Link Layer).</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Connection Type</td>
+                                        <td>Dedicated link between two endpoints.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Frame Forwarding</td>
+                                        <td>Uses MAC addresses for frame delivery.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Topology Type</td>
+                                        <td>Direct links between university or enterprise buildings.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Encapsulation</td>
+                                        <td>Typically uses Ethernet frames.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="hide" id = "e-lan-benefit">
+                             <table class = 'table-data-usecase'>
+                                <thead>
+                                    <tr>
+                                        <th>Benefit</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>High Performance & Low Latency</td>
+                                        <td>Direct link ensures minimal delay, making it ideal for time-sensitive traffic like VoIP and video streaming.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Simplicity in Configuration</td>
+                                        <td>No need for IP addressing or complex routing protocols; devices communicate directly using MAC addresses.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Frame Forwarding</td>
+                                        <td>Uses MAC addresses for frame delivery.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>High Security</td>
+                                        <td>Traffic is isolated between endpoints, reducing the attack surface and ensuring privacy.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Scalability</td>
+                                        <td>Supports easy bandwidth upgrades and allows for additional point-to-point links when needed.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Reliable Connectivity</td>
+                                        <td>Dedicated bandwidth guarantees throughput, and failover mechanisms can ensure continuous availability.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bandwidth Flexibility</td>
+                                        <td>Service providers often offer flexible bandwidth plans, making it suitable for growing businesses.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dedicated Connection</td>
+                                        <td>The link is not shared with other users, ensuring consistent network performance.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Support for Redundancy</td>
+                                        <td>Can support link aggregation, fail-over configurations, and load balancing for increased reliability.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id = "drop-zone" class="drop_zone">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "tiles" >
+            <div class = "tile" >
+                <div id="fiber-container" data-image-path="{% static 'images/network/fiber-optic.svg' %}">
+{#                    <img src       = "{% static 'images/network/fiber-optic.svg'  %}"#}
+{#                      alt       = "fiber"#}
+{#                      width     = "75"#}
+{#                      height    = "75"#}
+{#                      draggable = "true"#}
+{#                    >#}
+                </div>
+                <p>Fiber</p>
+            </div>
+            <div class = "tile" id="fixed-wireless-item-1" >
+                <img src="{% static 'images/network/radio-tower (1).svg'  %}" alt="firewall" width="75" height="75">
+                <p>Fixed Wireless</p>
+            </div>
+            <div class = "tile" id="internet-item-1">
+                <img src="{% static 'images/network/web-service.svg'  %}" alt="firewall" width="75" height="75">
+                <p>Internet</p>
+            </div>
+            <div class = "tile" id="cloud-item-1">
+                <img src="{% static 'images/network/cloud.svg'  %}" alt="firewall" width="75" height="75">
+                <p>Cloud</p>
+            </div>
+            <div class = "tile" id="firewall-item-1">
+                <img src="{% static 'images/network/asa-5500.svg'  %}" alt="firewall" width="75" height="75">
+                <p>Firewall</p>
+            </div>
+            <div class = "tile" id="cpe-item-1">
+                <img src="{% static 'images/network/workgroup-switch.svg'  %}" alt="firewall" width="75" height="75">
+                <p>CPE</p>
+            </div>
+            <div class = "tile" id="modem-item-1">
+                <img src="{% static 'images/network/modem.svg'  %}" alt="firewall" width="75" height="75">
+                <p>Modem</p>
+            </div>
+            <div class = "tile" id="wifi-item-1">
+                <img src="{% static 'images/network/wireless-transport.svg'  %}" alt="firewall" width="75" height="75">
+                <p>WiFi</p>
+            </div>
+            <div class = "tile" id="end-point-item-1">
+                <img src="{% static 'images/network/laptop.svg'  %}" alt="firewall" width="75" height="75">
+                <p>Endpoint</p>
+            </div>
+            <div class = "tile" id="voip-gateway-item-1">
+                <img src="{% static 'images/network/ip-telephony-router.svg'  %}" alt="firewall" width="75" height="75">
+                <p>VoIP Gateway</p>
+            </div>
+            <div class = "tile" id="voip-phone-1">
+                <img src="{% static 'images/network/ip-phone.svg'  %}" alt="firewall" width="75" height="75">
+                <p>VoIP Phone</p>
+            </div>
+            <div class = "tile" id="edr-item-1">
+                <img src="{% static 'images/network/network-security.svg'  %}" alt="firewall" width="75" height="75">
+                <p>EDR</p>
+            </div>
+            <div class = "tile" id="mdr-item-1">
+                <img src="{% static 'images/network/management-console.svg'  %}" alt="firewall" width="75" height="75">
+                <p>MDR</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page_scripts %}
+
+    <script type="module" src="{% static 'js/network/e-lan-network.js' %}"></script>
+{% endblock %}

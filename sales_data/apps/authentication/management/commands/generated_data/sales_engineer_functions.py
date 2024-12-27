@@ -1,82 +1,44 @@
-from apps.demo_data.models import TestSalesEngineer, TestSalesEngineerGroup, TestGroup
-from utils.helper import generate_public_id
-from apps.authentication.management.commands.generated_data.generate_user_data import generate_unique_user_data
+from .sales_rep_functions import create_sales_representatives
+
 
 
 #creates sales engineer user faker data
-def create_sales_engineer(sales_manager, organization_obj, faker):
+def create_sales_engineer(faker, name_tracker, company_tracker):
 
-    data = generate_unique_user_data(faker, organization_obj.name, True)
+    sales_engineer     = ""
 
-    return TestSalesEngineer.objects.create(
-        public_id    = generate_public_id(TestSalesEngineer),
-        first_name   = data['first_name'],
-        last_name    = data['last_name'],
-        email        = data['email'],
-        manager      = sales_manager,
-        username     = data['username'],
-        organization = organization_obj,
-    )
+    while True:
 
-def create_sales_engineer_groups(groups, organization_obj):
-    # generate groups from json and append to list to recall later
+        sales_engineer = f'{faker.first_name()} {faker.last_name()}'
+
+        if sales_engineer not in name_tracker:
+            break
 
 
-    for grp in groups:
 
-        if TestGroup.objects.filter( name = grp['name']).exists():
-            continue
-
-
-        TestGroup.objects.create(
-            public_id    = generate_public_id(TestGroup),
-            name         = grp["name"],
-            description  = grp["description"],
-            organization = organization_obj,
-        )
+    return { 'name' : sales_engineer,
+             'data' : create_sales_representatives(faker)
+          }
 
 
-    return TestGroup.objects.filter(organization = organization_obj)
+
+
+
 
 
 
 
 #create a list of sales engineers, checks the sales engineer manager has no more than 6 sales engineers
-def create_sales_engineers(sales_manager, organization_obj, faker):
+def create_sales_engineers(faker, name_tracker, company_tracker):
 
-    sales_engineers = list(TestSalesEngineer.objects.filter(manager = sales_manager))
+    sales_engineers = []
 
-    # if sales manager has count greater than 5 return sales engineer list
-    if len(sales_engineers) > 2:
-        return sales_engineers
+    for _ in range(6):
 
-    #check the remaining sales engineer needed
-    remaining_engineer_count = 3 - len(sales_engineers)
+        sales_engineer = create_sales_engineer(faker, name_tracker, company_tracker)
+        sales_engineers.append(sales_engineer)
 
-    #create remaining sales engineer
-    for _ in range(remaining_engineer_count):
-
-        #create new sales engineer
-        new_sales_engineer = create_sales_engineer(sales_manager, organization_obj, faker)
-
-        #append new sales engineer to list
-        sales_engineers.append(new_sales_engineer)
 
     return sales_engineers
-
-
-#group sales engineers to sales engineer groups and checks for duplicate
-def sales_engineers_group(sales_engineers, group):
-
-    for sales_engineer in sales_engineers:
-        exists = TestSalesEngineerGroup.objects.filter(sales_engineer = sales_engineer, group = group).exists()
-
-        if exists:
-            continue
-
-        TestSalesEngineerGroup.objects.create(
-            sales_engineer = sales_engineer,
-            group          = group,
-        )
 
 

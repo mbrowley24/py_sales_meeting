@@ -46,6 +46,17 @@
     overflow: auto;
 }
 
+
+.public_container{
+     background-image: url("https://seconnerimages.nyc3.cdn.digitaloceanspaces.com/computer.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 93vh;
+    padding-top: 1vh;
+    overflow: auto;
+}
+
 .links{
     background: rgba(200, 200, 200, .75);
     border-radius: .25rem;

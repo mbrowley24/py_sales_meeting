@@ -4,29 +4,63 @@
 
 {% block css_files  %}
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/demo/demo_page.css' %}">
 {% endblock %}
 
 
 {% block content %}
-    <div class="container">
-    <div>
-        <h1 class="title">demo dashboard</h1>
-    </div>
+    <div class="demo_container">
+        <div>
+            <h1 class = "title">{{org_name}}'s dashboard {{ year }}</h1>
+        </div>
+        <div>
+            <h1 class = "meeting_header">Meeting Status</h1>
+            <table class = "table">
+                <thead>
+                    <tr>
+                        <th id = "eng_name"  class = "sortable"  data-column  = "name" >Sales Engineer</th>
+                        <th id = "iah_count" class = "sortable"  data-column  = "iah"  >Initial (IAH)</th>
+                        <th id = "fa_count"  class = "sortable"  data-column  = "fa"   >Follow-up (FA)</th>
+                        <th id = "pa_count"  class = "sortable"  data-column  = "pa"   >Proposal (PA)</th>
+                    </tr>
+                </thead>
+                <tbody id = "meeting_table_body">
 
+                </tbody>
+            </table>
+        </div>
         <div>
             <div class="dashboard-row">
                 <div class="dashboard-chart" >
+                    <div>
+                        <h6 class = "table_header">Total Meetings</h6>
+                    </div>
                     <canvas id="meeting-chart"></canvas>
                 </div>
                 <div class="dashboard-chart">
+                    <div>
+                        <h6 class = "table_header">Meetings By Engineer</h6>
+                    </div>
                     <canvas id="sales-rep-meeting-chart"></canvas>
                 </div>
             </div>
             <div class="dashboard-row">
                 <div class="dashboard-chart" >
+                    <h6 class = "table_header">Meetings By Type</h6>
+                    <div class = "select_eng">
+                        <select id="type_eng">
+                            <option value="">All</option>
+                        </select>
+                    </div>
                     <canvas id="type-meeting-chart"></canvas>
                 </div>
                 <div class="dashboard-chart">
+                    <h6 class = "table_header">Meetings By Products</h6>
+                    <div class = "select_eng">
+                        <select id="product_eng">
+                            <option value="">All</option>
+                        </select>
+                    </div>
                     <canvas id="product-chart"></canvas>
                 </div>
             </div>
@@ -35,10 +69,7 @@
 {% endblock %}
 
 {% block page_scripts %}
-    {{ appointment_data|json_script:"appointment_data" }}
-    {{ sales_reps|json_script:"sales_reps" }}
-    {{ products|json_script:"products" }}
-    {{ appointment_type_names|json_script:"appointment_type_names" }}
+    {{ data|json_script:"data" }}
 
     <script type="module" src="{% static 'js/dashboard/dashboard.js' %}"></script>
 {% endblock %}

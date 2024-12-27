@@ -26,29 +26,13 @@ export const colors = [
   'rgba(174, 214, 241, 0.8)'
 ];
 
-const sales_eng_list = (sales_eng_mgr_names) =>{
+export const sales_eng_list = (json_data) =>{
 
-    const data            = {}
-    const mgr             = Object.keys(sales_eng_mgr_names)[0]
-    const sales_eng_names = Object.keys(sales_eng_mgr_names[mgr])
+    const sales_eng_names = []
+    const mgr             = Object.keys(json_data['sales_eng_mgr'])[0]
 
-    for(let i = 0; i < sales_eng_names.length; i++){
 
-        const sales_rep_structure     = JSON.parse(JSON.stringify(sales_eng_mgr_names[mgr][sales_eng_names[i]]));
-
-        const sales_rep_keys          = Object.keys(sales_rep_structure);
-
-        for(let j = 0; j < sales_rep_keys.length; j++){
-
-            const appointment_list    = [...sales_rep_structure[sales_rep_keys[j]]];
-
-            for(let k = 0; k < appointment_list.length; k++){
-
-                console.log(appointment_list[k])
-
-            }
-        }
-    }
+    return Object.keys(json_data['sales_eng_mgr'][mgr])
 }
 
 
@@ -70,11 +54,16 @@ export const create_total_meeting_data = (total_meetings) =>{
 }
 
 //create product name map
-export const create_product_structure = (json_data) =>{
+export const create_product_structure = (json_data, name) =>{
 
     const product_names = [...json_data['products']];
     const mgr             = Object.keys(json_data['sales_eng_mgr'])[0]
-    const sales_eng_names = Object.keys(json_data['sales_eng_mgr'][mgr])
+    let sales_eng_names = Object.keys(json_data['sales_eng_mgr'][mgr])
+
+    if(name && name.length > 0){
+
+        sales_eng_names = sales_eng_names.filter( eng_name => eng_name === name);
+    }
 
     const data = {}
 
@@ -116,9 +105,6 @@ export const create_product_structure = (json_data) =>{
         }
     }
 
-
-
-
     return data;
 }
 
@@ -157,11 +143,11 @@ export const create_sales_eng_data_structure = (names) =>{
 
 
 //create meeting type map
-export const create_type_meeting_structure = (json_data) =>{
+const create_type_meeting_structure = (json_data, name) =>{
 
     const data            = {};
     const mgr             = Object.keys(json_data['sales_eng_mgr'])[0]
-    const sales_eng_names = Object.keys(json_data['sales_eng_mgr'][mgr])
+    let sales_eng_names   = Object.keys(json_data['sales_eng_mgr'][mgr])
     const types           = [...json_data['meeting_types']];
 
     for(let i = 0; i < types.length; i++){
@@ -169,6 +155,10 @@ export const create_type_meeting_structure = (json_data) =>{
         data[types[i]] = Array(12).fill(0);
     }
 
+    if(name && name.length > 0){
+
+        sales_eng_names = sales_eng_names.filter(eng_name => eng_name === name);
+    }
 
     for(let i = 0; i < sales_eng_names.length; i++){
 
@@ -190,7 +180,6 @@ export const create_type_meeting_structure = (json_data) =>{
             }
         }
     }
-
 
     return data;
 }
@@ -217,18 +206,6 @@ export const create_product_data = (products) =>{
     const keys    = Object.keys(products)
     const values  = Object.keys(products)
     console.log(products)
-    // for(let i = 0; i < keys.length; i++){
-    //
-    //     const data = {
-    //         label       : keys[i]?.toUpperCase(),
-    //         data        : [...values],
-    //         backgroundColor: [...colors],
-    //         borderWidth : 2,
-    //         fill        : false
-    //     }
-    //
-    //     dataset.push(data)
-    // }
 
 
     return dataset
@@ -236,7 +213,9 @@ export const create_product_data = (products) =>{
 
 
 //create_type_meeting_data_structure for graph
-export const create_type_meeting_data = (type_meetings) =>{
+export const create_type_meeting_data = (data, name) =>{
+
+    const type_meetings = {...create_type_meeting_structure(data, name)};
 
     const dataset = [];
 

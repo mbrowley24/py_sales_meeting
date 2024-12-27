@@ -89,7 +89,7 @@
     "Virtual Reality and Augmented Reality",
     "Data Analytics and Business Intelligence"
   ],
-  "products": [
+  "ent_products": [
     "UCaaS",
     "VoIP",
     "DRaaS",
@@ -108,8 +108,15 @@
     "SD-WAN",
     "SOCaaS",
     "DDoS Protection"
-
+  ],
+  "sbs_products" : [
+    "VoIP",
+    "Dedicated Internet",
+    "EDR",
+    "Managed Wi-Fi",
+    "SD-WAN"
   ]
+
 }
 
 

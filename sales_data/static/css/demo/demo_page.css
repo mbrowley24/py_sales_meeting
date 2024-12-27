@@ -1,0 +1,150 @@
+*{
+    padding : 0;
+    margin  : 0;
+}
+
+.demo_container{
+    background-image: url("https://seconnerimages.nyc3.cdn.digitaloceanspaces.com/computer.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 90vh;
+    padding-top: 1vh;
+    overflow: auto;
+}
+
+/* Default <th> style */
+.sortable {
+    cursor           : pointer;
+    padding          : 10px;
+    background-color : rgba(150, 150, 150, 1);
+}
+
+.sortable:hover {
+    background-color : rgba(50, 50, 50, 1);
+    color            : white;
+}
+
+.sortable:active {
+    transform: scale(0.99); /* Press effect */
+}
+
+/* Indicate sorting direction */
+.sortable[data-order="asc"]::after {
+    content: " ▲";  /* Ascending arrow */
+}
+
+.sortable[data-order="desc"]::after {
+    content: " ▼";  /* Descending arrow */
+}
+
+
+.select_eng{
+    text-align: center;
+}
+
+.select_eng select option{
+    text-align: center;
+}
+
+
+.landing_page_table{
+    background       : rgba(220, 220, 220, 1);
+    border-radius    : .25rem;
+    margin-left      : auto;
+    margin-right     : auto;
+    padding          : 1%;
+    width            : 50%
+
+}
+
+.meeting_header{
+    background    : grey;
+    border-radius : .25rem;
+    margin-bottom : auto;
+    margin-left   : auto;
+    margin-right  : auto;
+    text-align    : center;
+    width         : 30%;
+}
+
+
+.table{
+    border: 1px solid black;
+    border-radius: .25rem;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0.5%;
+    background: rgba(200, 200, 200, .85);
+    width: 75%;
+
+}
+
+.table thead{
+    background: darkgray;
+    border-spacing: 0;
+}
+
+.table thead tr th{
+    font-size: .95vw;
+    height: 1rem;
+    overflow: hidden;
+    padding: 0.25%;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    width : 15vw;
+    white-space: nowrap;
+}
+
+.table tbody tr{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.table tbody tr td{
+    text-transform: capitalize;
+    font-size     : .75vw;
+    overflow      : hidden;
+    padding-left  : .15vw;
+    padding-right : .15vw;
+    text-align    : center;
+    text-overflow : ellipsis;
+
+}
+
+.table tbody tr:nth-child(odd):hover{
+    background-color : rgb(210, 210, 210, .75);
+    text-align       : center;
+    padding          : 8px;
+}
+
+.table tbody tr:nth-child(even):hover{
+    background-color : rgb(169, 169, 169, 1);
+    text-align       : center;
+    padding          : 8px;
+}
+
+
+.table tbody tr:nth-child(odd){
+    background-color : rgb(169, 169, 169, .5);
+    text-align       : center;
+    padding          : 8px;
+}
+
+.table tbody tr:nth-child(even){
+    background-color : rgb(210, 210, 210, .75);
+    text-align       : center;
+    padding          : 8px;
+}
+
+.table_header{
+    background    : grey;
+    border-radius : .25rem;
+    font-size     : 1vw;
+    margin-bottom : .5%;
+    margin-left   : auto;
+    margin-right  : auto;
+    text-align    : center;
+    width         : 30%;
+}

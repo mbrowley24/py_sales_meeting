@@ -1,47 +1,98 @@
-from apps.demo_data.models import TestSalesRepresentative
-from apps.authentication.management.commands.generated_data.generate_user_data import generate_unique_user_data, data_exists
-from utils.helper import generate_public_id
+import random
+
+from .appointment_functions import create_appointments
+
+
+def create_performance(role):
+
+    multiplier = [1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 0]
+    quota = 240000
+
+    if role == 'eae':
+
+        quota = 420000
+
+    elif role == 'eam':
+
+        quota = 175000
+
+    def create_values():
+
+        multiply = random.choice(multiplier)
+
+        return quota * multiply
+
+    performance = {
+        '2021' : [create_values() for _ in range(12)],
+        '2022' : [create_values() for _ in range(12)],
+        '2023' : [create_values() for _ in range(12)],
+        '2024' : [create_values() for _ in range(12)],
+    }
+
+
+
+
+    return performance
 
 
 
 #create sales rep
-def create_sales_representative(sales_engineer, role, organization_obj, faker):
+def create_sales_representative(role, faker):
+    data = {}
 
-    while True:
+    #small business
+    if role == 'sbs':
 
-        data = generate_unique_user_data(faker, organization_obj.name, False)
+        appointments = create_appointments(faker, role)
 
-        if not data_exists(data, has_username = False):
+        data = {
+                'name'         : f'{faker.first_name()} {faker.last_name()}',
+                'role'         : role,
+                'quota'        : 2400,
+                'appointments' : appointments,
+                'performance'  : create_performance(role)
 
-            return TestSalesRepresentative.objects.create(
-                public_id      = generate_public_id(TestSalesRepresentative),
-                first_name     = data['first_name'],
-                last_name      = data['last_name'],
-                email          = data['email'],
-                organization   = organization_obj,
-                role           = role,
-                sales_engineer = sales_engineer,
-            )
+            }
+
+    #account manager
+    elif role == 'eam':
+
+        data = {
+                'name'         : f'{faker.first_name()} {faker.last_name()}',
+                'role'         : role,
+                'quota'        : 1700,
+                'appointments' : create_appointments(faker, role),
+                'performance'  : create_performance(role)
+        }
+
+
+    #enterprise account exec
+    elif role == 'eae':
+
+        data = {
+                'name'         :f'{faker.first_name()} {faker.last_name()}',
+                'role'         : role,
+                'quota'        : 4200,
+                'appointments' : create_appointments(faker, role),
+                'performance'  : create_performance(role)
+        }
+
+    return data
+
 
 #create sales rep list, each role will have no more than two reps
-def create_sales_representatives(sales_engineer, role, organization_obj, faker):
+def create_sales_representatives(faker):
 
-    #get sales reps based on sales engineers and role
-    sales_reps_list = list(TestSalesRepresentative.objects.filter(sales_engineer = sales_engineer, role = role))
+    roles = ['sbs', 'eam', 'eae', 'sbs', 'eam', 'eae']
 
-    #if sales reps has 2 or more reps
-    if len(sales_reps_list) > 1:
+    sales_reps = []
 
-        return sales_reps_list
+    for role in roles:
 
-    sales_rep_count = 2 - len(sales_reps_list)
+        sales_rep = create_sales_representative(role, faker)
 
-
-    for _ in range(sales_rep_count):
-
-        new_sales_rep = create_sales_representative(sales_engineer, role, organization_obj, faker)
-
-        sales_reps_list.append(new_sales_rep)
+        sales_reps.append(sales_rep)
 
 
-    return sales_reps_list
+
+    return sales_reps

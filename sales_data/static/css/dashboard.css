@@ -18,12 +18,12 @@ canvas{
 }
 
 .dashboard-chart{
-    background   : rgba(255, 255, 255, 1);
-    border       : 1px solid darkblue;
-    height       : 30vh;
-    margin-left  : auto;
-    margin-right : auto;
-    padding      : 1%;
-    overflow     : hidden;
-    width        : 45vw;
+    background     : rgba(255, 255, 255, 1);
+    border         : 5px solid darkblue;
+    height         : 30vh;
+    margin-left    : auto;
+    margin-right   : auto;
+    padding: 0.5% .5% 2% .5%;
+    overflow       : hidden;
+    width          : 45vw;
 }
