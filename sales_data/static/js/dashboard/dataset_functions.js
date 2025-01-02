@@ -7,8 +7,6 @@ export const Utils = {
 };
 
 
-
-
 export const colors = [
   'rgba(231, 76, 60, 0.8)',   'rgba(41, 128, 185, 0.8)',  'rgba(241, 196, 15, 0.8)',
   'rgba(39, 174, 96, 0.8)',   'rgba(155, 89, 182, 0.8)',  'rgba(236, 112, 99, 0.8)',
@@ -26,270 +24,102 @@ export const colors = [
   'rgba(174, 214, 241, 0.8)'
 ];
 
-export const sales_eng_list = (json_data) =>{
+const get_sales_eng_team = (json_data, name) =>{
 
-    const sales_eng_names = []
-    const mgr             = Object.keys(json_data['sales_eng_mgr'])[0]
-
-
-    return Object.keys(json_data['sales_eng_mgr'][mgr])
+    return json_data['sales_engineer_teams'].filter(mgr => mgr.name === name)[0]['engineers'];
 }
 
 
-//create_total_meeting_line create line for total meetings for the given period
-export const create_total_meeting_data = (total_meetings) =>{
-    const dataset  = []
+export const sales_eng_mgr_name_list = (json_data) =>{
 
-    dataset.push({
-        label           : "Meetings",
-        data            : [...total_meetings],
-        backgroundColor : 'rgba(65, 105, 225, 0.3)',
-        borderColor     : 'rgba(65, 105, 225, 1)',
-        borderWidth     : 2,
-        fill            : false,
-        tension         : 0.1
-    });
+    const name_list = [];
 
-    return dataset;
+    for(let i = 0; i < json_data.length; i++){
+
+        name_list.push(json_data[i].name)
+    }
+
+
+    return name_list;
 }
 
-//create product name map
-export const create_product_structure = (json_data, name) =>{
+export const sales_eng_meeting_totals = (json_data, name) =>{
 
-    const product_names = [...json_data['products']];
-    const mgr             = Object.keys(json_data['sales_eng_mgr'])[0]
-    let sales_eng_names = Object.keys(json_data['sales_eng_mgr'][mgr])
+    const months                 = Utils.months({'count' : 12})
+    const sales_eng_meeting_list = {
+        total_meetings_charts  : [],
+        sales_eng_names        : [],
+        meetings               : [],
+    };
 
-    if(name && name.length > 0){
-
-        sales_eng_names = sales_eng_names.filter( eng_name => eng_name === name);
-    }
-
-    const data = {}
-
-    for(let i = 0; i < product_names.length; i++){
-
-        if(data[product_names]){
-           continue;
-        }
-
-        data[product_names[i]] = 0;
-    }
-
-    for(let i = 0; i < sales_eng_names.length; i++){
-
-        const sales_rep_structure     = JSON.parse(JSON.stringify(json_data['sales_eng_mgr'][mgr][sales_eng_names[i]]));
-
-        const sales_rep_keys          = Object.keys(sales_rep_structure);
-
-        for(let j = 0; j < sales_rep_keys.length; j++){
-
-            const appointment_list    = [...sales_rep_structure[sales_rep_keys[j]]];
-
-            for(let k = 0; k < appointment_list.length; k++){
-
-                const appointment = JSON.parse(JSON.stringify(appointment_list[k]))
-
-                const products    = [...appointment.products];
-
-                for(let l = 0; l < products.length; l++){
-
-                    const product = JSON.parse(JSON.stringify(products[l]))
+    const sales_eng_team         = get_sales_eng_team(json_data, name);
 
 
-                    data[product]++
+    for(let i = 0; i < sales_eng_team.length; i++){
 
+        const sales_eng_name = sales_eng_team[i].name
+        
+        sales_eng_meeting_list['sales_eng_names'].push(sales_eng_name);
+        
+        const sales_reps = [...sales_eng_team[i]['sales_reps']]
+
+        for(let j = 0; j < sales_reps.length; j++){
+
+            const meetings = [...sales_reps[j]['appointments']];
+
+            for(let k = 0; k < meetings.length; k++){
+
+                const month = months[k];
+                const meeting_count = meetings[k];
+
+                let found = false;
+
+                for(let l = 0; l < sales_eng_meeting_list['meetings'].length; l++){
+
+                    const name_match = sales_eng_meeting_list['meetings'][l].name  === sales_eng_name;
+                    const month_name = sales_eng_meeting_list['meetings'][l].month === month;
+
+                    if(name_match && month_name){
+                        sales_eng_meeting_list['meetings'][l].meetings += meeting_count;
+
+                        found = true;
+                        break;
+                    }
                 }
 
+                if(!found){
+
+                    sales_eng_meeting_list['meetings'].push({
+                        'name'     : sales_eng_name,
+                        'month'    : month,
+                        'meetings' : meeting_count,
+                    });
+                }
             }
         }
-    }
-
-    return data;
-}
-
-//create sales rep structure
-export const create_sales_eng_data_structure = (names) =>{
-
-    const data = {}
-    const mgr  = Object.keys(names)[0]
-    const sales_eng_names = Object.keys(names[mgr])
-
-
-    for(let i = 0; i < sales_eng_names.length; i++){
-
-        data[sales_eng_names[i]] = Array(12).fill(0);
-
-        const sales_reps     = JSON.parse(JSON.stringify(names[mgr][sales_eng_names[i]]))
-        const sales_rep_keys = Object.keys(sales_reps);
-
-        for(let j = 0; j < sales_rep_keys.length; j++){
-
-            const appointment = [...sales_reps[sales_rep_keys[j]]];
-
-            for(let k = 0; k < appointment.length; k++){
-
-                const date = new Date(appointment[k].date);
-
-                data[sales_eng_names[i]][date.getMonth()] = data[sales_eng_names[i]][date.getMonth()] + 1
-
-            }
-
-        }
 
     }
-    return data;
+
+    return sales_eng_meeting_list
+
 }
 
 
-//create meeting type map
-const create_type_meeting_structure = (json_data, name) =>{
+export const meeting_types = (json_data, name) =>{
 
-    const data            = {};
-    const mgr             = Object.keys(json_data['sales_eng_mgr'])[0]
-    let sales_eng_names   = Object.keys(json_data['sales_eng_mgr'][mgr])
-    const types           = [...json_data['meeting_types']];
+    const months                 = Utils.months({'count' : 12})
+    const sales_eng_meeting_list = {
+        sales_eng_names : [],
+        meetings        : [],
+    };
 
-    for(let i = 0; i < types.length; i++){
-
-        data[types[i]] = Array(12).fill(0);
-    }
-
-    if(name && name.length > 0){
-
-        sales_eng_names = sales_eng_names.filter(eng_name => eng_name === name);
-    }
-
-    for(let i = 0; i < sales_eng_names.length; i++){
-
-        const sales_eng_structure     = JSON.parse(JSON.stringify(json_data['sales_eng_mgr'][mgr][sales_eng_names[i]]));
-
-        const sales_eng_keys          = Object.keys(sales_eng_structure);
-
-        for(let j = 0; j < sales_eng_keys.length; j++){
-
-            const appointment_list    = [...sales_eng_structure[sales_eng_keys[j]]];
-
-            for(let k = 0; k < appointment_list.length; k++){
-
-                const appointment = JSON.parse(JSON.stringify(appointment_list[k]))
-                const month = new Date(appointment.date).getMonth();
-
-                data[appointment.type][month]++
-
-            }
-        }
-    }
-
-    return data;
-}
-
-export const create_type_meeting_per_sales_eng = (json_data) =>{
-
-    const data            = {};
-    const mgr             = Object.keys(json_data['sales_eng_mgr'])[0]
-    const sales_eng_names = Object.keys(json_data['sales_eng_mgr'][mgr])
-    const types           = [...json_data['meeting_types']];
+    const sales_eng_team         = get_sales_eng_team(json_data, name);
 
 
-    for(let i = 0; i < sales_eng_names.length; i++){
-
-        const name = sales_eng_names[i]
-
-        data[name] = []
-    }
-
-}
-
-export const create_product_data = (products) =>{
-    const dataset = []
-    const keys    = Object.keys(products)
-    const values  = Object.keys(products)
-    console.log(products)
-
-
-    return dataset
-}
-
-
-//create_type_meeting_data_structure for graph
-export const create_type_meeting_data = (data, name) =>{
-
-    const type_meetings = {...create_type_meeting_structure(data, name)};
-
-    const dataset = [];
-
-    const keys = Object.keys(type_meetings)
-
-    for(let i = 0; i < keys.length; i++){
-
-        const data = {
-            label       : keys[i]?.toUpperCase(),
-            data        : [...type_meetings[keys[i]]],
-            borderColor : colors[i],
-            borderWidth : 2,
-            fill        : false
-        }
-
-        dataset.push(data);
-
-    }
-
-    return dataset;
 }
 
 
 
-//create data points for sales reps and return an array
-export const create_sep_eng_sales_data = (sales_rep_data) =>{
-    const data_set       = []
 
-    const keys = Object.keys(sales_rep_data)
-
-    for(let i = 0; i < keys.length; i++){
-
-        const data = {
-            label       : keys[i]?.toUpperCase(),
-            data        : [...sales_rep_data[keys[i]]],
-            borderColor : colors[i],
-            borderWidth : 2,
-            fill        : false
-        }
-
-        data_set.push(data)
-    }
-
-    return data_set;
-}
-
-
-export const meeting_tracker = (sales_eng_mgr_names) =>{
-
-    const data            = Array(12).fill(0);
-    const mgr             = Object.keys(sales_eng_mgr_names)[0]
-    const sales_eng_names = Object.keys(sales_eng_mgr_names[mgr])
-
-    for(let i = 0; i < sales_eng_names.length; i++){
-
-        const sales_rep_structure     = JSON.parse(JSON.stringify(sales_eng_mgr_names[mgr][sales_eng_names[i]]));
-
-        const sales_rep_keys          = Object.keys(sales_rep_structure);
-
-        for(let j = 0; j < sales_rep_keys.length; j++){
-
-            const appointment_list    = [...sales_rep_structure[sales_rep_keys[j]]];
-
-            for(let k = 0; k < appointment_list.length; k++){
-
-                const date            = new Date(appointment_list[k].date)
-
-
-                data[date.getMonth()] = data[date.getMonth()] + 1
-
-            }
-        }
-    }
-    return data;
-}
 
 

@@ -11,37 +11,37 @@
 {% block content %}
     <div class="demo_container">
         <div>
-            <h1 class = "title">{{org_name}}'s dashboard {{ year }}</h1>
+            <h1 class = "title">{{data.org_name}}'s dashboard {{ year }}</h1>
         </div>
-        <div>
-            <h1 class = "meeting_header">Meeting Status</h1>
-            <table class = "table">
-                <thead>
-                    <tr>
-                        <th id = "eng_name"  class = "sortable"  data-column  = "name" >Sales Engineer</th>
-                        <th id = "iah_count" class = "sortable"  data-column  = "iah"  >Initial (IAH)</th>
-                        <th id = "fa_count"  class = "sortable"  data-column  = "fa"   >Follow-up (FA)</th>
-                        <th id = "pa_count"  class = "sortable"  data-column  = "pa"   >Proposal (PA)</th>
-                    </tr>
-                </thead>
-                <tbody id = "meeting_table_body">
-
-                </tbody>
-            </table>
-        </div>
+{#        <div>#}
+{#            <h1 class = "meeting_header">Meeting Status</h1>#}
+{#            <table class = "table">#}
+{#                <thead>#}
+{#                    <tr>#}
+{#                        <th id = "eng_name"  class = "sortable"  data-column  = "name" >Sales Engineer</th>#}
+{#                        <th id = "iah_count" class = "sortable"  data-column  = "iah"  >Initial (IAH)</th>#}
+{#                        <th id = "fa_count"  class = "sortable"  data-column  = "fa"   >Follow-up (FA)</th>#}
+{#                        <th id = "pa_count"  class = "sortable"  data-column  = "pa"   >Proposal (PA)</th>#}
+{#                    </tr>#}
+{#                </thead>#}
+{#                <tbody id = "meeting_table_body">#}
+{##}
+{#                </tbody>#}
+{#            </table>#}
+{#        </div>#}
         <div>
             <div class="dashboard-row">
                 <div class="dashboard-chart" >
                     <div>
                         <h6 class = "table_header">Total Meetings</h6>
                     </div>
-                    <canvas id="meeting-chart"></canvas>
+                    <div id="meeting-chart" class="chart"></div>
                 </div>
                 <div class="dashboard-chart">
                     <div>
                         <h6 class = "table_header">Meetings By Engineer</h6>
                     </div>
-                    <canvas id="sales-rep-meeting-chart"></canvas>
+                    <div id="sales-eng-meeting-chart" class="chart"></div>
                 </div>
             </div>
             <div class="dashboard-row">
@@ -70,6 +70,8 @@
 
 {% block page_scripts %}
     {{ data|json_script:"data" }}
-
+{#    <script src="{% static 'js/echarts.min.js' %}"></script>#}
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
     <script type="module" src="{% static 'js/dashboard/dashboard.js' %}"></script>
+
 {% endblock %}

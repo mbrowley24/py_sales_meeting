@@ -4,9 +4,14 @@
 }
 
 canvas{
-    height : 1vh;
-    width  : 75vw;
+    height : 75vh;
+    width  : 35vw;
+}
 
+.chart{
+    height : 100%;
+    margin : auto;
+    width  : 100%;
 }
 
 .dashboard-row{
@@ -20,10 +25,15 @@ canvas{
 .dashboard-chart{
     background     : rgba(255, 255, 255, 1);
     border         : 5px solid darkblue;
-    height         : 30vh;
+    height         : 35vh;
     margin-left    : auto;
     margin-right   : auto;
-    padding: 0.5% .5% 2% .5%;
+    padding        : 0.5% .5% 2% .5%;
     overflow       : hidden;
     width          : 45vw;
+}
+
+.table_header{
+    border: 1px solid black;
+    text-align: center;
 }

@@ -6,7 +6,7 @@ from utils.helper import generate_public_id
 import random
 
 #create random date and time between monday - friday 8am - 9pm
-def random_times(faker, role):
+def random_times(role):
 
     dates       = []
     date_count = 0
@@ -92,7 +92,7 @@ def create_appointment(customer, date, faker, type_meeting, products):
 
         else:
 
-            notes = f' {words}'
+            notes = f'{notes} {words}'
 
     return {
         'customer' : customer,
@@ -107,9 +107,13 @@ def create_appointment(customer, date, faker, type_meeting, products):
 
 def meeting_type(date_list, index):
 
-    meeting = 'iah'
+    meeting = ''
 
-    if index == (len(date_list) - 1):
+    if index == 0:
+
+        meeting = 'iah'
+
+    elif index == (len(date_list) - 1):
 
         meeting = 'pa'
 
@@ -171,17 +175,15 @@ def create_appointments(faker, role):
 
         if role == 'sbs':
             items    = random.randint(1, 3)
-            weights  = [ random.randint(1, 3) for _ in range(len(sbs_products))]
             products = random.sample(sbs_products, k = items)
 
         else:
 
             items    = random.randint(1, 5)
-            weights  = [random.randint(1, 10) for _ in range(len(ent_products))]
             products = random.sample(ent_products, k = items)
 
 
-        random_dates = random_times(faker, role)
+        random_dates = random_times(role)
 
         for i in range(len(random_dates)):
 

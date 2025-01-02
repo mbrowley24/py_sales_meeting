@@ -5,7 +5,7 @@ from .appointment_functions import create_appointments
 
 def create_performance(role):
 
-    multiplier = [1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 0]
+    multiplier = [0, 1, 2, 3, 4]
     quota = 240000
 
     if role == 'eae':
@@ -18,15 +18,15 @@ def create_performance(role):
 
     def create_values():
 
-        multiply = random.choice(multiplier)
+        multiply = random.choices(multiplier, weights = [2, 7, 3, 2, 1], k = 1)
 
-        return quota * multiply
+        return quota * multiply[0]
 
     performance = {
-        '2021' : [create_values() for _ in range(12)],
-        '2022' : [create_values() for _ in range(12)],
-        '2023' : [create_values() for _ in range(12)],
-        '2024' : [create_values() for _ in range(12)],
+        2021 : [create_values() for _ in range(12)],
+        2022 : [create_values() for _ in range(12)],
+        2023 : [create_values() for _ in range(12)],
+        2024 : [create_values() for _ in range(12)],
     }
 
 
