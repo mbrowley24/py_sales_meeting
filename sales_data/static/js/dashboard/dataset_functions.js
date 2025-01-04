@@ -26,7 +26,20 @@ export const colors = [
 
 const get_sales_eng_team = (json_data, name) =>{
 
-    return json_data['sales_engineer_teams'].filter(mgr => mgr.name === name)[0]['engineers'];
+    return json_data.filter(item => item.name === name);
+}
+
+
+export const get_sales_eng_names = (json_data, name) =>{
+    const eng_names = []
+    let raw_data
+
+    if(!name){
+
+        return get_sales_eng_team(json_data, name);
+    }
+
+    return get_sales_eng_team(json_data, json_data[0]['name'])
 }
 
 

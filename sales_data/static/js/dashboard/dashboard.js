@@ -1,5 +1,5 @@
 console.log("dashboard loaded")
-import {colors, sales_eng_meeting_totals, sales_eng_mgr_name_list, Utils} from './dataset_functions.js';
+import {get_sales_eng_names, Utils} from './dataset_functions.js';
 
 const data                    = JSON.parse(document.getElementById("data").textContent);
 const meeting_table_body      = document.getElementById('meeting_table_body');
@@ -32,6 +32,7 @@ const legendTextSize = (container) =>{
 }
 
 console.log(data);
+console.log(data['total_meetings'])
 
 const create_meeting_data = () => {
     // const product_names       = create_product_structure(data, '');
@@ -50,9 +51,9 @@ const create_meeting_data = () => {
 
 
 
-    dataset['sales_mgr_names']     = [...sales_eng_mgr_name_list(data['sales_engineer_teams'])];
-    const sales_eng_meetings       = sales_eng_meeting_totals(data, dataset['sales_mgr_names'][0])
-    dataset['sales_eng_names']     = [...sales_eng_meetings['sales_eng_names']]
+    // dataset['sales_mgr_names']     = [...sales_eng_mgr_name_list(data['sales_engineer_teams'])];
+    // const sales_eng_meetings       = sales_eng_meeting_totals(data, dataset['sales_mgr_names'][0])
+    // dataset['sales_eng_names']     = [...sales_eng_meetings['sales_eng_names']]
 
 
     dataset['running_line_chart']  = [...sales_eng_meetings['meetings']];
@@ -67,7 +68,7 @@ const create_meeting_data = () => {
 
 
 // let   sales_eng_meeting_data  = create_meeting_table_body_data()
-const chart_data              = create_meeting_data();
+// const chart_data              = create_meeting_data();
 
 
 //create_total_meeting_charts creates a total meeting chart
@@ -78,6 +79,8 @@ const create_total_meeting_charts = () => {
         height : total_meeting_chart.innerHeight
     });
 
+    const fontSize             = dynamicFontSize(sales_eng_meeting_chart);
+    // const legendFrontSize      = legendTextSize(sales_eng_meeting_chart);
 
     const option = {
         xAxis: {
@@ -85,14 +88,14 @@ const create_total_meeting_charts = () => {
             data : labels,
             axisLabel    : {
                 interval : 1,
-                fontSize : data.fontSize,
+                fontSize : fontSize,
                 color    : 'black'
             },
             axisTick: {
                 show : true,
-                length: data.fontSize / 2, // Example: Adjust tick length dynamically
+                length: fontSize / 2, // Example: Adjust tick length dynamically
                 lineStyle: {
-                    width: data.fontSize / 10, // Example: Adjust tick width dynamically
+                    width: fontSize / 10, // Example: Adjust tick width dynamically
                     color: 'black'       // Keep tick color consistent
                 },
                 interval : 1,
@@ -101,13 +104,13 @@ const create_total_meeting_charts = () => {
         yAxis: {
             // name: 'Meetings'
             axisLabel : {
-                fontSize : data.fontSize,
+                fontSize : fontSize,
                 color    : 'black'
             },
         },
          series  : [{
             type   : 'line',
-            data   : [...chart_data['total_meetings']],
+            data   : [...data['total_meetings']],
             smooth : true,
         }]
     };
@@ -117,24 +120,24 @@ const create_total_meeting_charts = () => {
     return total_meetings;
 }
 
-const total_meeting_chart_dynamic = (data) =>{
+const total_meeting_chart_dynamic = (data_obj) =>{
 
 
-    data.element.setOption({
+    data_obj.element.setOption({
 
         xAxis: {
             type : 'category',
             data : labels,
             axisLabel    : {
                 interval : 1,
-                fontSize : data.fontSize,
+                fontSize : data_obj.fontSize,
                 color    : 'black'
             },
             axisTick: {
                 show : true,
-                length: data.fontSize / 2, // Example: Adjust tick length dynamically
+                length: data_obj.fontSize / 2, // Example: Adjust tick length dynamically
                 lineStyle: {
-                    width: data.fontSize / 10, // Example: Adjust tick width dynamically
+                    width: data_obj.fontSize / 10, // Example: Adjust tick width dynamically
                     color: 'black'       // Keep tick color consistent
                 },
                 interval : 1,
@@ -143,13 +146,13 @@ const total_meeting_chart_dynamic = (data) =>{
         yAxis: {
             // name: 'Meetings'
             axisLabel : {
-                fontSize : data.fontSize,
+                fontSize : data_obj.fontSize,
                 color    : 'black'
             },
         },
          series  : [{
             type   : 'line',
-            data   : [...chart_data['total_meetings']],
+            data   : [...data['total_meetings']],
             smooth : true,
         }]
     });
@@ -168,6 +171,8 @@ const create_sales_eng_meeting_data = () => {
         height: sales_eng_meeting_chart.innerHeight
     });
 
+    console.log(get_sales_eng_names(data['sales_eng_meetings_chart']))
+
     const fontSize             = dynamicFontSize(sales_eng_meeting_chart);
     const legendFrontSize      = legendTextSize(sales_eng_meeting_chart);
     const sales_eng_names    = [...chart_data['sales_eng_names']]
@@ -184,7 +189,7 @@ const create_sales_eng_meeting_data = () => {
                 type: 'filter',
                 config: {
                     and: [
-                        { dimension: 'name', '=': eng } // Filter data by name
+                        { dimension: 'eng', '=': eng } // Filter data by name
                     ]
                 }
             }
@@ -235,7 +240,7 @@ const create_sales_eng_meeting_data = () => {
         xAxis: {
             type         : 'category',
             nameLocation : 'middle',
-            data         : [...Utils.months({'count' : 12})],
+            data         : [...data['months']],
             axisLabel    : {
                 interval : 1,
                 fontSize : fontSize,
@@ -323,9 +328,9 @@ const sales_eng_meeting_data_dynamic = (data) =>{
 
 
 
-const sales_eng_line_chart  = create_sales_eng_meeting_data();
+// const sales_eng_line_chart  = create_sales_eng_meeting_data();
 const total_meetings_chart  = create_total_meeting_charts();
-
+const sales_eng_line_chart  = create_sales_eng_meeting_data();
 
 
 // Attach resize event listener for responsiveness
